@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\EnvioController;
+use App\Http\Controllers\RepartoController;
+use App\Http\Controllers\VehiculoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,4 +21,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+// Rutas con método resource, el middleware de auth indica que sólo se puede acceder si el usuario está autenticado
+Route::resource('users', UserController::class)->middleware('auth');
+Route::resource('envios', EnvioController::class);
+Route::resource('repartos', RepartoController::class)->middleware('auth');
+Route::resource('vehiculos', VehiculoController::class)->middleware('auth');
+
+require __DIR__ . '/auth.php';
