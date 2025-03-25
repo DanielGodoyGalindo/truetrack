@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -21,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'rol',
     ];
 
     /**
@@ -45,4 +47,23 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Relación de usuario (cliente) con envios 1:N
+    public function envios(): HasMany
+    {
+        return $this->hasMany(Envio::class, 'cliente_id');
+    }
+
+    // Relacion de usuario (gestor de trafico) con repartos 1:N
+    public function repartosGestionados(): HasMany
+    {
+        return $this->hasMany(Reparto::class, 'gestor_id');
+    }
+
+    // relacion de usuario (transportista) con repartos 1:N
+    public function repartosTransportados(): HasMany
+    {
+        return $this->hasMany(Reparto::class, 'transportista_id');
+    }
+
 }
