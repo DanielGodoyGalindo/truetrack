@@ -61,7 +61,7 @@ class User extends Authenticatable
     }
 
     // relacion de usuario (transportista) con repartos 1:N
-    public function repartosTransportados(): HasMany
+    public function repartosEnReparto(): HasMany
     {
         return $this->hasMany(Reparto::class, 'transportista_id');
     }

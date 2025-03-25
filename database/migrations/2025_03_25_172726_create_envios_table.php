@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('envios', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cliente_id')->constrained('user')->onDelete('cascade'); // si se borra el cliente, borrar el envio
+            $table->foreignId('cliente_id')->constrained('users')->onDelete('cascade'); // si se borra el cliente, borrar el envio
             $table->foreignId('reparto_id')->nullable()->constrained('repartos')->onDelete('set null'); // si se borra un reparto, que se ponga el campo como nulo en la tabla de envios
             $table->string('direccion_entrega');
             $table->enum('estado', ['pendiente', 'en_reparto', 'entregado', 'no_entregado', 'anulado']);

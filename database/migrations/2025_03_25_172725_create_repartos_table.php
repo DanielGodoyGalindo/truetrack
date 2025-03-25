@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('gestor_id')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('transportista_id')->nullable()->constrained('users')->onDelete('set null');
-            $table->foreignId('vehiculo_id')->constrained('vehiculos')->onDelete('set null')->nullable();
+            $table->foreignId('vehiculo_id')->nullable()->constrained('vehiculos')->onDelete('set null');
             $table->enum('estado', ['en proceso', 'finalizado'])->default('en proceso');
             $table->timestamps();
         });
