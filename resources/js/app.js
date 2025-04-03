@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
-import ExampleComponent from './components/ExampleComponent.vue';
+import ButtonComponent from './Components/ButtonComponent.vue';
 
 const app = createApp({});
-app.component('example-component', ExampleComponent);
+app.component('button-component', ButtonComponent);
 app.mount('#app');

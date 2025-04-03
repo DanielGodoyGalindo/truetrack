@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('vehiculos', function (Blueprint $table) {
             $table->id();
-            $table->string('matricula')->unique();
-            $table->string('tipo');
+            $table->string('matricula', 7)->unique();
             $table->unsignedInteger('carga_max');
             $table->timestamps();
         });

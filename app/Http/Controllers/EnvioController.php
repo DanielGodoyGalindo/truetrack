@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Envio;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class EnvioController extends Controller
@@ -33,7 +34,8 @@ class EnvioController extends Controller
      */
     public function create()
     {
-        //
+        $clientes = User::where('rol', 'cliente')->get();
+        return view('envios.form', ['clientes' => $clientes]);
     }
 
     /**
