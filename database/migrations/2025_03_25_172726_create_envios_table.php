@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('cliente_id')->constrained('users')->onDelete('cascade'); // si se borra el cliente, borrar el envio
             $table->foreignId('reparto_id')->nullable()->constrained('repartos')->onDelete('set null'); // si se borra un reparto, que se ponga el campo como nulo en la tabla de envios
-            $table->string('direccion_entrega');
+            $table->string('destinatario');
             $table->enum('estado', ['pendiente', 'en_reparto', 'entregado', 'no_entregado', 'anulado']);
             $table->unsignedInteger('bultos');
             $table->decimal('kilos', 4, 2)->unsigned();

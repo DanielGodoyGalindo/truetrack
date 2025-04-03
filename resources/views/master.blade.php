@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="{{ asset('css\style.css') }}">
     <!-- Galeria de iconos -->
     {{-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> --}}
-
 </head>
 
 <body>
@@ -36,7 +35,8 @@
                         <a type="button" class="btn btn-primary" href="{{ route('register') }}">Registrarse</a>
                     @endguest
                     @auth
-                        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-end gap-3">
+                        <div
+                            class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-end gap-3">
                             <a type="button" class="btn btn-warning" href="{{ route('profile.edit') }}">Editar perfil</a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
