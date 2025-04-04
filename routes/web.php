@@ -23,8 +23,14 @@ Route::middleware('auth')->group(function () {
 
 // Rutas con método resource, el middleware de auth indica que sólo se puede acceder si el usuario está autenticado
 Route::resource('users', UserController::class)->middleware('auth');
-Route::resource('envios', EnvioController::class);
+Route::resource('envios', EnvioController::class)->middleware('auth');
 Route::resource('repartos', RepartoController::class)->middleware('auth');
 Route::resource('vehiculos', VehiculoController::class)->middleware('auth');
+
+// Se para el parametro del id para saber cual es el envio del que se quiere mandar un email
+Route::post('/envios/mail/{id}', [EnvioController::class, 'email'])->middleware('auth')->name('envios.email');
+Route::post('/envios/send-email', [EnvioController::class, 'sendEmail'])->middleware('auth')->name('envios.sendEmail');
+Route::post('/envios/anular/{id}', [EnvioController::class, 'setNull'])->middleware('auth')->name('envios.setNull');
+
 
 require __DIR__ . '/auth.php';

@@ -12,10 +12,14 @@ export default {
             type: String,
             default: 'Haz click',
         },
+        buttonUrl: {
+            type: String,
+            required: true,
+        },
     },
     methods: {
         handleClick() {
-            window.location.href = '/envios/create';
+            window.location.href = this.buttonUrl;
         },
     },
 };
