@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Envio;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class EnvioController extends Controller
 {
@@ -41,9 +43,16 @@ class EnvioController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $r)
     {
-        //
+        $envio = new Envio();
+        $envio->cliente_id = Auth::user()->id ?? 1;
+        $envio->destinatario = $r->destinatario . " - " . $r->direccion_destinatario;
+        $envio->bultos = $r->bultos;
+        $envio->kilos = $r->kilos;
+        $envio->estado = "pendiente";
+        $envio->save();
+        return redirect()->route('envios.index');
     }
 
     /**
@@ -75,6 +84,38 @@ class EnvioController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $envio = Envio::find($id);
+        $envio->delete();
+        return redirect()->route('envios.index');
+    }
+
+    /* Método para mostrar la vista de envío de mail */
+    public function email(string $id)
+    {
+        $envio = Envio::with('cliente')->findOrFail($id);;
+        return view('envios.email', ['envio' => $envio]);
+    }
+
+    /* Método para que un cliente pueda enviar un email */
+    public function sendEmail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'mensaje' => 'required|string',
+        ]);
+        Mail::raw($request->mensaje, function ($mail) use ($request) {
+            $mail->to($request->email)
+                ->subject('Mensaje desde TrueTrack');
+        });
+        return redirect()->route('envios.index');
+    }
+
+    /* Método para cambiar estado de un envio a 'anulado' */
+    public function setNull($id)
+    {
+        $envio = Envio::find($id);
+        $envio->estado = 'anulado';
+        $envio->save();
+        return redirect()->back();
     }
 }
