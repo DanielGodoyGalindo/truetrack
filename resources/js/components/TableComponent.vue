@@ -15,7 +15,7 @@
                 </td>
                 <td>
                     <button @click="deleteRecord(row.id)" class="btn btn-danger">
-                        🗑 Borrar
+                        Borrar
                     </button>
                 </td>
             </tr>
@@ -77,7 +77,8 @@ thead {
     font-weight: bold;
 }
 
-td, th {
+td,
+th {
     padding: 10px;
     border: 1px solid #ddd;
 }

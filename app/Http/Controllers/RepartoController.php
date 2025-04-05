@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Envio;
 use App\Models\Reparto;
 use App\Models\User;
 use App\Models\Vehiculo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RepartoController extends Controller
 {
@@ -33,9 +35,20 @@ class RepartoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $r)
     {
-        //
+        // dd($r->all()); // Obtener todos los datos del request
+        $reparto = new Reparto();
+        // Obtener el id del usuario autenticado
+        $reparto->gestor_id = Auth::user()->id ?? 1;
+        // Obtener el id del usuario (transportista) cuyo nombre es el recuperado en el request
+        $reparto->transportista_id = User::where('name', $r->transportista)->value('id');
+        $reparto->vehiculo_id = $r->vehiculo;
+        // Obtener el id del vehiculo cuyo matricula ha sido capturada en el request
+        $reparto->vehiculo_id = Vehiculo::where('matricula', $r->vehiculo)->value('id');
+        $reparto->estado = "en proceso";
+        $reparto->save();
+        return redirect()->route('repartos.index');
     }
 
     /**
@@ -72,10 +85,10 @@ class RepartoController extends Controller
         return redirect()->route('repartos.index');
     }
 
-    /* Método para devolver el número total de repartos en proceso */
-    /*     public function showNumRepartos()
+    public function addDeliveries(string $id)
     {
-        $numRepartos = Reparto::whereNotIn('estado', ['finalizado'])->count();
-        return view('index', ['numRepartos' => $numRepartos]);
-    } */
+        $reparto = Reparto::find($id);
+        $envios = Envio::whereNotIn('estado', ['entregado', 'anulado']);
+        return view('repartos.deliveries', ['reparto' => $reparto, 'envios' => $envios]);
+    }
 }

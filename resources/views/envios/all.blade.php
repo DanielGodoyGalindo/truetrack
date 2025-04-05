@@ -15,6 +15,11 @@
         </h1>
         {{-- Componente botón Vue --}}
         @if (Auth::user()->rol == 'cliente')
+            {{-- <div id="button-app">
+                <button-component button-text="✚ Nuevo envío" button-url="{{ route('envios.create') }}"
+                    class="btn btn-primary"></button-component>
+                @vite(['resources/js/app.js'])
+            </div> --}}
             <div id="button-app">
                 <button-component button-text="✚ Nuevo envío" button-url="{{ route('envios.create') }}"
                     class="btn btn-primary"></button-component>

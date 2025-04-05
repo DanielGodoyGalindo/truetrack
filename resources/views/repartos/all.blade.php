@@ -37,6 +37,9 @@
                     @if (Auth::user()->rol == 'administrador')
                         <th scope="col" class="text-center">Borrar</th>
                     @endif
+                    @if (Auth::user()->rol == 'gestor_trafico')
+                        <th scope="col">Asignar envíos</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -52,10 +55,20 @@
                         {{-- Borrar repartos --}}
                         @if (Auth::user()->rol == 'administrador')
                             <td>
-                                <form action="{{ route('repartos.destroy', $reparto->id) }}" method="POST" class="w-50">
+                                <form action="{{ route('repartos.destroy', $reparto->id) }}" method="POST"
+                                    class="w-50">
                                     @csrf
                                     @method('DELETE')
                                     <input type="submit" value="✖" class="btn btn-danger col-12">
+                                </form>
+                            </td>
+                        @endif
+                        {{-- Asignar envios --}}
+                        @if (Auth::user()->rol == 'gestor_trafico')
+                            <td>
+                                <form action="{{ route('repartos.addDeliveries', $reparto->id) }}" method="POST">
+                                    @csrf
+                                    <input type="submit" value="🚚" class="btn">
                                 </form>
                             </td>
                         @endif
