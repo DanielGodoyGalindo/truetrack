@@ -32,5 +32,7 @@ Route::post('/envios/mail/{id}', [EnvioController::class, 'email'])->middleware(
 Route::post('/envios/send-email', [EnvioController::class, 'sendEmail'])->middleware('auth')->name('envios.sendEmail');
 Route::post('/envios/anular/{id}', [EnvioController::class, 'setNull'])->middleware('auth')->name('envios.setNull');
 
+/* Ruta para devolver el número de envios totales */
+Route::get('/', [EnvioController::class, 'showNumEnvios'])->name('index');
 
 require __DIR__ . '/auth.php';

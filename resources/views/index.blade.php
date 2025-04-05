@@ -11,8 +11,8 @@
 <body>
     @include('master')
 
-    {{-- Seccion Envíos --}}
-    <div class="container">
+    {{-- Tarjeta Envíos Bootstrap --}}
+    {{--     <div class="container">
         <div class="card">
             <div class="card-header">
                 Envíos
@@ -23,7 +23,19 @@
                 <a href="{{ route('envios.index') }}" class="btn btn-primary">Acceder</a>
             </div>
         </div>
-    </div>
+    </div> --}}
+
+    {{-- Componente card envíos --}}
+    {{-- Se muestra el total de envíos y permite acceder a la sección de envíos --}}
+    @if (Auth::check() && Auth::user()->rol == ('cliente' || 'administrador'))
+        <div id="card-app">
+            <card-component title-text="📦" body-text="{{ $numEnvios }} Envíos" card-url="{{ route('envios.index') }}"
+                class="btn btn-light"></card-component>
+            @vite(['resources/js/app.js'])
+        </div>
+    @endif
+
+
 
 </body>
 

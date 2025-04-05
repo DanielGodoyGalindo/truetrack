@@ -118,4 +118,11 @@ class EnvioController extends Controller
         $envio->save();
         return redirect()->back();
     }
+
+    /* Método para devolver el número total de envíos */
+    public function showNumEnvios()
+    {
+        $numEnvios = Envio::count();
+        return view('index', ['numEnvios' => $numEnvios]);
+    }
 }
