@@ -28,11 +28,14 @@
             <thead class="table-secondary">
                 <tr>
                     <th scope="col">Id</th>
-                    @if (Auth::user()->rol == 'administrador')
+                    @if (Auth::user()->rol == ('administrador' || 'gestor_trafico'))
                         <th scope="col">Cliente</th>
                     @endif
                     <th scope="col">Destinatario</th>
                     <th scope="col">Estado</th>
+                    @if (Auth::user()->rol == 'gestor_trafico')
+                        <th scope="col">Num. reparto</th>
+                    @endif
                     <th scope="col">Bultos y kilos</th>
                     @if (Auth::user()->rol == 'cliente')
                         <th scope="col" class="text-center">Mail</th>
@@ -47,11 +50,14 @@
                 @foreach ($envios as $envio)
                     <tr>
                         <th scope="row">{{ $envio->id }}</th>
-                        @if (Auth::user()->rol == 'administrador')
+                        @if (Auth::user()->rol == ('administrador' || 'gestor_trafico'))
                             <td>{{ $envio->cliente->name }}</td>
                         @endif
                         <td>{{ $envio->destinatario }}</td>
                         <td>{{ $envio->estado }}</td>
+                        @if (Auth::user()->rol == 'gestor_trafico')
+                            <td>{{ $envio->reparto_id ?? 'No asignado' }}</td>
+                        @endif
                         <td>{{ $envio->bultos }} bultos - {{ $envio->kilos }} kilos</td>
                         @if (Auth::user()->rol == 'cliente')
                             <td class="text-center">

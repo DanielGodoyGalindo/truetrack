@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reparto;
+use App\Models\User;
+use App\Models\Vehiculo;
 use Illuminate\Http\Request;
 
 class RepartoController extends Controller
@@ -22,7 +24,10 @@ class RepartoController extends Controller
      */
     public function create()
     {
-        //
+        /* Obtener los transportistas y vehiculos para el formulario de creación de reparto */
+        $transportistas = User::where('rol', 'transportista')->pluck('name');
+        $vehiculos = Vehiculo::all()->pluck('matricula');
+        return view('repartos.form', ['transportistas' => $transportistas, 'vehiculos' => $vehiculos]);
     }
 
     /**
@@ -66,4 +71,11 @@ class RepartoController extends Controller
         $reparto->delete();
         return redirect()->route('repartos.index');
     }
+
+    /* Método para devolver el número total de repartos en proceso */
+    /*     public function showNumRepartos()
+    {
+        $numRepartos = Reparto::whereNotIn('estado', ['finalizado'])->count();
+        return view('index', ['numRepartos' => $numRepartos]);
+    } */
 }

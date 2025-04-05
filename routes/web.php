@@ -7,9 +7,9 @@ use App\Http\Controllers\RepartoController;
 use App\Http\Controllers\VehiculoController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('index');
-})->name('index');
+})->name('index'); */
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -32,7 +32,9 @@ Route::post('/envios/mail/{id}', [EnvioController::class, 'email'])->middleware(
 Route::post('/envios/send-email', [EnvioController::class, 'sendEmail'])->middleware('auth')->name('envios.sendEmail');
 Route::post('/envios/anular/{id}', [EnvioController::class, 'setNull'])->middleware('auth')->name('envios.setNull');
 
-/* Ruta para devolver el número de envios totales */
-Route::get('/', [EnvioController::class, 'showNumEnvios'])->name('index');
+/* Ruta para devolver el número de envios y repartos totales */
+Route::get('/', [EnvioController::class, 'showDatosIndex'])->name('index');
+/* Ruta para devolver el número de repartos totales */
+// Route::get('/', [RepartoController::class, 'showNumRepartos'])->name('index');
 
 require __DIR__ . '/auth.php';

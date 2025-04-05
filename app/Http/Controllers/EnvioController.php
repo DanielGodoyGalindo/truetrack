@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Envio;
+use App\Models\Reparto;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -119,10 +120,15 @@ class EnvioController extends Controller
         return redirect()->back();
     }
 
-    /* Método para devolver el número total de envíos */
-    public function showNumEnvios()
+    /* Método para devolver el número total de envíos no entregados ni anulados */
+    public function showDatosIndex()
     {
-        $numEnvios = Envio::count();
-        return view('index', ['numEnvios' => $numEnvios]);
+        // $numEnvios = Envio::count();
+        // $numEnvios = Envio::where('estado', '!=', 'entregado')
+        //     ->where('estado', '!=', 'anulado')
+        //     ->count();
+        $numEnvios = Envio::whereNotIn('estado', ['entregado', 'anulado'])->count();
+        $numRepartos = Reparto::whereNotIn('estado', ['finalizado'])->count();
+        return view('index', ['numEnvios' => $numEnvios, 'numRepartos' => $numRepartos]);
     }
 }
