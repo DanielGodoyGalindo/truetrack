@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    @section('title', 'Envios')
+    @section('title', 'Crear envío')
 </head>
 
 <body>

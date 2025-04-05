@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reparto;
 use Illuminate\Http\Request;
 
 class RepartoController extends Controller
 {
+    private $numPag = 5;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $repartos  = Reparto::with('gestor', 'transportista', 'vehiculo')->paginate($this->numPag);
+        return view('repartos.all', ['repartos' => $repartos]);
     }
 
     /**
@@ -59,6 +62,8 @@ class RepartoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $reparto = Reparto::find($id);
+        $reparto->delete();
+        return redirect()->route('repartos.index');
     }
 }

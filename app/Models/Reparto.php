@@ -8,10 +8,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Reparto extends Model
 {
-    // Relacion inversa con usuario (1:N)
+    // Relacion inversa con usuario gestor (1:N)
     public function gestor(): BelongsTo
     {
         return $this->belongsTo(User::class, 'gestor_id');
+    }
+
+    // Relación inversa con usuario transportista (1:N)
+    public function transportista(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'transportista_id');
     }
 
     // Relación inversa con vehiculo (1:N)
