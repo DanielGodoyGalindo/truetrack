@@ -1,3 +1,4 @@
+<!-- Plantilla para el conponente -->
 <template>
     <button @click="handleClick" class="card d-flex flex-row">
         <div class="card-title btn">
@@ -13,18 +14,22 @@
     </button>
 </template>
 
+<!-- Propiedades y comportamientos -->
 <script>
 export default {
     name: 'CardComponent',
     props: {
+        // Titulo
         titleText: {
             type: String,
             default: 'Título',
         },
+        // Texto principal
         bodyText: {
             type: String,
             default: 'Contenido de la tarjeta',
         },
+        // Dirección url al hacer click en la tarjeta
         cardUrl: {
             type: String,
             required: true,
@@ -39,6 +44,7 @@ export default {
                 }, */
     },
     methods: {
+        // Ejecutar al hacer click
         handleClick() {
             window.location.href = this.cardUrl;
         },
@@ -46,6 +52,7 @@ export default {
 };
 </script>
 
+<!-- Estilos para solo este componente (scoped) -->
 <style scoped>
 .card {
     border: 1px solid #ccc;
@@ -81,25 +88,4 @@ export default {
     font-size: 2rem;
     color: #333;
 }
-
-/* .card-footer {
-    display: flex;
-    justify-content: flex-end;
-    padding: 8px 16px;
-    background-color: #f8f9fa;
-} */
-
-/* button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 8px 12px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-button:hover {
-    background-color: white;
-} */
 </style>

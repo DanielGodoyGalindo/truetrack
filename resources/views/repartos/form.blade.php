@@ -15,21 +15,19 @@
             <div class="mb-3">
                 {{-- Componente select de transportistas --}}
                 <div id="select-app1">
-                    <select-component :options='@json($transportistas)' id="transportistas-select"
+                    <select-component name="transportista" :options='@json($transportistas)' id="transportistas-select"
                         label="Seleccione un transportista:">
                     </select-component>
                     @vite(['resources/js/app.js'])
                 </div>
-
                 {{-- Componente select de vehiculos --}}
                 <div id="select-app2">
-                    <select-component :options='@json($vehiculos)' id="vehiculos-select"
+                    <select-component name="vehiculo" :options='@json($vehiculos)' id="vehiculos-select"
                         label="Seleccione un vehiculo:">
                     </select-component>
                     @vite(['resources/js/app.js'])
                 </div>
-
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="submit" class="btn btn-primary mt-5">Guardar</button>
         </form>
     </div>
 </body>

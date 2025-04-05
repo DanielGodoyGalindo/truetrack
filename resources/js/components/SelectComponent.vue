@@ -1,7 +1,8 @@
 <template>
     <div>
+        <!-- Atributos dinámicos (:) -->
         <label :for="id">{{ label }}</label>
-        <select :id="id">
+        <select :id="id" :name="name">
             <option value="" disabled selected hidden>
                 {{ placeholder }}
             </option>
@@ -12,37 +13,39 @@
     </div>
 </template>
 
-<script>
-export default {
-    props: {
-        id: {
-            type: String,
-            required: true,
-        },
-        // Etiqueta incluida en el componente
-        label: {
-            type: String,
-            default: 'Seleccione una opción:',
-        },
-        // Valor por defecto en el select
-        placeholder: {
-            type: String,
-            default: 'Seleccione un transportista',
-        },
-        // Elementos option (se incluirán con una variable generada por el controlador)
-        options: {
-            type: Array,
-            required: true,
-        },
+<script setup>
+defineProps({
+    id: {
+        type: String,
+        required: true,
     },
-};
+    // Se usa para guardar el valor seleccionado por el usuario
+    name: {
+        type: String,
+        required: true,
+    },
+    // Etiqueta que se incluye encima del select
+    label: {
+        type: String,
+        default: 'Seleccione una opción:',
+    },
+    // Texto por defecto al cargar el componente
+    placeholder: {
+        type: String,
+        default: 'Seleccione un valor:',
+    },
+    // Elementos option (su valor se obtiene del controlador)
+    options: {
+        type: Array,
+        required: true,
+    },
+});
 </script>
 
 <style scoped>
 label {
     display: block;
     margin-bottom: 8px;
-    /* font-weight: bold; */
 }
 
 select {
