@@ -38,6 +38,13 @@ class UserTableSeeder extends Seeder
             'rol' => 'gestor_trafico',
         ]);
 
+        DB::table('users')->insert([
+            'name' => 'gestor2',
+            'email' => 'gestor2@gmail.com',
+            'password' => Hash::make('gestor2'),
+            'rol' => 'gestor_trafico',
+        ]);
+
         /* Transportistas */
         DB::table('users')->insert([
             'name' => 'transportista1',

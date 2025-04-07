@@ -15,11 +15,6 @@
         </h1>
         {{-- Componente botón Vue --}}
         @if (Auth::user()->rol == 'cliente')
-            {{-- <div id="button-app">
-                <button-component button-text="✚ Nuevo envío" button-url="{{ route('envios.create') }}"
-                    class="btn btn-primary"></button-component>
-                @vite(['resources/js/app.js'])
-            </div> --}}
             <div id="button-app">
                 <button-component button-text="✚ Nuevo envío" button-url="{{ route('envios.create') }}"
                     class="btn btn-primary"></button-component>
@@ -33,7 +28,7 @@
             <thead class="table-secondary">
                 <tr>
                     <th scope="col">Id</th>
-                    @if (Auth::user()->rol == ('administrador' || 'gestor_trafico'))
+                    @if (in_array(Auth::user()->rol, ['gestor_trafico', 'administrador']))
                         <th scope="col">Cliente</th>
                     @endif
                     <th scope="col">Destinatario</th>
@@ -55,7 +50,7 @@
                 @foreach ($envios as $envio)
                     <tr>
                         <th scope="row">{{ $envio->id }}</th>
-                        @if (Auth::user()->rol == ('administrador' || 'gestor_trafico'))
+                        @if (in_array(Auth::user()->rol, ['gestor_trafico', 'administrador']))
                             <td>{{ $envio->cliente->name }}</td>
                         @endif
                         <td>{{ $envio->destinatario }}</td>

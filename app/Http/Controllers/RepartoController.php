@@ -17,7 +17,14 @@ class RepartoController extends Controller
      */
     public function index()
     {
-        $repartos  = Reparto::with('gestor', 'transportista', 'vehiculo')->paginate($this->numPag);
+        // $repartos  = Reparto::with('gestor', 'transportista', 'vehiculo')->paginate($this->numPag);
+        // return view('repartos.all', ['repartos' => $repartos]);
+
+        // ->where('gestor_id', Auth::id())
+
+        $repartos  = Reparto::with('gestor', 'transportista', 'vehiculo')
+            ->where('gestor_id', Auth::id())
+            ->paginate($this->numPag);
         return view('repartos.all', ['repartos' => $repartos]);
     }
 
