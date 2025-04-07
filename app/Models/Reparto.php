@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Reparto extends Model
 {
+    protected $fillable = [
+        'gestor_id',
+        'transportista_id',
+        'vehiculo_id',
+        'estado',
+    ];
+
     // Relacion inversa con usuario gestor (1:N)
     public function gestor(): BelongsTo
     {

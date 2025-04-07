@@ -22,7 +22,7 @@ class EnvioController extends Controller
         // Se construye una consulta con las relaciones del model Envio
         // Si viene como request el nombre de un cliente, se busca en la tabla Users
         // el usuario con el nombre indicado en el request $r
-        $query  = Envio::with('cliente', 'reparto');
+        $query  = Envio::with('cliente', 'reparto')->where('cliente_id', Auth::id());
         if ($r->filled("cliente")) {
             $query->whereHas('cliente', function ($user) use ($r) {
                 $user->where('nombre', 'like', '%' . $r->cliente . '%');
@@ -127,8 +127,20 @@ class EnvioController extends Controller
         // $numEnvios = Envio::where('estado', '!=', 'entregado')
         //     ->where('estado', '!=', 'anulado')
         //     ->count();
-        $numEnvios = Envio::whereNotIn('estado', ['entregado', 'anulado'])->count();
-        $numRepartos = Reparto::whereNotIn('estado', ['finalizado'])->count();
-        return view('index', ['numEnvios' => $numEnvios, 'numRepartos' => $numRepartos]);
+
+        // Devolver números enteros //
+        // Devuelve el número de envios que corresponsen al usuario cliente que está autenticado
+        $numEnviosCliente = Envio::whereNotIn('estado', ['entregado', 'anulado'])
+            ->where('cliente_id', Auth::id())
+            ->count();
+        // Devuelve el número total de envios (para mostrarselos a los gestores)
+        $numEnviosTotales = Envio::whereNotIn('estado', ['entregado', 'anulado'])->count();
+        // Devuelve el número de repartos que corresponsen al usuario gestor de tráfico que está autenticado
+        $numRepartosGestor = Reparto::whereNotIn('estado', ['finalizado'])
+            ->where('gestor_id', Auth::id())
+            ->count();
+        // Devuelve el número total de repartos (para mostrarselos al admin)
+        $numRepartosTotales = Reparto::whereNotIn('estado', ['finalizado'])->count();
+        return view('index', ['numEnviosCliente' => $numEnviosCliente, 'numEnviosTotales' => $numEnviosTotales, 'numRepartosGestor' => $numRepartosGestor, 'numRepartosTotales' => $numRepartosTotales]);
     }
 }
