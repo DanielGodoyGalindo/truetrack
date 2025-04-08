@@ -3,9 +3,9 @@
         <!-- Atributos dinámicos (:) -->
         <label :for="id">{{ label }}</label>
         <select :id="id" :name="name">
-            <option value="" disabled selected hidden>
+            <!-- <option value="" disabled selected hidden>
                 {{ placeholder }}
-            </option>
+            </option> -->
             <option v-for="option in options" :value="option" :key="option">
                 {{ option }}
             </option>
@@ -30,10 +30,10 @@ defineProps({
         default: 'Seleccione una opción:',
     },
     // Texto por defecto al cargar el componente
-    placeholder: {
+/*     placeholder: {
         type: String,
         default: 'Seleccione un valor:',
-    },
+    }, */
     // Elementos option (su valor se obtiene del controlador)
     options: {
         type: Array,

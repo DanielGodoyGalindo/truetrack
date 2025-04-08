@@ -22,14 +22,17 @@ class EnvioController extends Controller
         // Se construye una consulta con las relaciones del model Envio
         // Si viene como request el nombre de un cliente, se busca en la tabla Users
         // el usuario con el nombre indicado en el request $r
-        $query  = Envio::with('cliente', 'reparto')->where('cliente_id', Auth::id());
-        if ($r->filled("cliente")) {
-            $query->whereHas('cliente', function ($user) use ($r) {
-                $user->where('nombre', 'like', '%' . $r->cliente . '%');
-            });
-        }
-        $envios = $query->paginate($this->numPag)->appends(['cliente' => $r->cliente]);
-        return view('envios.all', ['envios' => $envios]);
+        // $query  = Envio::with('cliente', 'reparto')->where('cliente_id', Auth::id());
+        // if ($r->filled("cliente")) {
+        //     $query->whereHas('cliente', function ($user) use ($r) {
+        //         $user->where('nombre', 'like', '%' . $r->cliente . '%');
+        //     });
+        // }
+        // $envios = $query->paginate($this->numPag)->appends(['cliente' => $r->cliente]);
+
+        $enviosCliente = Envio::with('cliente', 'reparto')->where('cliente_id', Auth::id())->paginate($this->numPag);
+        $enviosTotales = Envio::with('cliente', 'reparto')->paginate($this->numPag);
+        return view('envios.all', ['enviosCliente' => $enviosCliente, 'enviosTotales' => $enviosTotales]);
     }
 
     /**

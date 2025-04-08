@@ -39,6 +39,13 @@ Route::get('/', [EnvioController::class, 'showDatosIndex'])->name('index');
 
 // Ruta para añadir envios a un reparto
 Route::post('/repartos/addDeliveries/{id}', [RepartoController::class, 'addDeliveries'])->middleware('auth')->name('repartos.addDeliveries');
+Route::get('/repartos/{id}/addDeliveries', [RepartoController::class, 'showAddDeliveries'])->middleware('auth')->name('repartos.showAddDeliveries');
+// Route::post('/repartos/{id}/addDeliveries', [RepartoController::class, 'storeDeliveries'])->middleware('auth')->name('repartos.storeDeliveries');
+Route::post('/repartos/{id}/asignar', [RepartoController::class, 'assignDelivery'])->middleware('auth')->name('repartos.asignar');
+
+
+
+// Route::post('/repartos/asignar', [RepartoController::class, 'asignarEnvio'])->name('repartos.asignar');
 
 
 require __DIR__ . '/auth.php';

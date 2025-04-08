@@ -22,10 +22,12 @@ class RepartoController extends Controller
 
         // ->where('gestor_id', Auth::id())
 
-        $repartos  = Reparto::with('gestor', 'transportista', 'vehiculo')
+        $repartosGestor  = Reparto::with('gestor', 'transportista', 'vehiculo')
             ->where('gestor_id', Auth::id())
             ->paginate($this->numPag);
-        return view('repartos.all', ['repartos' => $repartos]);
+        $repartosAdmin  = Reparto::with('gestor', 'transportista', 'vehiculo')
+            ->paginate($this->numPag);
+        return view('repartos.all', ['repartosGestor' => $repartosGestor, 'repartosAdmin' => $repartosAdmin]);
     }
 
     /**
@@ -92,10 +94,31 @@ class RepartoController extends Controller
         return redirect()->route('repartos.index');
     }
 
+    // Método para mostrar la vista de añadir envios a un reparto
     public function addDeliveries(string $id)
     {
         $reparto = Reparto::find($id);
-        $envios = Envio::whereNotIn('estado', ['entregado', 'anulado']);
-        return view('repartos.deliveries', ['reparto' => $reparto, 'envios' => $envios]);
+        $enviosPendientes = Envio::whereNotIn('estado', ['entregado', 'anulado', 'en reparto'])->get();
+        $enviosAsignados = Envio::where('reparto_id', $id)->get();
+        return view('repartos.deliveries', ['reparto' => $reparto, 'enviosPendientes' => $enviosPendientes, 'enviosAsignados' => $enviosAsignados]);
+    }
+
+    // Método para actualizar un envio que ha sido asignado en un reparto
+    public function assignDelivery(Request $request, string $id)
+    {
+        $envio = Envio::findOrFail($request->envio_id);
+        $envio->reparto_id = $id;
+        $envio->estado = 'en reparto'; // Actualiza el estado si aplica
+        $envio->save();
+        return redirect()->route('repartos.showAddDeliveries', $id)->with('success', 'Envío asignado correctamente.');
+    }
+
+    // Método para actualizar los envios asignados a un reparto en la vista de asignación de repartos
+    public function showAddDeliveries(string $id)
+    {
+        $reparto = Reparto::findOrFail($id);
+        $enviosPendientes = Envio::whereNotIn('estado', ['entregado', 'anulado', 'en reparto'])->get();
+        $enviosAsignados = Envio::where('reparto_id', $id)->get();
+        return view('repartos.deliveries', compact('reparto', 'enviosPendientes', 'enviosAsignados'));
     }
 }

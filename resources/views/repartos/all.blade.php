@@ -8,7 +8,7 @@
 <body>
     @include('master')
     <div class="d-flex flex-row justify-content-around">
-        {{-- Si es cliente, mostrar su nombre --}}
+        {{-- Si es gestor de tráfico, mostrar su nombre --}}
         <h1>Repartos @if (Auth::user()->rol == 'gestor_trafico')
                 de {{ Auth::user()->name }}
             @endif
@@ -42,8 +42,10 @@
                     @endif
                 </tr>
             </thead>
-            <tbody>
-                @foreach ($repartos as $reparto)
+
+
+            {{-- Foreach general --}}
+            {{-- @foreach ($repartos as $reparto)
                     <tr>
                         <th scope="row">{{ $reparto->id }}</th>
                         @if (Auth::user()->rol == 'administrador')
@@ -51,9 +53,9 @@
                         @endif
                         <td>{{ $reparto->transportista->name }}</td>
                         <td>{{ $reparto->vehiculo->matricula }}</td>
-                        <td>{{ $reparto->estado }}</td>
-                        {{-- Borrar repartos --}}
-                        @if (Auth::user()->rol == 'administrador')
+                        <td>{{ $reparto->estado }}</td> --}}
+            {{-- Borrar repartos --}}
+            {{-- @if (Auth::user()->rol == 'administrador')
                             <td>
                                 <form action="{{ route('repartos.destroy', $reparto->id) }}" method="POST"
                                     class="w-50">
@@ -62,9 +64,9 @@
                                     <input type="submit" value="✖" class="btn btn-danger col-12">
                                 </form>
                             </td>
-                        @endif
-                        {{-- Asignar envios --}}
-                        @if (Auth::user()->rol == 'gestor_trafico')
+                        @endif --}}
+            {{-- Asignar envios --}}
+            {{-- @if (Auth::user()->rol == 'gestor_trafico')
                             <td>
                                 <form action="{{ route('repartos.addDeliveries', $reparto->id) }}" method="POST">
                                     @csrf
@@ -73,14 +75,64 @@
                             </td>
                         @endif
                     </tr>
-                @endforeach
+                @endforeach --}}
+
+
+            <tbody>
+                {{-- Datos para gestores --}}
+                @if (Auth::user()->rol == 'gestor_trafico')
+                    @foreach ($repartosGestor as $reparto)
+                        <tr>
+                            <th scope="row">{{ $reparto->id }}</th>
+                            <td>{{ $reparto->transportista->name }}</td>
+                            <td>{{ $reparto->vehiculo->matricula }}</td>
+                            <td>{{ $reparto->estado }}</td>
+                            {{-- Asignar envios --}}
+                            @if (Auth::user()->rol == 'gestor_trafico')
+                                <td>
+                                    <form action="{{ route('repartos.addDeliveries', $reparto->id) }}" method="POST">
+                                        @csrf
+                                        <input type="submit" value="🚚" class="btn">
+                                    </form>
+                                </td>
+                            @endif
+                        </tr>
+                    @endforeach
+                @endif
+
+                {{-- Datos para admin --}}
+                @if (Auth::user()->rol == 'administrador')
+                    @foreach ($repartosAdmin as $reparto)
+                        <tr>
+                            <th scope="row">{{ $reparto->id }}</th>
+                            <td>{{ $reparto->gestor->name }}</td>
+                            <td>{{ $reparto->transportista->name }}</td>
+                            <td>{{ $reparto->vehiculo->matricula }}</td>
+                            <td>{{ $reparto->estado }}</td>
+                            {{-- Borrar repartos --}}
+                            <td>
+                                <form action="{{ route('repartos.destroy', $reparto->id) }}" method="POST"
+                                    class="w-50">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="submit" value="✖" class="btn btn-danger col-12">
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
+
             </tbody>
         </table>
     </div>
     {{-- Fin tabla --}}
     {{-- Paginación --}}
     <div class="d-flex justify-content-center py-3">
-        {{ $repartos->links('pagination::bootstrap-4') }}
+        @if (Auth::user()->rol == 'gestor_trafico')
+            {{ $repartosGestor->links('pagination::bootstrap-4') }}
+        @elseif (Auth::user()->rol == 'administrador')
+            {{ $repartosAdmin->links('pagination::bootstrap-4') }}
+        @endif
     </div>
 </body>
 
