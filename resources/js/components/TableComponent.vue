@@ -1,98 +1,53 @@
-<template>
-    <table class="table">
-        <thead>
-            <tr>
-                <th v-for="column in columns" :key="column.key || column.label">
-                    {{ column.label }}
-                </th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="row in data" :key="row.id">
-                <td v-for="column in columns" :key="column.key || column.label">
-                    {{ getValue(row, column.key) }}
-                </td>
-                <td>
-                    <button @click="deleteRecord(row.id)" class="btn btn-danger">
-                        Borrar
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</template>
-
 <script>
 export default {
-    name: 'TableComponent',
-    props: {
-        columns: {
-            type: Array,
-            required: true,
-        },
-        data: {
-            type: Array,
-            required: true,
-        },
-    },
-    methods: {
-        getValue(row, key) {
-            return key ? key.split('.').reduce((acc, curr) => acc && acc[curr], row) : '';
-        },
-        async deleteRecord(id) {
-            try {
-                const response = await fetch(`/envios/${id}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                        'Content-Type': 'application/json',
-                    },
-                });
-
-                if (response.ok) {
-                    // Eliminar registro del array local
-                    this.data = this.data.filter(row => row.id !== id);
-                    alert('Registro eliminado correctamente.');
-                } else {
-                    alert('Error al eliminar el registro.');
-                }
-            } catch (error) {
-                console.error('Error en la solicitud:', error);
-                alert('Ocurrió un error al intentar eliminar el registro.');
-            }
-        },
+    data() {
+        return {
+            localData: [
+                { "Envio Id": 1, "Destinatario": "Juan Gonzalez", "Bultos Kilos": "2 bultos - 14.60 kilos" },
+            ],
+            localColumns: ["Envio Id", "Destinatario", "Bultos Kilos"],
+        };
     },
 };
 </script>
+<template>
+    <div>
+        <h3>Componente Tabla</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th v-for="col in localColumns" :key="col">{{ col }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="row in localData" :key="row['Envio Id']">
+                    <td v-for="value in row" :key="value">{{ value }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</template>
+
+
 
 <style scoped>
-.table {
+#table-app {
+    width: 100%;
+    overflow: auto;
+}
+
+table {
     width: 100%;
     border-collapse: collapse;
 }
 
-thead {
-    background-color: #f8f9fa;
-    font-weight: bold;
-}
-
-td,
-th {
-    padding: 10px;
+th,
+td {
     border: 1px solid #ddd;
+    padding: 8px;
 }
 
-.btn-danger {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 3px;
-}
-
-.btn-danger:hover {
-    background-color: #c82333;
+th {
+    background-color: #f2f2f2;
 }
 </style>

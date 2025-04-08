@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import ButtonComponent from './Components/ButtonComponent.vue';
 import CardComponent from './components/CardComponent.vue';
 import SelectComponent from './components/SelectComponent.vue';
+import TableComponent from './components/TableComponent.vue';
 
 // Botón
 const buttonApp = createApp({});
@@ -27,3 +28,8 @@ selectApp1.mount('#select-app1');
 const selectApp2 = createApp({});
 selectApp2.component('select-component', SelectComponent);
 selectApp2.mount('#select-app2');
+
+// Tabla
+const tableApp = createApp({});
+tableApp.component('table-component', TableComponent);
+tableApp.mount('#table-app');

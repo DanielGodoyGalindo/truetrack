@@ -20,7 +20,7 @@ class VehiculoTableSeeder extends Seeder
 
         DB::table('vehiculos')->insert([
             'matricula' => '4444HHH',
-            'carga_max' => '800',
+            'carga_max' => '900',
         ]);
     }
 }

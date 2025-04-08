@@ -26,7 +26,7 @@
     </div> --}}
 
     {{-- Sólo para pruebas- Mostrar usuario conectado --}}
-    <p>Usuario conectado: {{ Auth::user()->name ?? 'nadie' }}</p>
+    <p>Usuario conectado: {{ Auth::user()->name ?? 'nadie' }} -- Con ID: {{ Auth::user()->id ?? 'sin id' }}</p>
 
     {{-- Componente card envíos --}}
     {{-- Comprueba que el rol del usuario autenticado sea cliente, administrador o gestor --}}
@@ -47,7 +47,7 @@
         <div id="card-repartos">
             <card-component title-text="🚚"
                 @if (Auth::check() && Auth::user()->rol == 'gestor_trafico') body-text="{{ $numRepartosGestor }} Repartos"
-                @elseif (Auth::check() && Auth::user() == 'administrador')
+                @elseif (Auth::check() && Auth::user()->rol == 'administrador')
                     body-text="{{ $numRepartosTotales }} Repartos" @endif
                 card-url="{{ route('repartos.index') }}" class="btn btn-light"></card-component>
             @vite(['resources/js/app.js'])
