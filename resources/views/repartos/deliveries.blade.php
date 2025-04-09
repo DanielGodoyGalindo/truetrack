@@ -49,15 +49,15 @@
 
         {{-- Tabla con envios pendientes de reparto --}}
         <div class="container">
-            <h1>Reparto: {{ $reparto->id }}</h1>
-            <h2>Envíos disponibles</h2>
+            <h2 class="pt-5">Envíos disponibles</h2>
             <table class="table">
                 <thead>
                     <tr>
                         <th>Envio Id</th>
                         <th>Destinatario</th>
                         <th>Estado</th>
-                        <th>Acciones</th>
+                        <th>Peso</th>
+                        <th>Asignar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -66,10 +66,13 @@
                             <td>{{ $envio->id }}</td>
                             <td>{{ $envio->destinatario }}</td>
                             <td>{{ $envio->estado }}</td>
+                            <td>{{ $envio->kilos }} kgs</td>
                             <td>
+                                {{-- Botón para asignar envios --}}
                                 <form action="{{ route('repartos.asignar', $reparto->id) }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="envio_id" value="{{ $envio->id }}">
+                                    {{-- Número de envío --}}
                                     <button type="submit" class="btn btn-primary">Añadir al reparto</button>
                                 </form>
                             </td>
@@ -78,13 +81,15 @@
                 </tbody>
             </table>
 
-            <h2>Envíos asignados</h2>
+            {{-- Tabla con envíos ya asignados al reparto actual --}}
+            <h2 class="pt-5">Envíos asignados</h2>
             <table class="table">
                 <thead>
                     <tr>
                         <th>Envio Id</th>
                         <th>Destinatario</th>
                         <th>Estado</th>
+                        <th>Quitar del reparto</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -93,21 +98,37 @@
                             <td>{{ $envio->id }}</td>
                             <td>{{ $envio->destinatario }}</td>
                             <td>{{ $envio->estado }}</td>
+                            {{-- Botón para quitar del reparto --}}
+                            <td>
+                                <form action="{{ route('repartos.removeFromDelivery', $reparto->id) }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="envio_id" value="{{ $envio->id }}">
+                                    <button type="submit" class="btn">❌</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
 
+        {{-- Mostrar kilos totales cargados en el vehículo --}}
+        <span class="h4"> Kilos cargados: {{ $kilosCargados ?? 0 }} kgs</span>
+        <span>
+            @switch(session('message'))
+                @case('deliveryAdded')
+                    Se ha asignado el envío correctamente.
+                @break
 
-        {{-- Botón para asignar envios --}}
-        {{--         <form method="POST" action="{{ route('repartos.storeDeliveries', $reparto->id) }}">
-            @csrf
-            <input type="hidden" name="envio_id" value="{{ $envio->id }}">
-            <button type="submit" class="btn btn-primary">Añadir al reparto</button>
-        </form> --}}
+                @case('deliveryNotAdded')
+                    No se ha podido asignar el envío. Se superaría el peso máximo del vehículo.
+                @break
 
-        {{-- Tabla con los envios del reparto actual --}}
+                @case('deliveryRemoved')
+                    Se ha quitado el envío del reparto.
+                @break
+            @endswitch
+        </span>
 
     </div>
 

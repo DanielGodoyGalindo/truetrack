@@ -94,7 +94,7 @@ class RepartoController extends Controller
         return redirect()->route('repartos.index');
     }
 
-    // Método para mostrar la vista de añadir envios a un reparto
+    // Método para mostrar la vista de añadir envios a un reparto (repartos.deliveries) (dos tablas: una con envios para asignar y otra con envios que se van asignando)
     public function addDeliveries(string $id)
     {
         $reparto = Reparto::find($id);
@@ -104,21 +104,41 @@ class RepartoController extends Controller
     }
 
     // Método para actualizar un envio que ha sido asignado en un reparto
-    public function assignDelivery(Request $request, string $id)
+    public function assignDelivery(Request $request, string $repartoId)
     {
+        //// Controlar peso
+        $reparto = Reparto::findOrFail($repartoId);
+        $pesoTotalReparto = $reparto->envios->sum('kilos');
         $envio = Envio::findOrFail($request->envio_id);
-        $envio->reparto_id = $id;
-        $envio->estado = 'en reparto'; // Actualiza el estado si aplica
+        // Si se supera la carga máxima, no permitir
+        if (($pesoTotalReparto + $envio->kilos) > $reparto->vehiculo->carga_max) {
+            return redirect()->route('repartos.showDeliveries', $repartoId)->with('message', 'deliveryNotAdded');
+        }
+        // Sino, se asigna el envío correctamente
+        $envio->reparto_id = $repartoId;
+        $envio->estado = 'en reparto';
         $envio->save();
-        return redirect()->route('repartos.showAddDeliveries', $id)->with('success', 'Envío asignado correctamente.');
+        return redirect()->route('repartos.showDeliveries', $repartoId)->with('message', 'deliveryAdded');
     }
 
     // Método para actualizar los envios asignados a un reparto en la vista de asignación de repartos
-    public function showAddDeliveries(string $id)
+    public function showDeliveries(string $id)
     {
         $reparto = Reparto::findOrFail($id);
         $enviosPendientes = Envio::whereNotIn('estado', ['entregado', 'anulado', 'en reparto'])->get();
         $enviosAsignados = Envio::where('reparto_id', $id)->get();
-        return view('repartos.deliveries', compact('reparto', 'enviosPendientes', 'enviosAsignados'));
+        $kilosCargados = $enviosAsignados->sum('kilos');
+        // Compact() permite pasar datos a la vista de una manera más reducida (sólo se nombra la variable)
+        return view('repartos.deliveries', compact('reparto', 'enviosPendientes', 'enviosAsignados', 'kilosCargados'));
+    }
+
+    // Método para sacar del reparto los envios ya asignados
+    public function removeFromDelivery(Request $request, string $repartoId)
+    {
+        $envio = Envio::findOrFail($request->envio_id);
+        $envio->reparto_id = null;
+        $envio->estado = 'pendiente';
+        $envio->save();
+        return redirect()->route('repartos.showDeliveries', $repartoId)->with('message', 'deliveryRemoved');
     }
 }
