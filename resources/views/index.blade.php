@@ -26,7 +26,7 @@
     </div> --}}
 
     {{-- Sólo para pruebas- Mostrar usuario conectado --}}
-    <p>Usuario conectado: {{ Auth::user()->name ?? 'nadie' }} -- Con ID: {{ Auth::user()->id ?? 'sin id' }}</p>
+    <p class="container">Usuario conectado: {{ Auth::user()->name ?? 'nadie' }} -- Con ID: {{ Auth::user()->id ?? 'sin id' }}</p>
 
     {{-- Componente card envíos --}}
     {{-- Comprueba que el rol del usuario autenticado sea cliente, administrador o gestor --}}

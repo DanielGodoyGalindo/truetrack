@@ -27,7 +27,7 @@ Route::resource('envios', EnvioController::class)->middleware('auth');
 Route::resource('repartos', RepartoController::class)->middleware('auth');
 Route::resource('vehiculos', VehiculoController::class)->middleware('auth');
 
-// Se para el parametro del id para saber cual es el envio del que se quiere mandar un email
+// Se pasa el parametro del id para saber cual es el envio del que se quiere mandar un email
 Route::post('/envios/mail/{id}', [EnvioController::class, 'email'])->middleware('auth')->name('envios.email');
 Route::post('/envios/send-email', [EnvioController::class, 'sendEmail'])->middleware('auth')->name('envios.sendEmail');
 Route::post('/envios/anular/{id}', [EnvioController::class, 'setNull'])->middleware('auth')->name('envios.setNull');
@@ -37,15 +37,13 @@ Route::get('/', [EnvioController::class, 'showDatosIndex'])->name('index');
 /* Ruta para devolver el número de repartos totales */
 // Route::get('/', [RepartoController::class, 'showNumRepartos'])->name('index');
 
-// Ruta para añadir envios a un reparto
+// Ruta para añadir envios a un reparto, se pasa el id del reparto en el que el usuario ha hecho clic en la vista repartos.all
 Route::post('/repartos/addDeliveries/{id}', [RepartoController::class, 'addDeliveries'])->middleware('auth')->name('repartos.addDeliveries');
-Route::get('/repartos/{id}/addDeliveries', [RepartoController::class, 'showAddDeliveries'])->middleware('auth')->name('repartos.showAddDeliveries');
-// Route::post('/repartos/{id}/addDeliveries', [RepartoController::class, 'storeDeliveries'])->middleware('auth')->name('repartos.storeDeliveries');
+// Ruta para actualizar la vista repartos.deliveries (para ver cómo se van asignando / sacando loe envios de un reparto)
+Route::get('/repartos/{id}/showDeliveries', [RepartoController::class, 'showDeliveries'])->middleware('auth')->name('repartos.showDeliveries');
+// Ruta para usar en el botón de asignar envío a un reparto
 Route::post('/repartos/{id}/asignar', [RepartoController::class, 'assignDelivery'])->middleware('auth')->name('repartos.asignar');
-
-
-
-// Route::post('/repartos/asignar', [RepartoController::class, 'asignarEnvio'])->name('repartos.asignar');
-
+// Ruta para usar en el botón de quitar un envío de un reparto
+Route::post('/repartos/{id}/removeDelivery', [RepartoController::class, 'removeFromDelivery'])->middleware('auth')->name('repartos.removeFromDelivery');
 
 require __DIR__ . '/auth.php';

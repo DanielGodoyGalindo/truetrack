@@ -88,14 +88,12 @@
                             <td>{{ $reparto->vehiculo->matricula }}</td>
                             <td>{{ $reparto->estado }}</td>
                             {{-- Asignar envios --}}
-                            @if (Auth::user()->rol == 'gestor_trafico')
-                                <td>
-                                    <form action="{{ route('repartos.addDeliveries', $reparto->id) }}" method="POST">
-                                        @csrf
-                                        <input type="submit" value="🚚" class="btn">
-                                    </form>
-                                </td>
-                            @endif
+                            <td>
+                                <form action="{{ route('repartos.addDeliveries', $reparto->id) }}" method="POST">
+                                    @csrf
+                                    <input type="submit" value="🚚" class="btn">
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 @endif
