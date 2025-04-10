@@ -29,7 +29,7 @@
             </div>
             <div class="mb-3">
                 <label for="kilos">Número de kilos:</label>
-                <input type="number" name="kilos" class="form-control w-25" placeholder="Bultos" step="0.01"
+                <input type="number" name="kilos" class="form-control w-25" placeholder="Kilos" step="0.01"
                     min="1" max="1000" required>
             </div>
             <button type="submit" class="btn btn-primary">Guardar</button>
