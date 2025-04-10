@@ -49,8 +49,8 @@
 
         {{-- Tabla con envios pendientes de reparto --}}
         <div class="container">
-            <h2 class="pt-5">Envíos disponibles</h2>
-            <table class="table">
+            <h2 class="pt-2">Envíos disponibles</h2>
+            <table class="table align-middle">
                 <thead>
                     <tr>
                         <th>Envio Id</th>
@@ -83,7 +83,7 @@
 
             {{-- Tabla con envíos ya asignados al reparto actual --}}
             <h2 class="pt-5">Envíos asignados</h2>
-            <table class="table">
+            <table class="table align-middle">
                 <thead>
                     <tr>
                         <th>Envio Id</th>
@@ -113,23 +113,39 @@
         </div>
 
         {{-- Mostrar kilos totales cargados en el vehículo --}}
-        <span class="h4"> Kilos cargados: {{ $kilosCargados ?? 0 }} kgs</span>
-        <span>
-            @switch(session('message'))
-                @case('deliveryAdded')
-                    Se ha asignado el envío correctamente.
-                @break
 
-                @case('deliveryNotAdded')
-                    No se ha podido asignar el envío. Se superaría el peso máximo del vehículo.
-                @break
+        {{-- Mensajes bootstrap --}}
+        {{-- <div class="container pt-5 d-flex justify-content-around">
+            <span class="h4"> Kilos cargados: {{ $kilosCargados ?? 0 }} kgs</span>
+            <div>
+                @switch(session('message'))
+                    @case('deliveryAdded')
+                        <span class="alert alert-success" role="alert">Se ha asignado el envío correctamente.</span>
+                    @break
 
-                @case('deliveryRemoved')
-                    Se ha quitado el envío del reparto.
-                @break
-            @endswitch
-        </span>
+                    @case('deliveryNotAdded')
+                        <span class="alert alert-danger" role="alert">No se ha podido asignar el envío. Se superaría el peso
+                            máximo del vehículo.</span>
+                    @break
+
+                    @case('deliveryRemoved')
+                        <span class="alert alert-warning" role="alert">Se ha quitado el envío del reparto.</span>
+                    @break
+                @endswitch
+            </div>
+        </div> --}}
+
+        {{-- Componente vue para mensajes --}}
+        <div class="container pt-5 d-flex justify-content-around">
+            <span class="h4"> Kilos cargados: {{ $kilosCargados ?? 0 }} kgs</span>
+            <div id="message-app">
+                @if (session('message'))
+                    <message-component :message="'{{ session('message') }}'" />
+                @endif
+                @vite(['resources/js/app.js'])
+            </div>
+        </div>
 
     </div>
 
-    </div>
+</body>

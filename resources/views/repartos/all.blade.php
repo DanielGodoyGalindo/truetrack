@@ -24,7 +24,7 @@
     </div>
     {{-- Tabla --}}
     <div class="container">
-        <table class="table">
+        <table class="table align-middle">
             <thead class="table-secondary">
                 <tr>
                     <th scope="col">Id</th>
@@ -91,7 +91,7 @@
                             <td>
                                 <form action="{{ route('repartos.addDeliveries', $reparto->id) }}" method="POST">
                                     @csrf
-                                    <input type="submit" value="🚚" class="btn">
+                                    <input type="submit" value="🚚" class="btn fs-3">
                                 </form>
                             </td>
                         </tr>

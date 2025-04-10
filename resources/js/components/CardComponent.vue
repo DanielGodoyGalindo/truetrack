@@ -62,8 +62,8 @@ export default {
     margin: 16px auto;
     overflow: hidden;
     background-color: #FDF0D5;
-    display: flex;
-    align-items: center;
+    height: 8rem;
+    width: 20rem;
 }
 
 .card:hover {
@@ -77,6 +77,7 @@ export default {
     padding: 8px 16px;
     font-size: 30px;
     background-color: #FDF0D5;
+    align-self: center;
 }
 
 .card-title>h3 {
@@ -87,5 +88,6 @@ export default {
     padding: 16px;
     font-size: 2rem;
     color: #333;
+    align-self: center;
 }
 </style>
