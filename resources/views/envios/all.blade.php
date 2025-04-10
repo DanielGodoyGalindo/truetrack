@@ -8,28 +8,42 @@
 <body>
     @include('master')
 
+
     {{-- Header y botón --}}
     @if (Auth::user()->rol == 'cliente') {{-- Clientes --}}
         <div class="container d-flex flex-row justify-content-between">
             {{-- Si es cliente, mostrar su nombre --}}
-            <h1>Envíos @if (Auth::user()->rol == 'cliente')
-                    de {{ Auth::user()->name }}
-                @endif
-            </h1>
+            <div>
+                <h1>Envíos @if (Auth::user()->rol == 'cliente')
+                        de {{ Auth::user()->name }}
+                    @endif
+                </h1>
+            </div>
+            {{-- Componentes botón Vue --}}
+            <div id="button-app" class="d-flex flex-row gap-3">
+                <button-component button-text="✚ Nuevo envío" button-url="{{ route('envios.create') }}"
+                    class="btn btn-primary h-75"></button-component>
+                <button-component button-text="Finalizados" button-url="{{ route('envios.showCompleted') }}"
+                    class="btn btn-primary h-75"></button-component>
+                @vite(['resources/js/app.js'])
+            </div>
+        </div>
+    @else
+        {{-- Gestores y Admin --}}
+        <div class="container d-flex flex-row">
+            <h1 class="container">Envíos</h1>
             {{-- Componente botón Vue --}}
             <div id="button-app">
-                <button-component button-text="✚ Nuevo envío" button-url="{{ route('envios.create') }}"
+                <button-component button-text="Finalizados" button-url="{{ route('envios.showCompleted') }}"
                     class="btn btn-primary"></button-component>
                 @vite(['resources/js/app.js'])
             </div>
         </div>
-    @else {{-- Gestores y Admin --}}
-        <h1 class="container">Envíos</h1>
     @endif
 
     {{-- Tabla --}}
     <div class="container">
-        <table class="table">
+        <table class="table align-middle">
             <thead class="table-secondary">
                 <tr>
                     <th scope="col">Id</th>

@@ -30,8 +30,8 @@ class EnvioController extends Controller
         // }
         // $envios = $query->paginate($this->numPag)->appends(['cliente' => $r->cliente]);
 
-        $enviosCliente = Envio::with('cliente', 'reparto')->where('cliente_id', Auth::id())->paginate($this->numPag);
-        $enviosTotales = Envio::with('cliente', 'reparto')->paginate($this->numPag);
+        $enviosCliente = Envio::with('cliente', 'reparto')->where('cliente_id', Auth::id())->whereNotIn('estado', ['entregado', 'anulado'])->paginate($this->numPag);
+        $enviosTotales = Envio::with('cliente', 'reparto')->whereNotIn('estado', ['entregado', 'anulado'])->paginate($this->numPag);
         return view('envios.all', ['enviosCliente' => $enviosCliente, 'enviosTotales' => $enviosTotales]);
     }
 
@@ -133,7 +133,7 @@ class EnvioController extends Controller
 
         // Devolver números enteros //
         // Devuelve el número de envios que corresponsen al usuario cliente que está autenticado
-        $numEnviosCliente = Envio::whereNotIn('estado', ['entregado', 'anulado'])
+        $numEnviosCliente = Envio::whereNotIn('estado', ['entregado'])
             ->where('cliente_id', Auth::id())
             ->count();
         // Devuelve el número total de envios (para mostrarselos a los gestores)
@@ -145,5 +145,12 @@ class EnvioController extends Controller
         // Devuelve el número total de repartos (para mostrarselos al admin)
         $numRepartosTotales = Reparto::whereNotIn('estado', ['finalizado'])->count();
         return view('index', ['numEnviosCliente' => $numEnviosCliente, 'numEnviosTotales' => $numEnviosTotales, 'numRepartosGestor' => $numRepartosGestor, 'numRepartosTotales' => $numRepartosTotales]);
+    }
+
+    // Mostrar los envíos que ya han sido entregados y los envíos que han sido anulados
+    public function showCompleted()
+    {
+        $enviosCompletados = Envio::whereIn('estado', ['entregado', 'anulado'])->paginate($this->numPag);;
+        return view('envios.completed', ['enviosCompletados' => $enviosCompletados]);
     }
 }

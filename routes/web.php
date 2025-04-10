@@ -21,6 +21,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Ruta para mostrar los envios entregados y anulados
+Route::get('/envios/completed', [EnvioController::class, 'showCompleted'])->middleware('auth')->name('envios.showCompleted');
+
 // Rutas con método resource, el middleware de auth indica que sólo se puede acceder si el usuario está autenticado
 Route::resource('users', UserController::class)->middleware('auth');
 Route::resource('envios', EnvioController::class)->middleware('auth');
@@ -31,6 +34,8 @@ Route::resource('vehiculos', VehiculoController::class)->middleware('auth');
 Route::post('/envios/mail/{id}', [EnvioController::class, 'email'])->middleware('auth')->name('envios.email');
 Route::post('/envios/send-email', [EnvioController::class, 'sendEmail'])->middleware('auth')->name('envios.sendEmail');
 Route::post('/envios/anular/{id}', [EnvioController::class, 'setNull'])->middleware('auth')->name('envios.setNull');
+
+
 
 // Ruta para devolver el número de envios y repartos totales
 Route::get('/', [EnvioController::class, 'showDatosIndex'])->name('index');

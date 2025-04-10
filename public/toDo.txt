@@ -1,0 +1,8 @@
+-Controlar que a repartos solo puedan entrar gestores y admin (que no se pueda entrar poniendo la url)
+-Componente vue para mostrar en una barra de progreso % los kilos cargados en un reparto
+-Componente para mensajes de información.
+-Al enviar un mail como cliente, que se incluya la info del envío en el mail.
+-Al anular envió, preguntar si estamos seguros con una ventana.
+Dentro de envíos, poner botón para ver los envíos ya entregados y los que han sido anulados.
+-Mostrar los estados de los envíos con la primera letra en mayúscula.
+-Comprobar el numero de envios que se muestran en index según el rol.
