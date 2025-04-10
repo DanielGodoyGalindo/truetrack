@@ -3,6 +3,7 @@ import ButtonComponent from './Components/ButtonComponent.vue';
 import CardComponent from './components/CardComponent.vue';
 import SelectComponent from './components/SelectComponent.vue';
 import TableComponent from './components/TableComponent.vue';
+import MessageComponent from './components/MessageComponent.vue';
 
 // Botón
 const buttonApp = createApp({});
@@ -33,3 +34,9 @@ selectApp2.mount('#select-app2');
 const tableApp = createApp({});
 tableApp.component('table-component', TableComponent);
 tableApp.mount('#table-app');
+
+// Mensajes de información
+const messageApp = createApp({});
+messageApp.component('message-component', MessageComponent)
+messageApp.mount('#message-app');
+
