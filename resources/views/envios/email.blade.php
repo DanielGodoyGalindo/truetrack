@@ -22,11 +22,11 @@
                 @csrf
                 <div class="mb-3">
                     <label for="email">Dirección de destinatario:</label>
-                    <input type="email" name="email" class="form-control" placeholder="Email" required>
+                    <input type="email" name="email" class="form-control border border-2" placeholder="Email" required>
                 </div>
                 <div class="mb-3">
                     <label for="mensaje">Mensaje:</label>
-                    <textarea name="mensaje" class="form-control" placeholder="Escribe aquí el mensaje.." rows="10" cols="33" required></textarea>
+                    <textarea name="mensaje" class="form-control border border-2" placeholder="Escribe aquí el mensaje.." rows="10" cols="33" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form>

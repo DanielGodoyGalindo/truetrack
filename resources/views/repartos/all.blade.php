@@ -7,17 +7,21 @@
 
 <body>
     @include('master')
-    <div class="d-flex flex-row justify-content-around">
+    <div
+        @if (Auth::user()->rol == 'gestor_trafico') class="d-flex flex-row justify-content-around" 
+        @else class="container" @endif>
         {{-- Si es gestor de tráfico, mostrar su nombre --}}
         <h1>Repartos @if (Auth::user()->rol == 'gestor_trafico')
                 de {{ Auth::user()->name }}
             @endif
         </h1>
-        {{-- Componente botón Vue --}}
         @if (Auth::user()->rol == 'gestor_trafico')
-            <div id="button-app">
+            {{-- Componentes botón Vue (nuevo reparto y finalizados) --}}
+            <div id="button-app" class="d-flex flex-row gap-3">
                 <button-component button-text="✚ Nuevo reparto" button-url="{{ route('repartos.create') }}"
-                    class="btn btn-primary"></button-component>
+                    class="btn btn-primary h-75"></button-component>
+                <button-component button-text="Finalizados" button-url="{{ route('repartos.showDeliveriesCompleted') }}"
+                    class="btn btn-primary h-75"></button-component>
                 @vite(['resources/js/app.js'])
             </div>
         @endif

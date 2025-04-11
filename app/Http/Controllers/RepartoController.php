@@ -24,6 +24,7 @@ class RepartoController extends Controller
 
         $repartosGestor  = Reparto::with('gestor', 'transportista', 'vehiculo')
             ->where('gestor_id', Auth::id())
+            ->whereNotIn('estado', ['finalizado'])
             ->paginate($this->numPag);
         $repartosAdmin  = Reparto::with('gestor', 'transportista', 'vehiculo')
             ->paginate($this->numPag);
@@ -87,9 +88,18 @@ class RepartoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $repartoId)
     {
-        $reparto = Reparto::find($id);
+        // Modificar estado de envios del reparto
+        $envios = Envio::where('reparto_id', $repartoId)->get();
+        foreach ($envios as $envio) {
+            if ($envio->estado != 'entregado') {
+                $envio->estado = 'pendiente';
+                $envio->save();
+            }
+        }
+        // Eliminar reparto
+        $reparto = Reparto::findOrFail($repartoId);
         $reparto->delete();
         return redirect()->route('repartos.index');
     }
@@ -140,5 +150,13 @@ class RepartoController extends Controller
         $envio->estado = 'pendiente';
         $envio->save();
         return redirect()->route('repartos.showDeliveries', $repartoId)->with('message', 'deliveryRemoved');
+    }
+
+
+    // Método para mostrar repartos finalizados
+    public function showDeliveriesCompleted()
+    {
+        $finalizados = Reparto::where('gestor_id', Auth::id())->where('estado', 'finalizado')->paginate($this->numPag);
+        return view('repartos.completed', ['finalizados' => $finalizados]);
     }
 }

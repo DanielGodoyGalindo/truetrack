@@ -124,6 +124,7 @@ class EnvioController extends Controller
     }
 
     /* Método para devolver el número total de envíos no entregados ni anulados */
+    /* Se usa en index para mostrar los datos en los componentes card de Vue */
     public function showDatosIndex()
     {
         // $numEnvios = Envio::count();
@@ -133,7 +134,7 @@ class EnvioController extends Controller
 
         // Devolver números enteros //
         // Devuelve el número de envios que corresponsen al usuario cliente que está autenticado
-        $numEnviosCliente = Envio::whereNotIn('estado', ['entregado'])
+        $numEnviosCliente = Envio::whereNotIn('estado', ['entregado', 'anulado'])
             ->where('cliente_id', Auth::id())
             ->count();
         // Devuelve el número total de envios (para mostrarselos a los gestores)
@@ -150,7 +151,8 @@ class EnvioController extends Controller
     // Mostrar los envíos que ya han sido entregados y los envíos que han sido anulados
     public function showCompleted()
     {
-        $enviosCompletados = Envio::whereIn('estado', ['entregado', 'anulado'])->paginate($this->numPag);;
-        return view('envios.completed', ['enviosCompletados' => $enviosCompletados]);
+        $enviosCompletadosCli = Envio::where('cliente_id', Auth::id())->whereIn('estado', ['entregado', 'anulado'])->paginate($this->numPag);
+        $enviosCompletadosNoCli = Envio::whereIn('estado', ['entregado', 'anulado'])->paginate($this->numPag);
+        return view('envios.completed', ['enviosCompletadosCli' => $enviosCompletadosCli, 'enviosCompletadosNoCli' => $enviosCompletadosNoCli]);
     }
 }
