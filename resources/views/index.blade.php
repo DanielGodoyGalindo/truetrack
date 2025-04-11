@@ -26,7 +26,8 @@
     </div> --}}
 
     {{-- Sólo para pruebas- Mostrar usuario conectado --}}
-    <p class="container">Usuario conectado: {{ Auth::user()->name ?? 'nadie' }} -- Con ID: {{ Auth::user()->id ?? 'sin id' }}</p>
+    <p class="container">Usuario conectado: {{ Auth::user()->name ?? 'nadie' }} -- Con ID:
+        {{ Auth::user()->id ?? 'sin id' }}</p>
 
     {{-- Componente card envíos --}}
     {{-- Comprueba que el rol del usuario autenticado sea cliente, administrador o gestor --}}
@@ -34,9 +35,9 @@
     @if (Auth::check() && in_array(Auth::user()->rol, ['cliente', 'administrador', 'gestor_trafico']))
         <div id="card-envios">
             <card-component title-text="📦"
-                @if (Auth::check() && Auth::user()->rol == 'cliente') body-text="{{ $numEnviosCliente }} Envíos"
+                @if (Auth::check() && Auth::user()->rol == 'cliente') body-text="{{ $numEnviosCliente }} {{ $numEnviosCliente == 1 ? 'Envío' : 'Envíos' }}"
                 @elseif (Auth::check() && in_array(Auth::user()->rol, ['gestor_trafico', 'administrador']))
-                    body-text="{{ $numEnviosTotales }} Envíos" @endif
+                    body-text="{{ $numEnviosTotales }} {{ $numEnviosTotales == 1 ? 'Envío' : 'Envíos' }}" @endif
                 card-url="{{ route('envios.index') }}" class="btn btn-light"></card-component>
             @vite(['resources/js/app.js'])
         </div>
@@ -46,9 +47,9 @@
     @if (Auth::check() && in_array(Auth::user()->rol, ['gestor_trafico', 'administrador']))
         <div id="card-repartos">
             <card-component title-text="🚚"
-                @if (Auth::check() && Auth::user()->rol == 'gestor_trafico') body-text="{{ $numRepartosGestor }} Repartos"
+                @if (Auth::check() && Auth::user()->rol == 'gestor_trafico') body-text="{{ $numRepartosGestor }} {{ $numRepartosGestor == 1 ? 'Reparto' : 'Repartos' }}"
                 @elseif (Auth::check() && Auth::user()->rol == 'administrador')
-                    body-text="{{ $numRepartosTotales }} Repartos" @endif
+                    body-text="{{ $numRepartosTotales }} {{ $numRepartosTotales == 1 ? 'Reparto' : 'Repartos' }}" @endif
                 card-url="{{ route('repartos.index') }}" class="btn btn-light"></card-component>
             @vite(['resources/js/app.js'])
         </div>

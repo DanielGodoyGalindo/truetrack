@@ -19,7 +19,7 @@
                     @endif
                 </h1>
             </div>
-            {{-- Componentes botón Vue --}}
+            {{-- Componentes botón Vue (nuevo envío y finalizados) --}}
             <div id="button-app" class="d-flex flex-row gap-3">
                 <button-component button-text="✚ Nuevo envío" button-url="{{ route('envios.create') }}"
                     class="btn btn-primary h-75"></button-component>
@@ -28,11 +28,11 @@
                 @vite(['resources/js/app.js'])
             </div>
         </div>
-    @else
+    @elseif (in_array(Auth::user()->rol, ['gestor_trafico', 'administrador']))
         {{-- Gestores y Admin --}}
         <div class="container d-flex flex-row">
             <h1 class="container">Envíos</h1>
-            {{-- Componente botón Vue --}}
+            {{-- Componente botón Vue (finalizados) --}}
             <div id="button-app">
                 <button-component button-text="Finalizados" button-url="{{ route('envios.showCompleted') }}"
                     class="btn btn-primary"></button-component>

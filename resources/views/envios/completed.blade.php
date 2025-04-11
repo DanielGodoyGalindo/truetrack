@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    
+
     @include('master')
 
     {{-- Header y botón --}}
@@ -20,7 +20,7 @@
         </div>
     @else
         {{-- Gestores y Admin --}}
-        <h1 class="container">Envíos completados</h1>
+        <h1 class="container">Envíos finalizados</h1>
     @endif
 
     {{-- Tabla --}}
@@ -51,7 +51,7 @@
 
                 {{-- Datos para Clientes --}}
                 @if (Auth::user()->rol == 'cliente')
-                    @foreach ($enviosCompletados as $envio)
+                    @foreach ($enviosCompletadosCli as $envio)
                         <tr>
                             <th scope="row">{{ $envio->id }}</th>
                             <td>{{ $envio->destinatario }}</td>
@@ -70,7 +70,7 @@
 
                 {{-- Datos para Gestores y Admin --}}
                 @if (in_array(Auth::user()->rol, ['gestor_trafico', 'administrador']))
-                    @foreach ($enviosCompletados as $envio)
+                    @foreach ($enviosCompletadosNoCli as $envio)
                         <tr>
                             <th scope="row">{{ $envio->id }}</th>
                             <td>{{ $envio->cliente->name }}</td>
@@ -101,8 +101,19 @@
     </div>
 
     {{-- Paginación --}}
-    <div class="d-flex justify-content-center py-3">
-        {{ $enviosCompletados->links('pagination::bootstrap-4') }}
+    <div class="container d-flex justify-content-center py-3">
+        @if (Auth::user()->rol == 'cliente')
+            {{ $enviosCompletadosCli->links('pagination::bootstrap-4') }}
+        @elseif (in_array(Auth::user()->rol, ['gestor_trafico', 'administrador']))
+            {{ $enviosCompletadosNoCli->links('pagination::bootstrap-4') }}
+        @endif
+    </div>
+
+    {{-- Componente botón Vue (volver) --}}
+    <div id="button-app" class="container text-center">
+        <button-component button-text="Volver" button-url="{{ route('envios.index') }}"
+            class="btn btn-primary"></button-component>
+        @vite(['resources/js/app.js'])
     </div>
 
 </body>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+<head>
+    @section('title', 'Repartos Completados')
+</head>
+
+<body>
+
+    @include('master')
+
+    {{-- Header y botón --}}
+
+    <div class="container d-flex flex-row justify-content-between">
+        {{-- Si es gestor, mostrar su nombre --}}
+        <h1>Repartos
+            @if (Auth::user()->rol == 'gestor_trafico')
+                de {{ Auth::user()->name }}
+            @endif
+            finalizados
+        </h1>
+    </div>
+
+
+    {{-- Tabla --}}
+    <div class="container">
+        <table class="table align-middle">
+            <thead class="table-secondary">
+                <tr>
+                    <th scope="col">Id</th>
+                    @if (Auth::user()->rol == 'administrador')
+                        <th scope="col">Gestor tráfico</th>
+                    @endif
+                    <th scope="col">Transportista</th>
+                    <th scope="col">Vehículo</th>
+                    <th scope="col">Estado</th>
+                </tr>
+            </thead>
+
+
+            {{-- Datos --}}
+            <tbody>
+                @foreach ($finalizados as $reparto)
+                    <tr>
+                        <th scope="row">{{ $reparto->id }}</th>
+                        @if (Auth::user()->rol == 'administrador')
+                            <th> {{ $reparto->gestor->name }} </th>
+                        @endif
+                        <td>{{ $reparto->transportista->name }}</td>
+                        <td>{{ $reparto->vehiculo->matricula }}</td>
+                        <td>{{ $reparto->estado }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        {{-- Fin tabla --}}
+
+    </div>
+
+    {{-- Paginación --}}
+    <div class="container d-flex justify-content-center py-3">
+        {{ $finalizados->links('pagination::bootstrap-4') }}
+    </div>
+
+    {{-- Componente botón Vue (volver) --}}
+    <div id="button-app" class="container text-center">
+        <button-component button-text="Volver" button-url="{{ route('repartos.index') }}"
+            class="btn btn-primary"></button-component>
+        @vite(['resources/js/app.js'])
+    </div>
+
+</body>
+
+</html>
