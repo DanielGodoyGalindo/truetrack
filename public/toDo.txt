@@ -1,6 +1,7 @@
--Al anular envió, preguntar si estamos seguros con una ventana.
+-Añadir funcionalidad para transportistas.
 -Mostrar los estados de los envíos con la primera letra en mayúscula.
 -En repartos finalizados, añadir un botón que muestre todos los envíos de un reparto finalizado.
+
 
 Segundo Sprint
 ***************

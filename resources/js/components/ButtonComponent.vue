@@ -25,13 +25,4 @@ export default {
 };
 </script>
 
-<!-- <style scoped>
-.btn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-</style>
- -->
+<style scoped></style>
