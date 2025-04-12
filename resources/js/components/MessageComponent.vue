@@ -21,7 +21,7 @@ export default {
     },
     computed: {
         messageType() {
-            // 
+            // Obtener clases para los estilos dependiendo del texto de "message"
             switch (this.message) {
                 case 'deliveryNotAdded':
                     return 'info-message--error';

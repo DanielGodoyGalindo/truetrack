@@ -108,7 +108,8 @@ class RepartoController extends Controller
     public function addDeliveries(string $id)
     {
         $reparto = Reparto::find($id);
-        $enviosPendientes = Envio::whereNotIn('estado', ['entregado', 'anulado', 'en reparto'])->get();
+        // $enviosPendientes = Envio::whereNotIn('estado', ['entregado', 'anulado', 'en reparto'])->get();
+        $enviosPendientes = Envio::whereNotIn('estado', ['entregado', 'anulado', 'en reparto'])->paginate($this->numPag);
         $enviosAsignados = Envio::where('reparto_id', $id)->get();
         return view('repartos.deliveries', ['reparto' => $reparto, 'enviosPendientes' => $enviosPendientes, 'enviosAsignados' => $enviosAsignados]);
     }
@@ -135,7 +136,7 @@ class RepartoController extends Controller
     public function showDeliveries(string $id)
     {
         $reparto = Reparto::findOrFail($id);
-        $enviosPendientes = Envio::whereNotIn('estado', ['entregado', 'anulado', 'en reparto'])->get();
+        $enviosPendientes = Envio::whereNotIn('estado', ['entregado', 'anulado', 'en reparto'])->paginate($this->numPag);
         $enviosAsignados = Envio::where('reparto_id', $id)->get();
         $kilosCargados = $enviosAsignados->sum('kilos');
         // Compact() permite pasar datos a la vista de una manera más reducida (sólo se nombra la variable)

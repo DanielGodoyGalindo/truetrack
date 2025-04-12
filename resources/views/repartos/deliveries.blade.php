@@ -3,26 +3,29 @@
 
 <head>
     @section('title', 'Repartos')
+    @vite(['resources/js/app.js'])
 </head>
 
 <body>
-    @include('master')
-    {{-- Header e info del reparto --}}
-    <div class="container d-flex flex-row justify-content-around">
-        <h1>Reparto {{ $reparto->id }}</h1>
-        <div>
-            <p>Gestor de tráfico: {{ $reparto->gestor->name }}</p>
-            <p>Transportista: {{ $reparto->transportista->name }}</p>
-            <p>Vehículo: {{ $reparto->vehiculo->matricula }}</p>
-            <p>Carga máxima: {{ $reparto->vehiculo->carga_max }} kg</p>
-        </div>
-    </div>
+    @extends('master')
+    <div id="app">
+        @section('content')
+            {{-- Header e info del reparto --}}
+            <div class="container d-flex flex-row justify-content-around">
+                <h1>Reparto {{ $reparto->id }}</h1>
+                <div>
+                    <p>Gestor de tráfico: {{ $reparto->gestor->name }}</p>
+                    <p>Transportista: {{ $reparto->transportista->name }}</p>
+                    <p>Vehículo: {{ $reparto->vehiculo->matricula }}</p>
+                    <p>Carga máxima: {{ $reparto->vehiculo->carga_max }} kg</p>
+                </div>
+            </div>
 
-    {{-- Tablas para asignar envios a reparto --}}
-    <div class="container">
+            {{-- Tablas para asignar envios a reparto --}}
+            <div class="container">
 
-        {{-- Tabla inicial --}}
-        {{-- <table class="table">
+                {{-- Tabla inicial --}}
+                {{-- <table class="table">
                 <thead class="table-secondary">
                     <tr>
                         <th scope="col">Envío Id</th>
@@ -44,78 +47,86 @@
                         </tr>
                     @endforeach
                 </tbody>
-            </table> --}}
+                </table> --}}
 
 
-        {{-- Tabla con envios pendientes de reparto --}}
-        <div class="container">
-            <h2 class="pt-2">Envíos disponibles</h2>
-            <table class="table align-middle">
-                <thead>
-                    <tr>
-                        <th>Envio Id</th>
-                        <th>Destinatario</th>
-                        <th>Estado</th>
-                        <th>Peso</th>
-                        <th>Asignar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($enviosPendientes as $envio)
-                        <tr>
-                            <td>{{ $envio->id }}</td>
-                            <td>{{ $envio->destinatario }}</td>
-                            <td>{{ $envio->estado }}</td>
-                            <td>{{ $envio->kilos }} kgs</td>
-                            <td>
-                                {{-- Botón para asignar envios --}}
-                                <form action="{{ route('repartos.asignar', $reparto->id) }}" method="POST">
-                                    @csrf
-                                    {{-- Número de envío --}}
-                                    <input type="hidden" name="envio_id" value="{{ $envio->id }}">
-                                    <button type="submit" class="btn btn-outline-success">Añadir al reparto</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                {{-- Tabla con envios pendientes de reparto --}}
+                <div class="container">
+                    <h2 class="pt-2">Envíos disponibles</h2>
+                    <table class="table align-middle">
+                        <thead>
+                            <tr>
+                                <th>Envío Id</th>
+                                <th>Destinatario</th>
+                                <th>Estado</th>
+                                <th>Peso</th>
+                                <th>Asignar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($enviosPendientes as $envio)
+                                <tr>
+                                    <td>{{ $envio->id }}</td>
+                                    <td>{{ $envio->destinatario }}</td>
+                                    <td>{{ $envio->estado }}</td>
+                                    <td>{{ $envio->kilos }} kgs</td>
+                                    <td>
+                                        {{-- Botón para asignar envíos --}}
+                                        <form action="{{ route('repartos.asignar', $reparto->id) }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="envio_id" value="{{ $envio->id }}">
+                                            <button type="submit" class="btn btn-outline-success">Añadir al
+                                                reparto</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
 
-            {{-- Tabla con envíos ya asignados al reparto actual --}}
-            <h2 class="pt-5">Envíos asignados</h2>
-            <table class="table align-middle">
-                <thead>
-                    <tr>
-                        <th>Envio Id</th>
-                        <th>Destinatario</th>
-                        <th>Estado</th>
-                        <th>Quitar del reparto</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($enviosAsignados as $envio)
-                        <tr>
-                            <td>{{ $envio->id }}</td>
-                            <td>{{ $envio->destinatario }}</td>
-                            <td>{{ $envio->estado }}</td>
-                            {{-- Botón para quitar del reparto --}}
-                            <td>
-                                <form action="{{ route('repartos.removeFromDelivery', $reparto->id) }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="envio_id" value="{{ $envio->id }}">
-                                    <button type="submit" class="btn">❌</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+                    {{-- Paginación para la primera tabla --}}
+                    <div class="d-flex justify-content-center py-3">
+                        {{ $enviosPendientes->links('pagination::bootstrap-4') }}
+                    </div>
 
-        {{-- Mostrar kilos totales cargados en el vehículo --}}
+                </div>
 
-        {{-- Mensajes bootstrap --}}
-        {{-- <div class="container pt-5 d-flex justify-content-around">
+                {{-- Tabla con envíos asignados al reparto actual --}}
+                <div class="container">
+                    <h2 class="pt-5">Envíos asignados</h2>
+                    <table class="table align-middle">
+                        <thead>
+                            <tr>
+                                <th>Envío Id</th>
+                                <th>Destinatario</th>
+                                <th>Estado</th>
+                                <th>Quitar del reparto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($enviosAsignados as $envio)
+                                <tr>
+                                    <td>{{ $envio->id }}</td>
+                                    <td>{{ $envio->destinatario }}</td>
+                                    <td>{{ $envio->estado }}</td>
+                                    <td>
+                                        <form action="{{ route('repartos.removeFromDelivery', $reparto->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            <input type="hidden" name="envio_id" value="{{ $envio->id }}">
+                                            <button type="submit" class="btn">❌</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                {{-- Mostrar kilos totales cargados en el vehículo --}}
+
+                {{-- Mensajes bootstrap --}}
+                {{-- <div class="container pt-5 d-flex justify-content-around">
             <span class="h4"> Kilos cargados: {{ $kilosCargados ?? 0 }} kgs</span>
             <div>
                 @switch(session('message'))
@@ -135,17 +146,18 @@
             </div>
         </div> --}}
 
-        {{-- Componente vue para mensajes --}}
-        <div class="container pt-5 d-flex justify-content-around">
-            <span class="h4"> Kilos cargados: {{ $kilosCargados ?? 0 }} kgs</span>
-            <div id="message-app">
-                @if (session('message'))
-                    <message-component :message="'{{ session('message') }}'" />
-                @endif
-                @vite(['resources/js/app.js'])
+                {{-- Mostrar información de kilos --}}
+                <div class="container pt-5 d-flex justify-content-around">
+                    <span class="h4"> Kilos cargados: {{ $kilosCargados ?? 0 }} kgs</span>
+                    {{-- Componente vue para mensajes --}}
+                    <div id="message-app">
+                        @if (session('message'))
+                            <message-component :message="'{{ session('message') }}'" />
+                        @endif
+                    </div>
+                </div>
+
             </div>
         </div>
-
-    </div>
-
+    @endsection
 </body>
