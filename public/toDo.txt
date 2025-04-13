@@ -8,3 +8,4 @@ Segundo Sprint
 -Componente vue para mostrar en una barra de progreso % los kilos cargados en un reparto
 -Al enviar un mail como cliente, que se incluya la info del envío en el mail.
 -Si un usuario se registra, hay que modificar el formulario para que elija que rol va a tener.
+-Cambiar botones de perfil y desconectar a componentes vue.
