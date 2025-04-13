@@ -33,13 +33,13 @@
                         @foreach ($repartos as $reparto)
                             <tr>
                                 <th scope="row">{{ $reparto->id }}</th>
-                                <td>{{ $reparto->gestor_id->name }}</td>
-                                <td>{{ $reparto->vehiculo_id->matricula }}</td>
+                                <td>{{ $reparto->gestor->name }}</td>
+                                <td>{{ $reparto->vehiculo->matricula }}</td>
                                 <td>
                                     {{-- Componente botón Vue --}}
                                     <div id="button-app">
                                         <button-component button-text="Ver reparto"
-                                            button-url="{{ route('envios.showCompleted') }}"
+                                            button-url="{{ route('driver.deliveries', [$reparto->id]) }}"
                                             class="btn btn-primary"></button-component>
                                     </div>
                                 </td>

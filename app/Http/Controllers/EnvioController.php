@@ -128,7 +128,7 @@ class EnvioController extends Controller
     public function showDatosIndex()
     {
         // Comprobar si el usuario es transportista
-        if (Auth::user()->rol == 'transportista') {
+        if (Auth::check() && Auth::user()->rol == 'transportista') {
             return redirect()->route('driver.distributions', ['id' => Auth::user()->id]);
         }
 

@@ -63,6 +63,7 @@
                                     <td>
                                         <form action="{{ route('repartos.addDeliveries', $reparto->id) }}" method="POST">
                                             @csrf
+                                            {{-- @method('POST') --}}
                                             <input type="submit" value="🚚" class="btn fs-3">
                                         </form>
                                     </td>
