@@ -7,8 +7,8 @@
 
 <body>
     @extends('master')
-    <div id="app">
-        @section('content')
+    @section('content')
+        <div id="app">
             <div class="container">
                 <h1>Enviar mensaje</h1>
                 <div class="d-flex flex-row justify-content-around mt-4">
@@ -17,7 +17,7 @@
                         <p>Destinatario: {{ $envio->destinatario }}</p>
                         <p>Bultos: {{ $envio->bultos }}</p>
                         <p>Kilos: {{ $envio->kilos }}</p>
-                        <p>Estado: {{ $envio->estado }}</p>
+                        <p>Estado: {{ Str::title($envio->estado) }}</p>
                     </div>
                     {{-- Formulario --}}
                     <form action="{{ route('envios.sendEmail') }}" method="POST">

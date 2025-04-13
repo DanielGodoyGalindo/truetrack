@@ -9,8 +9,8 @@
 
 <body>
     @extends('master')
-    <div id="app">
-        @section('content')
+    @section('content')
+        <div id="app">
             {{-- Header y botón --}}
             @if (Auth::user()->rol == 'cliente') {{-- Clientes --}}
                 <div class="container d-flex flex-row justify-content-between">
@@ -69,56 +69,13 @@
                         </thead>
                         <tbody>
 
-                            {{-- forEach original --}}
-                            {{-- @foreach ($enviosCliente as $envio)
-                        <tr>
-                        <th scope="row">{{ $envio->id }}</th>
-                        @if (in_array(Auth::user()->rol, ['gestor_trafico', 'administrador']))
-                            <td>{{ $envio->cliente->name }}</td>
-                        @endif
-                        <td>{{ $envio->destinatario }}</td>
-                        <td>{{ $envio->estado }}</td>
-                        @if (Auth::user()->rol == 'gestor_trafico')
-                            <td>{{ $envio->reparto_id ?? 'No asignado' }}</td>
-                        @endif
-                        <td>{{ $envio->bultos }} bultos - {{ $envio->kilos }} kilos</td>
-                        @if (Auth::user()->rol == 'cliente')
-                            <td class="text-center"> --}}
-                            {{-- Formulario mandar emails --}}
-                            {{-- <form action="{{ route('envios.email', $envio->id) }}" method="POST">
-                                    @csrf
-                                    <input type="submit" value="Enviar" class="btn btn-info">
-                                </form>
-                            </td>
-                            <td class="text-center"> --}}
-                            {{-- Formulario para anular envíos --}}
-                            {{-- <form action="{{ route('envios.setNull', $envio->id) }}" method="POST">
-                                    @csrf
-                                    <input type="submit" value="Anular" class="btn btn-danger">
-                                </form>
-                            </td>
-                        @endif --}}
-                            {{-- Borrar envíos --}}
-                            {{-- @if (Auth::user()->rol == 'administrador')
-                            <td>
-                                <form action="{{ route('envios.destroy', $envio->id) }}" method="POST" class="w-50">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="submit" value="✖" class="btn btn-danger col-12">
-                                </form>
-                            </td>
-                        @endif
-                        </tr>
-                        @endforeach --}}
-
-
                             {{-- Datos para Clientes --}}
                             @if (Auth::user()->rol == 'cliente')
                                 @foreach ($enviosCliente as $envio)
                                     <tr>
                                         <th scope="row">{{ $envio->id }}</th>
                                         <td>{{ $envio->destinatario }}</td>
-                                        <td>{{ $envio->estado }}</td>
+                                        <td>{{ Str::title($envio->estado) }}</td>
                                         <td>{{ $envio->bultos }} bultos - {{ $envio->kilos }} kilos</td>
                                         <td class="text-center">
                                             {{-- Formulario mandar emails --}}
@@ -127,15 +84,6 @@
                                                 <input type="submit" value="Enviar" class="btn btn-info">
                                             </form>
                                         </td>
-
-                                        {{-- Formulario para anular envíos
-                                        <td class="text-center">
-                                            <form action="{{ route('envios.setNull', $envio->id) }}" method="POST">
-                                                @csrf
-                                                <input type="submit" value="Anular" class="btn btn-danger">
-                                            </form> 
-                                        </td> --}}
-
                                         <td class="text-center">
                                             {{-- Botón anular envío --}}
                                             <button class="btn btn-danger"
@@ -155,7 +103,7 @@
                                         <th scope="row">{{ $envio->id }}</th>
                                         <td>{{ $envio->cliente->name }}</td>
                                         <td>{{ $envio->destinatario }}</td>
-                                        <td>{{ $envio->estado }}</td>
+                                        <td>{{ Str::title($envio->estado) }}</td>
                                         @if (Auth::user()->rol == 'gestor_trafico')
                                             <td>{{ $envio->reparto_id ?? 'No asignado' }}</td>
                                         @endif

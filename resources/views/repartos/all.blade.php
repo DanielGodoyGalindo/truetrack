@@ -7,8 +7,8 @@
 
 <body>
     @extends('master')
-    <div id="app">
-        @section('content')
+    @section('content')
+        <div id="app">
             <div
                 @if (Auth::user()->rol == 'gestor_trafico') class="container d-flex flex-row justify-content-between" 
                 @else class="container" @endif>
@@ -50,41 +50,6 @@
                         </tr>
                     </thead>
 
-
-                    {{-- Foreach general --}}
-                    {{-- @foreach ($repartos as $reparto)
-                    <tr>
-                        <th scope="row">{{ $reparto->id }}</th>
-                        @if (Auth::user()->rol == 'administrador')
-                            <td>{{ $reparto->gestor->name }}</td>
-                        @endif
-                        <td>{{ $reparto->transportista->name }}</td>
-                        <td>{{ $reparto->vehiculo->matricula }}</td>
-                        <td>{{ $reparto->estado }}</td> --}}
-                    {{-- Borrar repartos --}}
-                    {{-- @if (Auth::user()->rol == 'administrador')
-                            <td>
-                                <form action="{{ route('repartos.destroy', $reparto->id) }}" method="POST"
-                                    class="w-50">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="submit" value="✖" class="btn btn-danger col-12">
-                                </form>
-                            </td>
-                        @endif --}}
-                    {{-- Asignar envios --}}
-                    {{-- @if (Auth::user()->rol == 'gestor_trafico')
-                            <td>
-                                <form action="{{ route('repartos.addDeliveries', $reparto->id) }}" method="POST">
-                                    @csrf
-                                    <input type="submit" value="🚚" class="btn">
-                                </form>
-                            </td>
-                        @endif
-                    </tr>
-                @endforeach --}}
-
-
                     <tbody>
                         {{-- Datos para gestores --}}
                         @if (Auth::user()->rol == 'gestor_trafico')
@@ -93,7 +58,7 @@
                                     <th scope="row">{{ $reparto->id }}</th>
                                     <td>{{ $reparto->transportista->name }}</td>
                                     <td>{{ $reparto->vehiculo->matricula }}</td>
-                                    <td>{{ $reparto->estado }}</td>
+                                    <td>{{ Str::title($reparto->estado) }}</td>
                                     {{-- Asignar envios --}}
                                     <td>
                                         <form action="{{ route('repartos.addDeliveries', $reparto->id) }}" method="POST">
@@ -113,7 +78,7 @@
                                     <td>{{ $reparto->gestor->name }}</td>
                                     <td>{{ $reparto->transportista->name }}</td>
                                     <td>{{ $reparto->vehiculo->matricula }}</td>
-                                    <td>{{ $reparto->estado }}</td>
+                                    <td>{{ Str::title($reparto->estado) }}</td>
                                     {{-- Borrar repartos --}}
                                     <td>
                                         <form action="{{ route('repartos.destroy', $reparto->id) }}" method="POST"
@@ -126,11 +91,11 @@
                                 </tr>
                             @endforeach
                         @endif
-
                     </tbody>
                 </table>
             </div>
             {{-- Fin tabla --}}
+
             {{-- Paginación --}}
             <div class="d-flex justify-content-center py-3">
                 @if (Auth::user()->rol == 'gestor_trafico')
@@ -139,6 +104,7 @@
                     {{ $repartosAdmin->links('pagination::bootstrap-4') }}
                 @endif
             </div>
+
         </div>
     @endsection
 </body>

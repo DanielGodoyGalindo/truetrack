@@ -7,8 +7,8 @@
 
 <body>
     @extends('master')
-    <div id="app">
-        @section('content')
+    @section('content')
+        <div id="app">
 
             {{-- Header y botón --}}
             @if (Auth::user()->rol == 'cliente') {{-- Clientes --}}
@@ -56,7 +56,7 @@
                                 <tr>
                                     <th scope="row">{{ $envio->id }}</th>
                                     <td>{{ $envio->destinatario }}</td>
-                                    <td>{{ $envio->estado }}</td>
+                                    <td>{{ Str::title($envio->estado) }}</td>
                                     <td>{{ $envio->bultos }} bultos - {{ $envio->kilos }} kilos</td>
                                     <td class="text-center">
                                         {{-- Formulario mandar emails --}}
@@ -76,7 +76,7 @@
                                     <th scope="row">{{ $envio->id }}</th>
                                     <td>{{ $envio->cliente->name }}</td>
                                     <td>{{ $envio->destinatario }}</td>
-                                    <td>{{ $envio->estado }}</td>
+                                    <td>{{ Str::title($envio->estado) }}</td>
                                     @if (Auth::user()->rol == 'gestor_trafico')
                                         <td>{{ $envio->reparto_id ?? 'No asignado' }}</td>
                                     @endif

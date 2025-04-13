@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reparto;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -60,5 +62,12 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function driverDistributions(string $idTransportista)
+    {
+        $repartos = Reparto::where('transportista_id', $idTransportista)->get();
+        $transportista = User::findOrFail($idTransportista);
+        return view('transportistas.myDistributions', compact('repartos', 'transportista'));
     }
 }

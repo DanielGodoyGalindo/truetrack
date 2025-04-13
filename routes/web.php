@@ -35,6 +35,8 @@ Route::get('/', [EnvioController::class, 'showDatosIndex'])->name('index');
 Route::get('/envios/completed', [EnvioController::class, 'showCompleted'])->middleware('auth')->name('envios.showCompleted');
 // Ruta para mostrar los repartos completados (estado finalizado)
 Route::get('/repartos/deliveriesCompleted', [RepartoController::class, 'showDeliveriesCompleted'])->middleware('auth')->name('repartos.showDeliveriesCompleted');
+// Ruta para que los transportistas vean sus repartos
+Route::get('/repartosTransportista/{id}', [UserController::class, 'driverDistributions'])->middleware('auth')->name('driver.distributions');
 
 
 /////////////////////
@@ -61,13 +63,12 @@ Route::post('/envios/anular/{id}', [EnvioController::class, 'setNull'])->middlew
 ////////////////////////////////
 
 // Ruta para añadir envios a un reparto, se pasa el id del reparto en el que el usuario ha hecho clic en la vista repartos.all
-Route::post('/repartos/addDeliveries/{id}', [RepartoController::class, 'addDeliveries'])->middleware('auth')->name('repartos.addDeliveries');
+Route::get('/repartos/addDeliveries/{id}', [RepartoController::class, 'addDeliveries'])->middleware('auth')->name('repartos.addDeliveries');
 // Ruta para actualizar la vista repartos.deliveries (para ver cómo se van asignando / sacando loe envios de un reparto)
 Route::get('/repartos/{id}/showDeliveries', [RepartoController::class, 'showDeliveries'])->middleware('auth')->name('repartos.showDeliveries');
 // Ruta para usar en el botón de asignar envío a un reparto
 Route::post('/repartos/{id}/asignar', [RepartoController::class, 'assignDelivery'])->middleware('auth')->name('repartos.asignar');
 // Ruta para usar en el botón de quitar un envío de un reparto
 Route::post('/repartos/{id}/removeDelivery', [RepartoController::class, 'removeFromDelivery'])->middleware('auth')->name('repartos.removeFromDelivery');
-
 
 require __DIR__ . '/auth.php';

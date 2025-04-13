@@ -8,8 +8,8 @@
 
 <body>
     @extends('master')
-    <div id="app">
-        @section('content')
+    @section('content')
+        <div id="app">
             {{-- Header e info del reparto --}}
             <div class="container d-flex flex-row justify-content-around">
                 <h1>Reparto {{ $reparto->id }}</h1>
@@ -23,33 +23,6 @@
 
             {{-- Tablas para asignar envios a reparto --}}
             <div class="container">
-
-                {{-- Tabla inicial --}}
-                {{-- <table class="table">
-                <thead class="table-secondary">
-                    <tr>
-                        <th scope="col">Envío Id</th>
-                        <th scope="col">Destinatario</th>
-                        <th scope="col">Bultos y kilos</th>
-                        <th scope="col">Añadir</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($enviosPendientes as $envio)
-                        <tr>
-                            <th scope="row">{{ $envio->id }}</th>
-                            <td>{{ $envio->destinatario }}</td>
-                            <td>{{ $envio->bultos }} - {{ $envio->kilos }}</td>
-                            <form action="{{ route('repartos.load2Truck', $reparto->id) }}" method="POST">
-                                @csrf
-                                <input type="submit" value="+" class="btn">
-                            </form>
-                        </tr>
-                    @endforeach
-                </tbody>
-                </table> --}}
-
-
                 {{-- Tabla con envios pendientes de reparto --}}
                 <div class="container">
                     <h2 class="pt-2">Envíos disponibles</h2>
@@ -68,7 +41,7 @@
                                 <tr>
                                     <td>{{ $envio->id }}</td>
                                     <td>{{ $envio->destinatario }}</td>
-                                    <td>{{ $envio->estado }}</td>
+                                    <td>{{ Str::title($envio->estado) }}</td>
                                     <td>{{ $envio->kilos }} kgs</td>
                                     <td>
                                         {{-- Botón para asignar envíos --}}
@@ -88,7 +61,6 @@
                     <div class="d-flex justify-content-center py-3">
                         {{ $enviosPendientes->links('pagination::bootstrap-4') }}
                     </div>
-
                 </div>
 
                 {{-- Tabla con envíos asignados al reparto actual --}}
@@ -108,7 +80,7 @@
                                 <tr>
                                     <td>{{ $envio->id }}</td>
                                     <td>{{ $envio->destinatario }}</td>
-                                    <td>{{ $envio->estado }}</td>
+                                    <td>{{ Str::title($envio->estado) }}</td>
                                     <td>
                                         <form action="{{ route('repartos.removeFromDelivery', $reparto->id) }}"
                                             method="POST">
@@ -122,29 +94,6 @@
                         </tbody>
                     </table>
                 </div>
-
-                {{-- Mostrar kilos totales cargados en el vehículo --}}
-
-                {{-- Mensajes bootstrap --}}
-                {{-- <div class="container pt-5 d-flex justify-content-around">
-            <span class="h4"> Kilos cargados: {{ $kilosCargados ?? 0 }} kgs</span>
-            <div>
-                @switch(session('message'))
-                    @case('deliveryAdded')
-                        <span class="alert alert-success" role="alert">Se ha asignado el envío correctamente.</span>
-                    @break
-
-                    @case('deliveryNotAdded')
-                        <span class="alert alert-danger" role="alert">No se ha podido asignar el envío. Se superaría el peso
-                            máximo del vehículo.</span>
-                    @break
-
-                    @case('deliveryRemoved')
-                        <span class="alert alert-warning" role="alert">Se ha quitado el envío del reparto.</span>
-                    @break
-                @endswitch
-            </div>
-        </div> --}}
 
                 {{-- Mostrar información de kilos --}}
                 <div class="container pt-5 d-flex justify-content-around">
