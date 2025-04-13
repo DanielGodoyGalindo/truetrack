@@ -8,8 +8,8 @@
 <body>
 
     @extends('master')
-    <div id="app">
-        @section('content')
+    @section('content')
+        <div id="app">
 
             {{-- Header y botón --}}
             <div class="container d-flex flex-row justify-content-between">
@@ -47,7 +47,7 @@
                                 @endif
                                 <td>{{ $reparto->transportista->name }}</td>
                                 <td>{{ $reparto->vehiculo->matricula }}</td>
-                                <td>{{ $reparto->estado }}</td>
+                                <td>{{ Str::title($reparto->estado) }}</td>
                             </tr>
                         @endforeach
                     </tbody>

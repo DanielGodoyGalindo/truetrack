@@ -1,6 +1,3 @@
-{{-- @section('Página Principal', 'TrueTrack')
-@section('header', 'TrueTrack') --}}
-
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -10,22 +7,9 @@
 
 <body>
     @extends('master')
-    <div id="app">
-        @section('content')
-
-            {{-- Tarjeta Envíos Bootstrap --}}
-            {{--     <div class="container">
-            <div class="card">
-            <div class="card-header">
-                Envíos
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Listado de todos los envíos</h5>
-                <p class="card-text">Accede a este apartado para ver todos los envíos y sus estados.</p>
-                <a href="{{ route('envios.index') }}" class="btn btn-primary">Acceder</a>
-            </div>
-            </div>
-            </div> --}}
+    @section('content')
+        {{-- Carga de componente Vue --}}
+        <div id="app">
 
             {{-- Sólo para pruebas- Mostrar usuario conectado --}}
             <p class="container">Usuario conectado: {{ Auth::user()->name ?? 'nadie' }} -- Con ID:
@@ -56,6 +40,7 @@
                     @vite(['resources/js/app.js'])
                 </div>
             @endif
+
         </div>
     @endsection
 </body>

@@ -7,8 +7,8 @@
 
 <body>
     @extends('master')
-    <div id="app">
-        @section('content')
+    @section('content')
+        <div id="app">
             <div class="container">
                 <h1>Crear envío</h1>
                 {{-- Formulario --}}

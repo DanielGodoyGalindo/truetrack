@@ -124,13 +124,13 @@ class EnvioController extends Controller
     }
 
     /* Método para devolver el número total de envíos no entregados ni anulados */
-    /* Se usa en index para mostrar los datos en los componentes card de Vue */
+    /* Se usa en index para mostrar los datos en los componentes card de Vue  y para redireccionar a los transportistas */
     public function showDatosIndex()
     {
-        // $numEnvios = Envio::count();
-        // $numEnvios = Envio::where('estado', '!=', 'entregado')
-        //     ->where('estado', '!=', 'anulado')
-        //     ->count();
+        // Comprobar si el usuario es transportista
+        if (Auth::user()->rol == 'transportista') {
+            return redirect()->route('driver.distributions', ['id' => Auth::user()->id]);
+        }
 
         // Devolver números enteros //
         // Devuelve el número de envios que corresponsen al usuario cliente que está autenticado

@@ -44,12 +44,15 @@
             </div>
         </div>
     </header>
+
     <!-- Contenido de la pagina -->
-    <main class="container-fluid d-flex flex-column align-items-center">
+    <main class="container-fluid">
         @yield('content')
     </main>
 
     {{-- @include('includes.footer') --}}
+    
+    {{-- Bootstrap --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
