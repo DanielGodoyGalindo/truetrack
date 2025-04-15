@@ -35,8 +35,6 @@ Route::middleware('auth')->group(function () {
 Route::get('/repartosTransportista/{id}', [UserController::class, 'driverDistributions'])->middleware('auth')->name('driver.distributions');
 // Ruta para mostrar los envíos dentro de un reparto para un transportista
 Route::get('/repartoTransportista/{id}', [UserController::class, 'driverDeliveries'])->middleware('auth')->name('driver.deliveries');
-// Ruta para actualizar el estado de un envío
-Route::post('/actualizarRepartoTransportista/{id}', [UserController::class, 'updateDriverDistribution'])->middleware('auth')->name('driver.updateDistribution');
 
 
 ///////////////////
@@ -70,6 +68,8 @@ Route::resource('vehiculos', VehiculoController::class)->middleware('auth');
 Route::post('/envios/mail/{id}', [EnvioController::class, 'email'])->middleware('auth')->name('envios.email');
 Route::post('/envios/send-email', [EnvioController::class, 'sendEmail'])->middleware('auth')->name('envios.sendEmail');
 Route::post('/envios/anular/{id}', [EnvioController::class, 'setNull'])->middleware('auth')->name('envios.setNull');
+// Ruta para que Rol Transportista pueda actualizar el estado de un envío
+Route::post('/envios/actualizar/{id}', [EnvioController::class, 'actualizarEnvio'])->name('envios.actualizar');
 
 
 /////////////////////////////////
@@ -77,8 +77,8 @@ Route::post('/envios/anular/{id}', [EnvioController::class, 'setNull'])->middlew
 ////////////////////////////////
 
 // Ruta para añadir envios a un reparto, se pasa el id del reparto en el que el usuario ha hecho clic en la vista repartos.all
-Route::post('/repartos/addDeliveries/{id}', [RepartoController::class, 'addDeliveries'])->middleware('auth')->name('repartos.addDeliveries');
-// Ruta para actualizar la vista repartos.deliveries (para ver cómo se van asignando / sacando loe envios de un reparto)
+Route::get('/repartos/{id}/addDeliveries', [RepartoController::class, 'addDeliveries'])->middleware('auth')->name('repartos.addDeliveries');
+// Ruta para actualizar la vista repartos.deliveries (para ver cómo se van asignando / sacando los envios de un reparto)
 Route::get('/repartos/{id}/showDeliveries', [RepartoController::class, 'showDeliveries'])->middleware('auth')->name('repartos.showDeliveries');
 // Ruta para usar en el botón de asignar envío a un reparto
 Route::post('/repartos/{id}/asignar', [RepartoController::class, 'assignDelivery'])->middleware('auth')->name('repartos.asignar');

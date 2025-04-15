@@ -107,11 +107,11 @@ class RepartoController extends Controller
     // Método para mostrar la vista de añadir envios a un reparto (repartos.deliveries) (dos tablas: una con envios para asignar y otra con envios que se van asignando)
     public function addDeliveries(string $id)
     {
-        $reparto = Reparto::find($id);
+        $reparto = Reparto::findOrFail($id);
         // $enviosPendientes = Envio::whereNotIn('estado', ['entregado', 'anulado', 'en reparto'])->get();
         $enviosPendientes = Envio::whereNotIn('estado', ['entregado', 'anulado', 'en reparto'])->paginate($this->numPag);
         $enviosAsignados = Envio::where('reparto_id', $id)->get();
-        return view('repartos.deliveries', ['reparto' => $reparto, 'enviosPendientes' => $enviosPendientes, 'enviosAsignados' => $enviosAsignados]);
+        return view('repartos.deliveries', compact('reparto', 'enviosPendientes', 'enviosAsignados'));
     }
 
     // Método para actualizar un envio que ha sido asignado en un reparto
@@ -159,5 +159,31 @@ class RepartoController extends Controller
     {
         $finalizados = Reparto::where('gestor_id', Auth::id())->where('estado', 'finalizado')->paginate($this->numPag);
         return view('repartos.completed', ['finalizados' => $finalizados]);
+    }
+
+    // Mostrar todos los envíos con estado 'no entregado' en un reparto de un transportista
+    // Se ejecuta cuando un transportista que tiene envios no entregados accede a la seccion 'Información no entregados'
+    // para que añada la información de cada envio fallido
+    public function showFailedDeliveries(string $repartoId)
+    {
+        $enviosFallidos = Envio::where([['reparto_id', $repartoId], ['estado', 'no entregado']])->get();
+        $reparto = Reparto::findOrFail($repartoId);
+        return view('transportistas.failedDeliveries', compact('enviosFallidos', 'reparto'));
+    }
+
+    // Actualiza la información de los envíos que han sido marcados como no entregados
+    // Se ejecuta cuando un transportista ha entrado en los envíos no entregados de su reparto
+    // y selecciona "Guardar detalles envíos fallidos"
+    public function updateFailedDeliveries(Request $r, string $repartoId)
+    {
+        $info = $r->input('info');
+        foreach ($info as $envioId => $informacion) {
+            $envio = Envio::findOrFail($envioId);
+            $envio->informacion = $informacion;
+            $envio->save();
+        }
+        return redirect()
+            ->route('driver.deliveries', $repartoId)
+            ->with('success', '¡Comentarios guardados!');
     }
 }

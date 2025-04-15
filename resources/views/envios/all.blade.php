@@ -4,7 +4,7 @@
 <head>
     @section('title', 'Envios')
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    @vite('resources/js/app.js')
+    @vite(['resources/js/app.js'])
 </head>
 
 <body>
@@ -37,7 +37,6 @@
                     <div id="button-app">
                         <button-component button-text="Finalizados" button-url="{{ route('envios.showCompleted') }}"
                             class="btn btn-primary"></button-component>
-                        @vite(['resources/js/app.js'])
                     </div>
                 </div>
             @endif

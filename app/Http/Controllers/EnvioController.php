@@ -155,4 +155,13 @@ class EnvioController extends Controller
         $enviosCompletadosNoCli = Envio::whereIn('estado', ['entregado', 'anulado'])->paginate($this->numPag);
         return view('envios.completed', ['enviosCompletadosCli' => $enviosCompletadosCli, 'enviosCompletadosNoCli' => $enviosCompletadosNoCli]);
     }
+
+    public function actualizarEnvio(Request $r, $envioId)
+    {
+        $envio = Envio::findOrFail($envioId);
+        $envio->estado = $r->estado;
+        $envio->informacion = $envio->estado == 'no entregado' ? $r->informacion : null;
+        $envio->save();
+        return redirect()->route('driver.deliveries', $envio->reparto_id);
+    }
 }

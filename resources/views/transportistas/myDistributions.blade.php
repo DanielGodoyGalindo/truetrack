@@ -3,8 +3,7 @@
 
 <head>
     @section('title', 'Mis Repartos')
-    {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
-    @vite('resources/js/app.js')
+    @vite(['resources/js/app.js'])
 </head>
 
 <body>
