@@ -149,6 +149,7 @@ class EnvioController extends Controller
     }
 
     // Mostrar los envíos que ya han sido entregados y los envíos que han sido anulados
+    // Se ejecuta cuando se solicita ver envios finalizados
     public function showCompleted()
     {
         $enviosCompletadosCli = Envio::where('cliente_id', Auth::id())->whereIn('estado', ['entregado', 'anulado'])->paginate($this->numPag);
@@ -156,6 +157,7 @@ class EnvioController extends Controller
         return view('envios.completed', ['enviosCompletadosCli' => $enviosCompletadosCli, 'enviosCompletadosNoCli' => $enviosCompletadosNoCli]);
     }
 
+    // 
     public function actualizarEnvio(Request $r, $envioId)
     {
         $envio = Envio::findOrFail($envioId);

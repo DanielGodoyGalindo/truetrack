@@ -25,7 +25,7 @@
                 <h3>Mis entregas:</h3>
                 <table class="table align-middle">
                     <thead class="table-secondary">
-                        <tr>
+                        <tr class="text-center">
                             <th scope="col">Envío Id</th>
                             <th scope="col">Cliente</th>
                             <th scope="col">Destinatario</th>
@@ -41,26 +41,29 @@
                                 <td>{{ $envio->cliente->name }}</td>
                                 <td>{{ $envio->destinatario }}</td>
                                 <td>
-
-                                    {{-- Guardar envios y su estado en array asociativo --}}
+                                    {{-- Elemento select para seleccionar estado de envio --}}
                                     <form action="{{ route('envios.actualizar', $envio->id) }}" method="POST">
                                         @csrf
-                                        {{-- @method('POST') --}}
-                                        <select name="estado">
-                                            @foreach ($estados as $estado)
-                                                <option value="{{ $estado }}"
-                                                    {{ $estado == $envio->estado ? 'selected' : '' }}>{{ $estado }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        <div id="envio-{{ $envio->id }}"
-                                            style="display: {{ $envio->estado == 'no entregado' ? 'block' : 'none' }}">
-                                            <input type="text" name="informacion" value="{{ $envio->informacion }}"
-                                                placeholder="Razón no entrega...">
+                                        <div class="d-flex gap-3">
+                                            <select name="estado" id="estado-{{ $envio->id }}"
+                                                onchange="cambiarEstado({{ $envio->id }})">
+                                                @foreach ($estados as $estado)
+                                                    <option value="{{ $estado }}"
+                                                        {{ $estado == $envio->estado ? 'selected' : '' }}>
+                                                        {{ $estado }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            {{-- Input para añadir información de no entrega --}}
+                                            <div id="envio-{{ $envio->id }}"
+                                                style="display: {{ $envio->estado == 'no entregado' ? 'block' : 'none' }}">
+                                                <input id="info-{{ $envio->id }}" type="text" name="informacion"
+                                                    value="{{ $envio->informacion }}" placeholder="Información no entrega"
+                                                    required>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Actualizar</button>
                                         </div>
-                                        <button type="submit">Actualizar</button>
                                     </form>
-
                                 </td>
                                 <td> {{ $envio->bultos }} b. - {{ $envio->kilos }} kg</td>
                             </tr>
@@ -68,9 +71,25 @@
                     </tbody>
                 </table>
                 {{-- Fin tabla --}}
-                {{-- </form> --}}
             </div>
         @endsection
 </body>
+
+<script>
+    /* Mostrar u ocultar input si usuario selecciona estado 'no entregado' */
+    function cambiarEstado(envioId) {
+        // Interpolación y String literals
+        const elementoSelect = document.querySelector(`#estado-${envioId}`);
+        const elementoDiv = document.querySelector(`#envio-${envioId}`);
+        const elementoInput = document.querySelector(`#info-${envioId}`)
+        if (elementoSelect.value == 'no entregado') {
+            elementoDiv.style.display = 'block';
+            elementoInput.setAttribute('required', 'required');
+        } else {
+            elementoDiv.style.display = 'none';
+            elementoInput.removeAttribute('required');
+        }
+    }
+</script>
 
 </html>

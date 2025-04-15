@@ -5,7 +5,6 @@ import SelectComponent from './components/SelectComponent.vue';
 import TableComponent from './components/TableComponent.vue';
 import MessageComponent from './components/MessageComponent.vue';
 import ModalComponent from './components/ModalComponent.vue';
-import SelectEstadoComponent from './components/SelectEstadoComponent.vue';
 
 const app = createApp({
     data() {
@@ -31,5 +30,4 @@ app.component('select-component', SelectComponent);
 app.component('table-component', TableComponent);
 app.component('message-component', MessageComponent);
 app.component('modal-component', ModalComponent);
-app.component('select-estado-component', SelectEstadoComponent);
 app.mount('#app');
