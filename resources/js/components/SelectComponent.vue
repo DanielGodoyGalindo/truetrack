@@ -1,11 +1,9 @@
 <template>
     <div>
         <!-- Atributos dinámicos (:) -->
-        <label :for="id">{{ label }}</label>
+        <label v-if="label != ''" :for="id">{{ label }}</label>
         <select :id="id" :name="name">
-            <!-- <option value="" disabled selected hidden>
-                {{ placeholder }}
-            </option> -->
+            <!-- <option disabled selected>Selecciona un opción</option> -->
             <option v-for="option in options" :value="option" :key="option">
                 {{ option }}
             </option>
@@ -27,13 +25,13 @@ defineProps({
     // Etiqueta que se incluye encima del select
     label: {
         type: String,
-        default: 'Seleccione una opción:',
+        default: 'Selecciona una opción:',
     },
     // Texto por defecto al cargar el componente
-/*     placeholder: {
-        type: String,
-        default: 'Seleccione un valor:',
-    }, */
+    /*     placeholder: {
+            type: String,
+            default: 'Seleccione un valor:',
+        }, */
     // Elementos option (su valor se obtiene del controlador)
     options: {
         type: Array,
@@ -49,10 +47,11 @@ label {
 }
 
 select {
-    width: 25%;
+    width: 200px;
     padding: 8px;
     border-radius: 4px;
     border: 1px solid #ccc;
     font-size: 14px;
 }
+
 </style>

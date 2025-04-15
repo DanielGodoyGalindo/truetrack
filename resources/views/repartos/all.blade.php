@@ -3,6 +3,7 @@
 
 <head>
     @section('title', 'Repartos')
+    @vite(['resources/js/app.js'])
 </head>
 
 <body>
@@ -25,7 +26,6 @@
                         <button-component button-text="Finalizados"
                             button-url="{{ route('repartos.showDeliveriesCompleted') }}"
                             class="btn btn-primary h-75"></button-component>
-                        @vite(['resources/js/app.js'])
                     </div>
                 @endif
             </div>
@@ -61,7 +61,7 @@
                                     <td>{{ Str::title($reparto->estado) }}</td>
                                     {{-- Asignar envios --}}
                                     <td>
-                                        <form action="{{ route('repartos.addDeliveries', $reparto->id) }}" method="POST">
+                                        <form action="{{ route('repartos.addDeliveries', $reparto->id) }}" method="GET">
                                             @csrf
                                             {{-- @method('POST') --}}
                                             <input type="submit" value="🚚" class="btn fs-3">

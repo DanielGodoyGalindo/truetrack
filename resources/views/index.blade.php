@@ -3,6 +3,7 @@
 
 <head>
     @section('title', 'Página Principal')
+    @vite(['resources/js/app.js'])
 </head>
 
 <body>
@@ -12,8 +13,8 @@
         <div id="app">
 
             {{-- Sólo para pruebas- Mostrar usuario conectado --}}
-            <p class="container">Usuario conectado: {{ Auth::user()->name ?? 'nadie' }} -- Con ID:
-                {{ Auth::user()->id ?? 'sin id' }}</p>
+            <p class="container">Usuario conectado: {{ Auth::user()->name ?? 'NADIE' }} -- Con ID:
+                {{ Auth::user()->id ?? '' }}</p>
 
             {{-- Componente card envíos --}}
             {{-- Comprueba que el rol del usuario autenticado sea cliente, administrador o gestor --}}
@@ -25,7 +26,6 @@
                 @elseif (Auth::check() && in_array(Auth::user()->rol, ['gestor_trafico', 'administrador']))
                     body-text="{{ $numEnviosTotales }} {{ $numEnviosTotales == 1 ? 'Envío' : 'Envíos' }}" @endif
                         card-url="{{ route('envios.index') }}" class="btn btn-light"></card-component>
-                    @vite(['resources/js/app.js'])
                 </div>
             @endif
 
@@ -37,7 +37,6 @@
                 @elseif (Auth::check() && Auth::user()->rol == 'administrador')
                     body-text="{{ $numRepartosTotales }} {{ $numRepartosTotales == 1 ? 'Reparto' : 'Repartos' }}" @endif
                         card-url="{{ route('repartos.index') }}" class="btn btn-light"></card-component>
-                    @vite(['resources/js/app.js'])
                 </div>
             @endif
 

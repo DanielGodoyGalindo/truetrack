@@ -3,6 +3,7 @@
 
 <head>
     @section('title', 'Crear reparto')
+    @vite(['resources/js/app.js'])
 </head>
 
 <body>
@@ -16,19 +17,13 @@
                     @csrf
                     <div class="mb-3">
                         {{-- Componente select de transportistas --}}
-                        <div id="select-app1">
-                            <select-component name="transportista" :options='@json($transportistas)'
-                                id="transportistas-select" label="Seleccione un transportista:">
-                            </select-component>
-                            @vite(['resources/js/app.js'])
-                        </div>
+                        <select-component name="transportista" :options='@json($transportistas)'
+                            id="transportistas-select" label="Seleccione un transportista:">
+                        </select-component>
                         {{-- Componente select de vehiculos --}}
-                        <div id="select-app2">
-                            <select-component name="vehiculo" :options='@json($vehiculos)' id="vehiculos-select"
-                                label="Seleccione un vehiculo:">
-                            </select-component>
-                            @vite(['resources/js/app.js'])
-                        </div>
+                        <select-component name="vehiculo" :options='@json($vehiculos)' id="vehiculos-select"
+                            label="Seleccione un vehiculo:">
+                        </select-component>
                         <button type="submit" class="btn btn-primary mt-5">Guardar</button>
                 </form>
             </div>

@@ -3,6 +3,7 @@
 
 <head>
     @section('title', 'Repartos Completados')
+    @vite(['resources/js/app.js'])
 </head>
 
 <body>
@@ -65,7 +66,6 @@
             <div id="button-app" class="container text-center">
                 <button-component button-text="Volver" button-url="{{ route('repartos.index') }}"
                     class="btn btn-primary"></button-component>
-                @vite(['resources/js/app.js'])
             </div>
         </div>
     @endsection
