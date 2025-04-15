@@ -164,26 +164,26 @@ class RepartoController extends Controller
     // Mostrar todos los envíos con estado 'no entregado' en un reparto de un transportista
     // Se ejecuta cuando un transportista que tiene envios no entregados accede a la seccion 'Información no entregados'
     // para que añada la información de cada envio fallido
-    public function showFailedDeliveries(string $repartoId)
-    {
-        $enviosFallidos = Envio::where([['reparto_id', $repartoId], ['estado', 'no entregado']])->get();
-        $reparto = Reparto::findOrFail($repartoId);
-        return view('transportistas.failedDeliveries', compact('enviosFallidos', 'reparto'));
-    }
+    // public function showFailedDeliveries(string $repartoId)
+    // {
+    //     $enviosFallidos = Envio::where([['reparto_id', $repartoId], ['estado', 'no entregado']])->get();
+    //     $reparto = Reparto::findOrFail($repartoId);
+    //     return view('transportistas.failedDeliveries', compact('enviosFallidos', 'reparto'));
+    // }
 
     // Actualiza la información de los envíos que han sido marcados como no entregados
     // Se ejecuta cuando un transportista ha entrado en los envíos no entregados de su reparto
     // y selecciona "Guardar detalles envíos fallidos"
-    public function updateFailedDeliveries(Request $r, string $repartoId)
-    {
-        $info = $r->input('info');
-        foreach ($info as $envioId => $informacion) {
-            $envio = Envio::findOrFail($envioId);
-            $envio->informacion = $informacion;
-            $envio->save();
-        }
-        return redirect()
-            ->route('driver.deliveries', $repartoId)
-            ->with('success', '¡Comentarios guardados!');
-    }
+    // public function updateFailedDeliveries(Request $r, string $repartoId)
+    // {
+    //     $info = $r->input('info');
+    //     foreach ($info as $envioId => $informacion) {
+    //         $envio = Envio::findOrFail($envioId);
+    //         $envio->informacion = $informacion;
+    //         $envio->save();
+    //     }
+    //     return redirect()
+    //         ->route('driver.deliveries', $repartoId)
+    //         ->with('success', '¡Comentarios guardados!');
+    // }
 }
