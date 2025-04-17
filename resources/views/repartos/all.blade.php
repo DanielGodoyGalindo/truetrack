@@ -22,17 +22,17 @@
                     {{-- Componentes botón Vue (nuevo reparto y finalizados) --}}
                     <div id="button-app" class="d-flex flex-row gap-3">
                         <button-component button-text="✚ Nuevo reparto" button-url="{{ route('repartos.create') }}"
-                            class="btn btn-primary h-75"></button-component>
+                            class="btn boton-accion1 h-75"></button-component>
                         <button-component button-text="Finalizados"
                             button-url="{{ route('repartos.showDeliveriesCompleted') }}"
-                            class="btn btn-primary h-75"></button-component>
+                            class="btn boton-accion1 h-75"></button-component>
                     </div>
                 @endif
             </div>
             {{-- Tabla --}}
             <div class="container">
                 <table class="table align-middle">
-                    <thead class="table-secondary">
+                    <thead class="tabla-header">
                         <tr>
                             <th scope="col">Id</th>
                             @if (Auth::user()->rol == 'administrador')
@@ -86,7 +86,7 @@
                                             class="w-50">
                                             @csrf
                                             @method('DELETE')
-                                            <input type="submit" value="✖" class="btn btn-danger col-12">
+                                            <input type="submit" value="✖" class="btn  col-12">
                                         </form>
                                     </td>
                                 </tr>

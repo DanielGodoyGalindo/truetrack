@@ -24,9 +24,9 @@
                     {{-- Componentes botón Vue (nuevo envío y finalizados) --}}
                     <div id="button-app" class="d-flex flex-row gap-3">
                         <button-component button-text="✚ Nuevo envío" button-url="{{ route('envios.create') }}"
-                            class="btn btn-primary h-75"></button-component>
+                            class="btn boton-accion1 h-75"></button-component>
                         <button-component button-text="Finalizados" button-url="{{ route('envios.showCompleted') }}"
-                            class="btn btn-primary h-75"></button-component>
+                            class="btn boton-accion1 h-75"></button-component>
                     </div>
                 </div>
             @elseif (in_array(Auth::user()->rol, ['gestor_trafico', 'administrador']))
@@ -36,7 +36,7 @@
                     {{-- Componente botón Vue (finalizados) --}}
                     <div id="button-app">
                         <button-component button-text="Finalizados" button-url="{{ route('envios.showCompleted') }}"
-                            class="btn btn-primary"></button-component>
+                            class="btn boton-accion1"></button-component>
                     </div>
                 </div>
             @endif
@@ -45,7 +45,7 @@
             <div class="container">
                 <div id="deleteModal-app">
                     <table class="table align-middle">
-                        <thead class="table-secondary">
+                        <thead class="tabla-header">
                             <tr>
                                 <th scope="col">Id</th>
                                 @if (in_array(Auth::user()->rol, ['gestor_trafico', 'administrador']))
@@ -80,12 +80,12 @@
                                             {{-- Formulario mandar emails --}}
                                             <form action="{{ route('envios.email', $envio->id) }}" method="POST">
                                                 @csrf
-                                                <input type="submit" value="Enviar" class="btn btn-info">
+                                                <input type="submit" value="📧" class="btn icono-grande">
                                             </form>
                                         </td>
                                         <td class="text-center">
                                             {{-- Botón anular envío --}}
-                                            <button class="btn btn-danger"
+                                            <button class="btn boton-rojo"
                                                 v-on:click="openModal('{{ route('envios.setNull', $envio->id) }}')">
                                                 Anular
                                             </button>
@@ -114,7 +114,7 @@
                                                     class="w-50">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <input type="submit" value="✖" class="btn btn-danger col-12">
+                                                    <input type="submit" value="✖" class="btn boton-rojo col-12">
                                                 </form>
                                             </td>
                                         @endif

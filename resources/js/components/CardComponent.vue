@@ -1,16 +1,8 @@
-<!-- Plantilla para el conponente -->
+<!-- Plantilla para el componente -->
 <template>
-    <button @click="handleClick" class="card d-flex flex-row">
-        <div class="card-title btn">
-            <h3>{{ titleText }}</h3>
-        </div>
-        <div class="card-body">
-            <p>{{ bodyText }}</p>
-        </div>
-        <!-- Agregar botón -->
-        <!-- <div class="card-footer">
-            <button @click="handleClick">{{ buttonText }}</button>
-        </div> -->
+    <button @click="handleClick" class="card">
+        <h3 class="card-title icono-grande btn">{{ titleText }}</h3>
+        <p class="card-body">{{ bodyText }}</p>
     </button>
 </template>
 
@@ -34,14 +26,6 @@ export default {
             type: String,
             required: true,
         }
-        /*         buttonText: {
-                    type: String,
-                    default: 'Botón',
-                },
-                buttonUrl: {
-                    type: String,
-                    required: true,
-                }, */
     },
     methods: {
         // Ejecutar al hacer click
@@ -56,14 +40,16 @@ export default {
 <style scoped>
 .card {
     border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 300px;
-    margin: 16px auto;
-    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.1);
+    margin: 1rem auto;
     background-color: #FDF0D5;
     height: 8rem;
     width: 20rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .card:hover {
@@ -73,9 +59,7 @@ export default {
 }
 
 .card-title {
-    background-color: lightgrey;
     padding: 8px 16px;
-    font-size: 30px;
     background-color: #FDF0D5;
     align-self: center;
 }
@@ -85,9 +69,7 @@ export default {
 }
 
 .card-body {
-    padding: 16px;
     font-size: 2rem;
-    color: #333;
     align-self: center;
 }
 </style>

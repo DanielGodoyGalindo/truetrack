@@ -19,7 +19,7 @@
             <div class="container">
                 <h3>Transportista: {{ Auth::user()->name }}</h3>
                 <table class="table align-middle">
-                    <thead class="table-secondary">
+                    <thead class="tabla-header">
                         <tr>
                             <th scope="col">Num. Reparto</th>
                             <th scope="col">Gestor de tráfico</th>
@@ -39,7 +39,7 @@
                                     <div id="button-app">
                                         <button-component button-text="Ver reparto"
                                             button-url="{{ route('driver.deliveries', [$reparto->id]) }}"
-                                            class="btn btn-primary"></button-component>
+                                            class="boton-accion1"></button-component>
                                     </div>
                                 </td>
                             </tr>

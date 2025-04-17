@@ -48,7 +48,7 @@
                                         <form action="{{ route('repartos.asignar', $reparto->id) }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="envio_id" value="{{ $envio->id }}">
-                                            <button type="submit" class="btn btn-outline-success">Añadir al
+                                            <button type="submit" class="btn {{-- btn-outline-success --}} boton-verde">Añadir al
                                                 reparto</button>
                                         </form>
                                     </td>

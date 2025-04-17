@@ -35,6 +35,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/repartosTransportista/{id}', [UserController::class, 'driverDistributions'])->middleware('auth')->name('driver.distributions');
 // Ruta para mostrar los envíos dentro de un reparto para un transportista
 Route::get('/repartoTransportista/{id}', [UserController::class, 'driverDeliveries'])->middleware('auth')->name('driver.deliveries');
+// Ruta para cambiar el estado de un reparto a finalizado
+Route::post('repartoTransportista/finalizar/{id}', [UserController::class, 'driverCompleteDistribution'])->middleware('auth')->name('driver.completeDistribution');
 
 
 ///////////////////

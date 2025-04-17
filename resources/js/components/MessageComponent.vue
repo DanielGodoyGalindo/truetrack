@@ -77,15 +77,20 @@ export default {
 }
 
 .info-message--success {
-    background-color: #04b34f;
+    /* background-color: #04b34f; */
+    background-color: #136F63;
 }
 
 .info-message--error {
-    background-color: #a6192e;
+    /* background-color: #a6192e; */
+    background-color: #D00000;
+
 }
 
 .info-message--info {
-    background-color: #0057b8;
+    /* background-color: #0057b8; */
+    background-color: #032B43;
+
 }
 
 .close-button {

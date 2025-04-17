@@ -26,7 +26,7 @@
             {{-- Tabla --}}
             <div class="container">
                 <table class="table align-middle">
-                    <thead class="table-secondary">
+                    <thead class="tabla-header">
                         <tr>
                             <th scope="col">Id</th>
                             @if (Auth::user()->rol == 'administrador')
@@ -65,7 +65,7 @@
             {{-- Componente botón Vue (volver) --}}
             <div id="button-app" class="container text-center">
                 <button-component button-text="Volver" button-url="{{ route('repartos.index') }}"
-                    class="btn btn-primary"></button-component>
+                    class="btn boton-accion1"></button-component>
             </div>
         </div>
     @endsection

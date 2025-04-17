@@ -20,24 +20,20 @@
             {{-- Comprueba que el rol del usuario autenticado sea cliente, administrador o gestor --}}
             {{-- Se muestra el total de envíos y permite acceder a la sección de envíos --}}
             @if (Auth::check() && in_array(Auth::user()->rol, ['cliente', 'administrador', 'gestor_trafico']))
-                <div id="card-envios">
-                    <card-component title-text="📦"
-                        @if (Auth::check() && Auth::user()->rol == 'cliente') body-text="{{ $numEnviosCliente }} {{ $numEnviosCliente == 1 ? 'Envío' : 'Envíos' }}"
+                <card-component title-text="📦"
+                    @if (Auth::check() && Auth::user()->rol == 'cliente') body-text="{{ $numEnviosCliente }} {{ $numEnviosCliente == 1 ? 'Envío' : 'Envíos' }}"
                 @elseif (Auth::check() && in_array(Auth::user()->rol, ['gestor_trafico', 'administrador']))
                     body-text="{{ $numEnviosTotales }} {{ $numEnviosTotales == 1 ? 'Envío' : 'Envíos' }}" @endif
-                        card-url="{{ route('envios.index') }}" class="btn btn-light"></card-component>
-                </div>
+                    card-url="{{ route('envios.index') }}" class="btn btn-light"></card-component>
             @endif
 
             {{-- Componente card repartos --}} {{-- Muestra el total de repartos y permite acceder a la sección de repartos --}}
             @if (Auth::check() && in_array(Auth::user()->rol, ['gestor_trafico', 'administrador']))
-                <div id="card-repartos">
-                    <card-component title-text="🚚"
-                        @if (Auth::check() && Auth::user()->rol == 'gestor_trafico') body-text="{{ $numRepartosGestor }} {{ $numRepartosGestor == 1 ? 'Reparto' : 'Repartos' }}"
+                <card-component title-text="🚚"
+                    @if (Auth::check() && Auth::user()->rol == 'gestor_trafico') body-text="{{ $numRepartosGestor }} {{ $numRepartosGestor == 1 ? 'Reparto' : 'Repartos' }}"
                 @elseif (Auth::check() && Auth::user()->rol == 'administrador')
                     body-text="{{ $numRepartosTotales }} {{ $numRepartosTotales == 1 ? 'Reparto' : 'Repartos' }}" @endif
-                        card-url="{{ route('repartos.index') }}" class="btn btn-light"></card-component>
-                </div>
+                    card-url="{{ route('repartos.index') }}" class="btn btn-light"></card-component>
             @endif
 
         </div>

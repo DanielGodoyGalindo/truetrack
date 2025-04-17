@@ -24,7 +24,7 @@
                         <select-component name="vehiculo" :options='@json($vehiculos)' id="vehiculos-select"
                             label="Seleccione un vehiculo:">
                         </select-component>
-                        <button type="submit" class="btn btn-primary mt-5">Guardar</button>
+                        <button type="submit" class="btn boton-accion1 mt-5">Guardar</button>
                 </form>
             </div>
         </div>

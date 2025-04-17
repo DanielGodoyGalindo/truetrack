@@ -27,18 +27,18 @@
                 {{-- Botones login, registrarse, editar perfil y salir --}}
                 <div class="col-md-10 text-end">
                     @guest
-                        <a type="button" class="btn btn-outline-primary me-2" href="{{ route('login') }}">Login</a>
-                        <a type="button" class="btn btn-primary" href="{{ route('register') }}">Registrarse</a>
+                        <a type="button" class="btn boton-accion1" href="{{ route('login') }}">Login</a>
+                        <a type="button" class="btn boton-accion2" href="{{ route('register') }}">Registrarse</a>
                     @endguest
                     @auth
                         <div
                             class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-end gap-3">
                             @if (Auth::check() && Auth::user()->rol != 'transportista')
-                                <a type="button" class="btn btn-warning" href="{{ route('profile.edit') }}">Mi Perfil</a>
+                                <a type="button" class="btn boton-naranja" href="{{ route('profile.edit') }}">Mi Perfil</a>
                             @endif
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <input type="submit" class="btn btn-danger" value="Desconectar" />
+                                <input type="submit" class="btn boton-rojo" value="Desconectar" />
                             </form>
                         </div>
                     @endauth
