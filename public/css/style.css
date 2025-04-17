@@ -6,8 +6,12 @@ textarea {
     resize: none;
 }
 
+.icono-mediano {
+    font-size: 1.5rem;
+}
+
 .icono-grande {
-    font-size: 3rem;
+    font-size: 2rem;
 }
 
 /* Botones uso de paleta de colores */

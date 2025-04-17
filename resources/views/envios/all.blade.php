@@ -85,9 +85,9 @@
                                         </td>
                                         <td class="text-center">
                                             {{-- Botón anular envío --}}
-                                            <button class="btn boton-rojo"
+                                            <button class="btn icono-mediano"
                                                 v-on:click="openModal('{{ route('envios.setNull', $envio->id) }}')">
-                                                Anular
+                                                ❌
                                             </button>
                                         </td>
                                     </tr>
