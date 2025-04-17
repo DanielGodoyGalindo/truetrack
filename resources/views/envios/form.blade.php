@@ -34,7 +34,7 @@
                         <input type="number" name="kilos" class="form-control w-25" placeholder="Kilos" step="0.01"
                             min="1" max="1000" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="submit" class="btn boton-accion1">Guardar</button>
                 </form>
             </div>
         </div>

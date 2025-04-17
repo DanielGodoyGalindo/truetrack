@@ -3,7 +3,7 @@
     <div v-if="show" class="modal-backdrop">
         <div class="modal">
             <h2>¿Estás seguro de que deseas anular este envío?</h2>
-            <button @click="confirmAction" class="btn btn-danger">Confirmar</button>
+            <button @click="confirmAction" class="btn boton-rojo">Confirmar</button>
             <button @click="$emit('close')" class="btn btn-secondary">Cancelar</button>
         </div>
     </div>

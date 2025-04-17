@@ -69,7 +69,9 @@ class UserController extends Controller
     // Se ejecuta cuando un transportista se loguea
     public function driverDistributions(string $idTransportista)
     {
-        $repartos = Reparto::where('transportista_id', $idTransportista)->get();
+        $repartos = Reparto::where('transportista_id', $idTransportista)
+            ->whereNotIn('estado', ['finalizado'])
+            ->get();
         $transportista = User::findOrFail($idTransportista);
         return view('transportistas.myDistributions', compact('repartos', 'transportista'));
     }
@@ -81,9 +83,12 @@ class UserController extends Controller
         $reparto = Reparto::findOrFail($repartoId);
         $envios = Envio::where('reparto_id', $repartoId)->get();
         $estados = ['en reparto', 'entregado', 'no entregado'];
-        $noEntregados = Envio::where('reparto_id', $repartoId)->where('estado', 'no entregado')->get();
-        if ($noEntregados->count() == 0) $noEntregados = null;
-        return view('transportistas.deliveries', compact('reparto', 'envios', 'estados', 'noEntregados'));
+        $enviosPendientes = Envio::where([
+            ['estado', 'en reparto'],
+            ['reparto_id', $repartoId]
+        ])->count(); // envios que han sido entregados o marcados como no entregados
+        $numEnvios = $envios->count();
+        return view('transportistas.deliveries', compact('reparto', 'envios', 'estados', 'enviosPendientes', 'numEnvios'));
     }
 
     // Actualiza el estado de los envíos de un reparto para un transportista
@@ -98,4 +103,11 @@ class UserController extends Controller
         return redirect()->route('driver.deliveries', $repartoId)->with('success', 'Estados actualizados correctamente');
     }
 
+    public function driverCompleteDistribution(string $repartoId)
+    {
+        $reparto = Reparto::findOrFail($repartoId);
+        $reparto->estado = 'finalizado';
+        $reparto->save();
+        return redirect()->route('driver.distributions', $reparto->transportista_id);
+    }
 }

@@ -28,7 +28,7 @@
             {{-- Tabla --}}
             <div class="container">
                 <table class="table align-middle">
-                    <thead class="table-secondary">
+                    <thead class="tabla-header">
                         <tr>
                             <th scope="col">Id</th>
                             @if (in_array(Auth::user()->rol, ['gestor_trafico', 'administrador']))
@@ -63,7 +63,7 @@
                                         {{-- Formulario mandar emails --}}
                                         <form action="{{ route('envios.email', $envio->id) }}" method="POST">
                                             @csrf
-                                            <input type="submit" value="Enviar" class="btn btn-info">
+                                            <input type="submit" value="📧" class="btn icono-grande">
                                         </form>
                                     </td>
                                 </tr>
@@ -89,7 +89,7 @@
                                                 class="w-50">
                                                 @csrf
                                                 @method('DELETE')
-                                                <input type="submit" value="✖" class="btn btn-danger col-12">
+                                                <input type="submit" value="✖" class="btn boton-rojo col-12">
                                             </form>
                                         </td>
                                     @endif
@@ -114,7 +114,7 @@
             {{-- Componente botón Vue (volver) --}}
             <div id="button-app" class="container text-center">
                 <button-component button-text="Volver" button-url="{{ route('envios.index') }}"
-                    class="btn btn-primary"></button-component>
+                    class="btn boton-accion1"></button-component>
             </div>
         </div>
     @endsection

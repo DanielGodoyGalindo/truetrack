@@ -3,6 +3,7 @@
 
 <head>
     @section('title', 'Enviar email')
+    @vite(['resources/js/app.js'])
 </head>
 
 <body>
@@ -32,7 +33,12 @@
                             <textarea name="mensaje" class="form-control border border-2" placeholder="Escribe aquí el mensaje.." rows="10"
                                 cols="33" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Enviar</button>
+                        <div class="d-flex gap-3 justify-content-around">
+                            <button type="submit" class="btn boton-accion1">Enviar</button>
+                            {{-- Componente botón Vue (volver) --}}
+                            <button-component button-text="Volver" button-url="{{ route('envios.index') }}"
+                                class="btn boton-accion1"></button-component>
+                        </div>
                     </form>
                 </div>
             </div>

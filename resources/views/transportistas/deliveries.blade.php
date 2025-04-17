@@ -24,7 +24,7 @@
             <div class="container">
                 <h3>Mis entregas:</h3>
                 <table class="table align-middle">
-                    <thead class="table-secondary">
+                    <thead class="tabla-header">
                         <tr class="text-center">
                             <th scope="col">Envío Id</th>
                             <th scope="col">Cliente</th>
@@ -61,7 +61,7 @@
                                                     value="{{ $envio->informacion }}" placeholder="Información no entrega"
                                                     required>
                                             </div>
-                                            <button type="submit" class="btn btn-primary">Actualizar</button>
+                                            <button type="submit" class="btn boton-accion1">Actualizar</button>
                                         </div>
                                     </form>
                                 </td>
@@ -71,6 +71,27 @@
                     </tbody>
                 </table>
                 {{-- Fin tabla --}}
+
+                {{-- Poner botón que aparezca cuando todos los envios están marcados como entregados o no entregados --}}
+                {{-- cuando $enviosPendientes == 0 significa que no hay envio en reparto --}}
+                {{-- Con ese botón se pondrá el reparto con estado finalizado --}}
+
+                <form action=" {{ route('driver.completeDistribution', $reparto->id) }}" method="POST"
+                    class="text-center">
+                    @csrf
+                    <span>
+                        @if ($enviosPendientes > 0)
+                            {{ $enviosPendientes }} {{ $enviosPendientes == 1 ? 'envío' : 'envíos' }}
+                            para finalizar
+                        @endif
+                    </span>
+
+                    {{-- Mostrar botón de finalizar reparto --}}
+                    <input type="submit" value="Finalizar reparto" class="btn btn-success"
+                        @if ($numEnvios == 0 || ($numEnvios > 0 && $enviosPendientes > 0)) @disabled(true)
+                        @else @disabled(false) @endif>
+                </form>
+
             </div>
         @endsection
 </body>

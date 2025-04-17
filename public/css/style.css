@@ -1,7 +1,74 @@
-*{
+* {
     font-family: Roboto;
 }
 
-textarea{
+textarea {
     resize: none;
+}
+
+.icono-grande {
+    font-size: 3rem;
+}
+
+/* Botones uso de paleta de colores */
+/* https://coolors.co/palette/d00000-ffba08-3f88c5-032b43-136f63 */
+:root {
+    --color-azul1: #3F88C5;
+    --color-azul2: #032B43;
+    --color-rojo: #D00000;
+    --color-naranja: #FFBA08;
+    --color-verde: #136F63;
+  }
+
+.boton-accion1 {
+    background-color: var(--color-azul1);
+    color: white;
+}
+
+.boton-accion1:hover {
+    background-color: #397ab0;
+    color: white;
+}
+
+.boton-accion2 {
+    background-color: var(--color-azul2);
+    color: white;
+}
+
+.boton-accion2:hover {
+    background-color: #02273d;
+    color: white;
+}
+
+.boton-rojo {
+    background-color: var(--color-rojo);
+    color: white;
+}
+
+.boton-rojo:hover {
+    background-color: #b00000;
+    color: white;
+}
+
+.boton-naranja {
+    border: 1px solid var(--color-naranja);
+}
+
+.boton-naranja:hover {
+    background-color: var(--color-naranja);
+}
+
+.boton-verde {
+    background-color: var(--color-verde);
+    color: white;
+}
+
+.boton-verde:hover {
+    background-color: #105c52;
+    color: white;
+}
+
+.tabla-header th {
+    background-color: var(--color-azul2);
+    color: white;
 }
