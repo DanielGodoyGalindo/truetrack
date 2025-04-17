@@ -72,10 +72,7 @@
                 </table>
                 {{-- Fin tabla --}}
 
-                {{-- Poner botón que aparezca cuando todos los envios están marcados como entregados o no entregados --}}
-                {{-- cuando $enviosPendientes == 0 significa que no hay envio en reparto --}}
-                {{-- Con ese botón se pondrá el reparto con estado finalizado --}}
-
+                {{-- Botón que aparece cuando todos los envios están marcados como entregados o no entregados --}}
                 <form action=" {{ route('driver.completeDistribution', $reparto->id) }}" method="POST"
                     class="text-center">
                     @csrf
@@ -87,9 +84,9 @@
                     </span>
 
                     {{-- Mostrar botón de finalizar reparto --}}
-                    <input type="submit" value="Finalizar reparto" class="btn btn-success"
-                        @if ($numEnvios == 0 || ($numEnvios > 0 && $enviosPendientes > 0)) @disabled(true)
-                        @else @disabled(false) @endif>
+                    <input type="submit" value="Finalizar reparto"
+                        @if ($numEnvios == 0 || ($numEnvios > 0 && $enviosPendientes > 0)) @disabled(true) class="btn btn-secondary"
+                        @else @disabled(false) class="btn boton-verde" @endif>
                 </form>
 
             </div>

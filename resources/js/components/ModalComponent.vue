@@ -1,10 +1,14 @@
 <!-- Plantilla de componente modal -->
 <template>
-    <div v-if="show" class="modal-backdrop">
+    <div v-if="show" class="contenedor">
         <div class="modal">
-            <h2>¿Estás seguro de que deseas anular este envío?</h2>
-            <button @click="confirmAction" class="btn boton-rojo">Confirmar</button>
-            <button @click="$emit('close')" class="btn btn-secondary">Cancelar</button>
+            <div class="interior">
+                <span class="mensaje">¿Estás seguro de que deseas anular este envío?</span>
+                <div>
+                    <button @click="confirmAction" class="btn boton-rojo">Confirmar</button>
+                    <button @click="$emit('close')" class="btn btn-secondary">Cancelar</button>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -47,7 +51,7 @@ export default {
 
 <!-- Estilos para el fondo y el propio modal -->
 <style scoped>
-.modal-backdrop {
+.contenedor {
     position: fixed;
     top: 0;
     left: 0;
@@ -65,12 +69,19 @@ export default {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     max-width: 20%;
     text-align: center;
+    font-size: 1.5rem;
     top: 10%;
     left: calc(50% - 200px);
     height: fit-content;
     border: 2px solid grey;
     border-radius: 10px;
-    z-index: 2; /* Mostrar por encima del fondo */
+    z-index: 2;
+    /* Mostrar por encima del fondo */
+}
+
+.interior {
+    display: flex;
+    flex-direction: column;
 }
 
 button {
