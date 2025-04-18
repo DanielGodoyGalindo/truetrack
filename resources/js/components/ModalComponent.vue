@@ -3,9 +3,9 @@
     <div v-if="show" class="contenedor">
         <div class="modal">
             <div class="interior">
-                <span class="mensaje">¿Estás seguro de que deseas anular este envío?</span>
+                <span class="mensaje">¿Deseas confirmar?</span>
                 <div>
-                    <button @click="confirmAction" class="btn boton-rojo">Confirmar</button>
+                    <button @click="confirmar" class="btn boton-rojo">Confirmar</button>
                     <button @click="$emit('close')" class="btn btn-secondary">Cancelar</button>
                 </div>
             </div>
@@ -28,20 +28,32 @@ export default {
             type: String,
             required: true,
         },
+        method: {
+            type: String,
+            required: true,
+        }
     },
     methods: {
         // Si se acepta, se genera un formulario con sus atributos
-        confirmAction() {
+        confirmar() {
+            // Crear formulario
             const form = document.createElement('form');
             form.method = 'POST';
             form.action = this.route;
-            // Atributos compatibles con Blade de Laravel
+            // Atributos para Blade de Laravel
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             const csrfInput = document.createElement('input');
             csrfInput.type = 'hidden';
             csrfInput.name = '_token';
             csrfInput.value = csrfToken;
             form.appendChild(csrfInput);
+            // Crear input para el formulario donde se indica el método http
+            const methodInput = document.createElement('input');
+            methodInput.type = 'hidden';
+            methodInput.name = '_method';
+            methodInput.value = this.method;
+            form.appendChild(methodInput);
+            // Ejecutar formulario
             document.body.appendChild(form); // Adjuntar formulario al body
             form.submit(); // Hacer submit en el formulario
         },

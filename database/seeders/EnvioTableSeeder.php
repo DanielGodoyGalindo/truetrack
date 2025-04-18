@@ -16,7 +16,7 @@ class EnvioTableSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=0;'); 
         DB::table('envios')->insert([
             'cliente_id' => '2',
-            'destinatario' => 'Juan Gonzalez - Calle Mayor 1 1ºA, 50001 Zaragoza',
+            'destinatario' => 'Juan González - Calle Mayor 1 1ºA, 50001 Zaragoza',
             'estado' => 'pendiente',
             'bultos' => 2,
             'kilos' => 14.6,
@@ -32,7 +32,7 @@ class EnvioTableSeeder extends Seeder
 
         DB::table('envios')->insert([
             'cliente_id' => '2',
-            'destinatario' => 'Ana Rodriguez - Calle San Juan Bosco 16, 50009 Zaragoza',
+            'destinatario' => 'Ana Rodríguez - Calle San Juan Bosco 16, 50009 Zaragoza',
             'estado' => 'pendiente',
             'bultos' => 5,
             'kilos' => 22.8,
@@ -48,7 +48,7 @@ class EnvioTableSeeder extends Seeder
 
         DB::table('envios')->insert([
             'cliente_id' => '3',
-            'destinatario' => 'Miguel Angel Bueno - Calle de Pedro II 7, 50410 Cuarte de Huerva',
+            'destinatario' => 'Miguel Ángel Bueno - Calle de Pedro II 7, 50410 Cuarte de Huerva',
             'estado' => 'pendiente',
             'bultos' => 4,
             'kilos' => 80.70,
@@ -56,10 +56,18 @@ class EnvioTableSeeder extends Seeder
 
         DB::table('envios')->insert([
             'cliente_id' => '3',
-            'destinatario' => 'Olga Martinez - Calle de Huesca 31, 50180 Utebo',
+            'destinatario' => 'Olga Martínez - Calle de Huesca 31, 50180 Utebo',
             'estado' => 'pendiente',
             'bultos' => 2,
             'kilos' => 27.6,
+        ]);
+
+        DB::table('envios')->insert([
+            'cliente_id' => '3',
+            'destinatario' => 'Jorge García - Calle San Antonio 28, 50196 La Muela',
+            'estado' => 'pendiente',
+            'bultos' => 3,
+            'kilos' => 750,
         ]);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;'); 
     }

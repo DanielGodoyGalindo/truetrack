@@ -62,14 +62,12 @@ export default {
     padding: 8px 16px;
     background-color: #FDF0D5;
     align-self: center;
-}
-
-.card-title>h3 {
     font-size: 3.5rem;
 }
 
 .card-body {
     font-size: 2rem;
     align-self: center;
+    margin-top: 1rem;
 }
 </style>

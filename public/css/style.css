@@ -14,6 +14,10 @@ textarea {
     font-size: 2rem;
 }
 
+#furgoneta{
+    width: 50%;
+}
+
 /* Botones uso de paleta de colores */
 /* https://coolors.co/palette/d00000-ffba08-3f88c5-032b43-136f63 */
 :root {

@@ -27,7 +27,7 @@
                 <div class="container">
                     <h2 class="pt-2">Envíos disponibles</h2>
                     <table class="table align-middle">
-                        <thead>
+                        <thead class="tabla-header">
                             <tr>
                                 <th>Envío Id</th>
                                 <th>Destinatario</th>
@@ -67,11 +67,12 @@
                 <div class="container">
                     <h2 class="pt-5">Envíos asignados</h2>
                     <table class="table align-middle">
-                        <thead>
+                        <thead class="tabla-header">
                             <tr>
                                 <th>Envío Id</th>
                                 <th>Destinatario</th>
-                                <th>Estado</th>
+                                {{-- <th>Estado</th> --}}
+                                <th>Kilos</th>
                                 <th>Quitar del reparto</th>
                             </tr>
                         </thead>
@@ -80,7 +81,8 @@
                                 <tr>
                                     <td>{{ $envio->id }}</td>
                                     <td>{{ $envio->destinatario }}</td>
-                                    <td>{{ Str::title($envio->estado) }}</td>
+                                    {{-- <td>{{ Str::title($envio->estado) }}</td> --}}
+                                    <td>{{ $envio->kilos }}</td>
                                     <td>
                                         <form action="{{ route('repartos.removeFromDelivery', $reparto->id) }}"
                                             method="POST">
