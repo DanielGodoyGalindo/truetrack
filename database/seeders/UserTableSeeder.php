@@ -17,16 +17,16 @@ class UserTableSeeder extends Seeder
         /* Clientes */
         /* Empieza desde el id 2 */
         DB::table('users')->insert([
-            'name' => 'cliente1',
-            'email' => 'cliente1@gmail.com',
-            'password' => Hash::make('cliente1'),
+            'name' => 'cliente Juan',
+            'email' => 'clientejuan@gmail.com',
+            'password' => Hash::make('clientejuan'),
             'rol' => 'cliente',
         ]);
 
         DB::table('users')->insert([
-            'name' => 'cliente2',
-            'email' => 'cliente2@gmail.com',
-            'password' => Hash::make('cliente2'),
+            'name' => 'cliente Ana',
+            'email' => 'clienteana@gmail.com',
+            'password' => Hash::make('clienteana'),
             'rol' => 'cliente',
         ]);
 
@@ -50,6 +50,13 @@ class UserTableSeeder extends Seeder
             'name' => 'transportista1',
             'email' => 'transportista1@gmail.com',
             'password' => Hash::make('transportista1'),
+            'rol' => 'transportista',
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'transportista2',
+            'email' => 'transportista2@gmail.com',
+            'password' => Hash::make('transportista2'),
             'rol' => 'transportista',
         ]);
 

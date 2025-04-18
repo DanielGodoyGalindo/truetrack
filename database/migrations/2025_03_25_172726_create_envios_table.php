@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('destinatario');
             $table->enum('estado', ['pendiente', 'en reparto', 'entregado', 'no entregado', 'anulado']);
             $table->unsignedInteger('bultos');
-            $table->decimal('kilos', 4, 2)->unsigned();
+            $table->decimal('kilos', 6, 2)->unsigned();
+
             $table->string('informacion')->nullable();
             $table->timestamps();
         });

@@ -35,6 +35,7 @@
                             <th scope="col">Transportista</th>
                             <th scope="col">Vehículo</th>
                             <th scope="col">Estado</th>
+                            <th scope="col">Fecha y hora</th>
                         </tr>
                     </thead>
 
@@ -49,6 +50,7 @@
                                 <td>{{ $reparto->transportista->name }}</td>
                                 <td>{{ $reparto->vehiculo->matricula }}</td>
                                 <td>{{ Str::title($reparto->estado) }}</td>
+                                <td>{{ $reparto->updated_at }}</td>
                             </tr>
                         @endforeach
                     </tbody>

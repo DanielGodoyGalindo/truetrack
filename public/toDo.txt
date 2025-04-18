@@ -1,11 +1,19 @@
--Añadir funcionalidad para transportistas.
+-Cuando un admin vaya a borrar un envío, que aparezca el modal para confirmar.
 -En repartos finalizados, añadir un botón que muestre todos los envíos de un reparto finalizado.
 
 
 Segundo Sprint
 ***************
+-Para el usuario Admin, añadir sección de Vehículos y de Usuarios
 -Controlar que a repartos solo puedan entrar gestores y admin (que no se pueda entrar poniendo la url)
 -Componente vue para mostrar en una barra de progreso % los kilos cargados en un reparto
 -Al enviar un mail como cliente, que se incluya la info del envío en el mail.
 -Si un usuario se registra, hay que modificar el formulario para que elija que rol va a tener.
 -Cambiar botones de perfil y desconectar a componentes vue.
+-Mejorar formulario para crear un nuevo envio (poner campo de nombre, direccion, codigo postal, población, bultos y kilos)
+-En el apartado de repartos finalizados, poner el ratio de entregas / no entregas de cada reparto
+
+
+Futuras Mejoras
+***************
+-Añadir botón en reparto para hacer foto al albarán de entrega

@@ -16,6 +16,13 @@
             <p class="container">Usuario conectado: {{ Auth::user()->name ?? 'NADIE' }} -- Con ID:
                 {{ Auth::user()->id ?? '' }}</p>
 
+            @guest
+                <div class="container d-flex flex-column align-items-center">
+                    <img src="{{ asset('img/furgoneta-reparto.jpg') }}" alt="Furgoneta de reparto" id="furgoneta">
+                    <p class="h1">Por favor, accede con tu usuario</p>
+                </div>
+            @endguest
+
             {{-- Componente card envíos --}}
             {{-- Comprueba que el rol del usuario autenticado sea cliente, administrador o gestor --}}
             {{-- Se muestra el total de envíos y permite acceder a la sección de envíos --}}
@@ -35,6 +42,10 @@
                     body-text="{{ $numRepartosTotales }} {{ $numRepartosTotales == 1 ? 'Reparto' : 'Repartos' }}" @endif
                     card-url="{{ route('repartos.index') }}" class="btn btn-light"></card-component>
             @endif
+
+            {{-- Solo Admin --}}
+            {{-- Añadir card de vehiculos --}}
+            {{-- Añadir card de usarios --}}
 
         </div>
     @endsection
