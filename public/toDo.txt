@@ -1,17 +1,20 @@
--Cuando un admin vaya a borrar un envío, que aparezca el modal para confirmar.
--En repartos finalizados, añadir un botón que muestre todos los envíos de un reparto finalizado.
-
 
 Segundo Sprint
 ***************
--Para el usuario Admin, añadir sección de Vehículos y de Usuarios
+-Para el usuario Admin, añadir sección de Vehículos y de Usuarios.
+-Cuando el gestor entra de nuevo en un reparto, hay que actualizar los kilos cargados si ya hubiese envios cargados en el reparto.
 -Controlar que a repartos solo puedan entrar gestores y admin (que no se pueda entrar poniendo la url)
 -Componente vue para mostrar en una barra de progreso % los kilos cargados en un reparto
 -Al enviar un mail como cliente, que se incluya la info del envío en el mail.
 -Si un usuario se registra, hay que modificar el formulario para que elija que rol va a tener.
 -Cambiar botones de perfil y desconectar a componentes vue.
--Mejorar formulario para crear un nuevo envio (poner campo de nombre, direccion, codigo postal, población, bultos y kilos)
+-Mejorar formulario para crear un nuevo envío (poner campo de nombre, direccion, codigo postal, población, bultos y kilos)
 -En el apartado de repartos finalizados, poner el ratio de entregas / no entregas de cada reparto
+-Añadir modal para que cuando el Admin vaya a borrar un reparto se le pregunte.
+-Modificar el mockup del apartado de asignar envios a reparto, ya que las tablas se encuentran una debajo de la otra.
+-Cuando el administrador elimine un reparto, que aprezca un modal.
+-Que un cliente pueda modificar un envío (excepto su estado)
+-Que un gestor de trafico pueda editar un reparto
 
 
 Futuras Mejoras

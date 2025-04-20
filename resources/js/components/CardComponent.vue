@@ -43,7 +43,9 @@ export default {
     border-radius: 12px;
     box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.1);
     margin: 1rem auto;
-    background-color: #FDF0D5;
+    /* background-color: #FDF0D5; */
+    background-color: #3F88C5;
+    color: white;
     height: 8rem;
     width: 20rem;
     display: flex;
@@ -60,7 +62,8 @@ export default {
 
 .card-title {
     padding: 8px 16px;
-    background-color: #FDF0D5;
+    /* background-color: #FDF0D5; */
+    background-color: #3F88C5;
     align-self: center;
     font-size: 3.5rem;
 }
