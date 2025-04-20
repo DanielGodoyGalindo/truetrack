@@ -18,8 +18,8 @@
 <body>
     <header class="mb-4 border-bottom border-dark">
         <div class="container">
-            {{-- Logo --}}
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                {{-- Logo --}}
                 <a href="{{ route('index') }}"
                     class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
                     <img src="{{ asset('img\Logo_TrueTrack.png') }}" alt="Logo TrueTrack" width="200px" height="70px">
@@ -27,8 +27,10 @@
                 {{-- Botones login, registrarse, editar perfil y salir --}}
                 <div class="col-md-10 text-end">
                     @guest
-                        <a type="button" class="btn boton-accion1" href="{{ route('login') }}">Login</a>
-                        <a type="button" class="btn boton-accion2" href="{{ route('register') }}">Registrarse</a>
+                        <div class="d-flex justify-content-end gap-5">
+                            <a type="button" class="btn boton-accion1 col-2" href="{{ route('login') }}">Login</a>
+                            <a type="button" class="btn boton-accion2 col-2" href="{{ route('register') }}">Registrarse</a>
+                        </div>
                     @endguest
                     @auth
                         <div

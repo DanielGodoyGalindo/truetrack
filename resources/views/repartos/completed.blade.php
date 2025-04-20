@@ -36,6 +36,7 @@
                             <th scope="col">Vehículo</th>
                             <th scope="col">Estado</th>
                             <th scope="col">Fecha y hora</th>
+                            <th scope="col">Ver Reparto</th>
                         </tr>
                     </thead>
 
@@ -51,6 +52,13 @@
                                 <td>{{ $reparto->vehiculo->matricula }}</td>
                                 <td>{{ Str::title($reparto->estado) }}</td>
                                 <td>{{ $reparto->updated_at }}</td>
+                                <td>
+                                    <form action="{{ route('repartos.show', $reparto->id) }}" method="GET">
+                                        @csrf
+                                        @method('POST')
+                                        <input type="submit" value="Ver" class="btn boton-accion1">
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

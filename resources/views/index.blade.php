@@ -13,13 +13,16 @@
         <div id="app">
 
             {{-- Sólo para pruebas- Mostrar usuario conectado --}}
-            <p class="container">Usuario conectado: {{ Auth::user()->name ?? 'NADIE' }} -- Con ID:
-                {{ Auth::user()->id ?? '' }}</p>
-
+            <div class="container">
+                <p >Usuario conectado: {{ Auth::user()->name ?? 'NADIE' }}</p>
+                <p>Con ID: {{ Auth::user()->id ?? '---' }}</p>
+            </div>
+            {{-- Imagen index + mensaje --}}
             @guest
                 <div class="container d-flex flex-column align-items-center">
                     <img src="{{ asset('img/furgoneta-reparto.jpg') }}" alt="Furgoneta de reparto" id="furgoneta">
-                    <p class="h1">Por favor, accede con tu usuario</p>
+                    <p class="h1">¡Bienvenido/a!</p>
+                    <p class="h1">Por favor, accede con tu usuario o regístrate</p>
                 </div>
             @endguest
 
@@ -45,7 +48,14 @@
 
             {{-- Solo Admin --}}
             {{-- Añadir card de vehiculos --}}
-            {{-- Añadir card de usarios --}}
+            {{-- Añadir card de usuarios --}}
+            @if (Auth::check() && Auth::user()->rol == 'administrador')
+                <card-component title-text="🔧{{-- ⚙️ --}}" body-text="Vehículos" card-url="{{ route('index') }}"
+                    class="btn btn-light">
+                </card-component>
+                <card-component title-text="👤" body-text="Usuarios" card-url="{{ route('index') }}" class="btn btn-light">
+                </card-component>
+            @endif
 
         </div>
     @endsection

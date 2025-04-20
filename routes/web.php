@@ -86,5 +86,7 @@ Route::get('/repartos/{id}/showDeliveries', [RepartoController::class, 'showDeli
 Route::post('/repartos/{id}/asignar', [RepartoController::class, 'assignDelivery'])->middleware('auth')->name('repartos.asignar');
 // Ruta para usar en el botón de quitar un envío de un reparto
 Route::post('/repartos/{id}/removeDelivery', [RepartoController::class, 'removeFromDelivery'])->middleware('auth')->name('repartos.removeFromDelivery');
+// Ruta para ver listado de envíos en un reparto completado
+Route::post('/repartos/{id}/showCompletedDeliveries', [RepartoController::class, 'showCompletedDeliveries'])->middleware('auth')->name('repartos.showCompletedDeliveries');
 
 require __DIR__ . '/auth.php';

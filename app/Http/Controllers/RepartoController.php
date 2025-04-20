@@ -32,7 +32,7 @@ class RepartoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo reparto
      */
     public function create()
     {
@@ -43,7 +43,7 @@ class RepartoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda un nuevo reparto
      */
     public function store(Request $r)
     {
@@ -53,7 +53,7 @@ class RepartoController extends Controller
         $reparto->gestor_id = Auth::user()->id ?? 1;
         // Obtener el id del usuario (transportista) cuyo nombre es el recuperado en el request
         $reparto->transportista_id = User::where('name', $r->transportista)->value('id');
-        $reparto->vehiculo_id = $r->vehiculo;
+        // $reparto->vehiculo_id = $r->vehiculo;
         // Obtener el id del vehiculo cuyo matricula ha sido capturada en el request
         $reparto->vehiculo_id = Vehiculo::where('matricula', $r->vehiculo)->value('id');
         $reparto->estado = "en proceso";
@@ -62,11 +62,13 @@ class RepartoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra el reparto y todos sus envíos
      */
     public function show(string $id)
     {
-        //
+        $reparto = Reparto::findOrFail($id);
+        $envios = Envio::where('reparto_id', $id)->paginate($this->numPag);
+        return view('repartos.completedInfo', compact('reparto', 'envios'));
     }
 
     /**
@@ -104,7 +106,9 @@ class RepartoController extends Controller
         return redirect()->route('repartos.index');
     }
 
-    // Método para mostrar la vista de añadir envios a un reparto (repartos.deliveries) (dos tablas: una con envios para asignar y otra con envios que se van asignando)
+    /**
+     * Método para mostrar la vista de añadir envios a un reparto (repartos.deliveries) (dos tablas: una con envios para asignar y otra con envios que se van asignando)
+     */
     public function addDeliveries(string $id)
     {
         $reparto = Reparto::findOrFail($id);
@@ -114,7 +118,9 @@ class RepartoController extends Controller
         return view('repartos.deliveries', compact('reparto', 'enviosPendientes', 'enviosAsignados'));
     }
 
-    // Método para actualizar un envio que ha sido asignado en un reparto
+    /**
+     * Método para actualizar un envio que ha sido asignado en un reparto
+     */
     public function assignDelivery(Request $request, string $repartoId)
     {
         //// Controlar peso
@@ -132,7 +138,9 @@ class RepartoController extends Controller
         return redirect()->route('repartos.showDeliveries', $repartoId)->with('message', 'deliveryAdded');
     }
 
-    // Método para actualizar los envios asignados a un reparto en la vista de asignación de repartos
+    /** 
+     * Método para mostrar los envios asignados a un reparto y pendientes en la vista de asignación de repartos
+     */
     public function showDeliveries(string $id)
     {
         $reparto = Reparto::findOrFail($id);
@@ -143,7 +151,9 @@ class RepartoController extends Controller
         return view('repartos.deliveries', compact('reparto', 'enviosPendientes', 'enviosAsignados', 'kilosCargados'));
     }
 
-    // Método para sacar del reparto los envios ya asignados
+    /** 
+     * Método para sacar del reparto los envios ya asignados
+     */
     public function removeFromDelivery(Request $request, string $repartoId)
     {
         $envio = Envio::findOrFail($request->envio_id);
@@ -153,8 +163,9 @@ class RepartoController extends Controller
         return redirect()->route('repartos.showDeliveries', $repartoId)->with('message', 'deliveryRemoved');
     }
 
-
-    // Método para mostrar repartos finalizados
+    /**
+     * Método para mostrar repartos finalizados
+     */
     public function showDeliveriesCompleted()
     {
         $finalizados = Reparto::where('gestor_id', Auth::id())->where('estado', 'finalizado')->paginate($this->numPag);

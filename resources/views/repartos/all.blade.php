@@ -86,7 +86,7 @@
                                             class="w-50">
                                             @csrf
                                             @method('DELETE')
-                                            <input type="submit" value="✖" class="btn  col-12">
+                                            <input type="submit" value="❌" class="btn col-12">
                                         </form>
                                     </td>
                                 </tr>
