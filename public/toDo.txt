@@ -2,7 +2,6 @@ Segundo Sprint
 ***************
 -Para el usuario Admin, añadir sección de Vehículos y de Usuarios.
 -Cuando el gestor entra de nuevo en un reparto, hay que actualizar los kilos cargados si ya hubiese envios cargados en el reparto.
--Controlar que a repartos solo puedan entrar gestores y admin (que no se pueda entrar poniendo la url) --> hacer como en las plantillas de transportistas
 -Al enviar un mail como cliente, que se incluya la info del envío en el mail.
 -Si un usuario se registra, hay que modificar el formulario para que elija que rol va a tener.
 -Cambiar botones de perfil y desconectar a componentes vue.
@@ -13,6 +12,7 @@ Segundo Sprint
 -Que un cliente pueda modificar un envío (excepto su estado)
 -Que un gestor de trafico pueda editar un reparto
 -Componente vue para mostrar en una barra de progreso % los kilos cargados en un reparto
+-Controlar que a repartos solo puedan entrar gestores y admin (que no se pueda entrar poniendo la url) --> hacer como en las plantillas de transportistas o crear middleware
 
 
 Futuras Mejoras

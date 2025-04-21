@@ -17,7 +17,7 @@ const app = createApp({
         openModal(route, method) {
             this.route = route; // Establece la ruta para el modal
             this.showModal = true; // Muestra el modal
-            this.method = method;
+            this.method = method; // Método http
         },
         closeModal() {
             this.showModal = false; // Cierra el modal

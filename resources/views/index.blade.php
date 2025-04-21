@@ -14,7 +14,7 @@
 
             {{-- Sólo para pruebas- Mostrar usuario conectado --}}
             <div class="container">
-                <p >Usuario conectado: {{ Auth::user()->name ?? 'NADIE' }}</p>
+                <p>Usuario conectado: {{ Auth::user()->name ?? 'NADIE' }}</p>
                 <p>Con ID: {{ Auth::user()->id ?? '---' }}</p>
             </div>
             {{-- Imagen index + mensaje --}}
@@ -47,12 +47,12 @@
             @endif
 
             {{-- Solo Admin --}}
-            {{-- Añadir card de vehiculos --}}
-            {{-- Añadir card de usuarios --}}
+            {{-- Componente card de vehiculos --}}
             @if (Auth::check() && Auth::user()->rol == 'administrador')
-                <card-component title-text="🔧{{-- ⚙️ --}}" body-text="Vehículos" card-url="{{ route('index') }}"
+                <card-component title-text="🔧{{-- ⚙️ --}}" body-text="Vehículos" card-url="{{ route('vehiculos.index') }}"
                     class="btn btn-light">
                 </card-component>
+                {{-- Componente card de usuarios --}}
                 <card-component title-text="👤" body-text="Usuarios" card-url="{{ route('index') }}" class="btn btn-light">
                 </card-component>
             @endif

@@ -38,6 +38,7 @@ class RepartoController extends Controller
     {
         /* Obtener los transportistas y vehiculos para el formulario de creación de reparto */
         $transportistas = User::where('rol', 'transportista')->pluck('name');
+        // Pluck() obtiene sólo los valores del campo indicado como parámetro
         $vehiculos = Vehiculo::all()->pluck('matricula');
         return view('repartos.form', ['transportistas' => $transportistas, 'vehiculos' => $vehiculos]);
     }

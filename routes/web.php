@@ -89,4 +89,5 @@ Route::post('/repartos/{id}/removeDelivery', [RepartoController::class, 'removeF
 // Ruta para ver listado de envíos en un reparto completado
 // Route::post('/repartos/{id}/showCompletedDeliveries', [RepartoController::class, 'showCompletedDeliveries'])->middleware('auth')->name('repartos.showCompletedDeliveries');
 
+
 require __DIR__ . '/auth.php';
