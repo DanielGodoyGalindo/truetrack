@@ -4,6 +4,7 @@
 <head>
     @section('title', 'Repartos')
     @vite(['resources/js/app.js'])
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>
@@ -82,15 +83,22 @@
                                     <td>{{ Str::title($reparto->estado) }}</td>
                                     {{-- Borrar repartos --}}
                                     <td>
-                                        <form action="{{ route('repartos.destroy', $reparto->id) }}" method="POST"
+                                        {{-- <form action="{{ route('repartos.destroy', $reparto->id) }}" method="POST"
                                             class="w-50">
                                             @csrf
                                             @method('DELETE')
                                             <input type="submit" value="❌" class="btn col-12">
-                                        </form>
+                                        </form> --}}
+                                        <button class="btn icono-mediano"
+                                            v-on:click="openModal('{{ route('repartos.destroy', $reparto->id) }}','DELETE')">
+                                            ❌
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
+                            {{-- Componente Vue modal --}}
+                            <modal-component v-if="showModal" :show="showModal" :route="route"
+                                :method="method" v-on:close="closeModal"></modal-component>
                         @endif
                     </tbody>
                 </table>
@@ -105,6 +113,11 @@
                     {{ $repartosAdmin->links('pagination::bootstrap-4') }}
                 @endif
             </div>
+
+            {{-- Componente vue mensajes --}}
+            @if (session('message'))
+                <message-component :message="'{{ session('message') }}'" />
+            @endif
 
         </div>
     @endsection

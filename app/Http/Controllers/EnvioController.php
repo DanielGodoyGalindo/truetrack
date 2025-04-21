@@ -157,7 +157,7 @@ class EnvioController extends Controller
         return view('envios.completed', ['enviosCompletadosCli' => $enviosCompletadosCli, 'enviosCompletadosNoCli' => $enviosCompletadosNoCli]);
     }
 
-    // 
+    // Método para que Transportista pueda actualizar el estado de un envío
     public function actualizarEnvio(Request $r, $envioId)
     {
         $envio = Envio::findOrFail($envioId);
