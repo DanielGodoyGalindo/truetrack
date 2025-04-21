@@ -67,6 +67,10 @@
                     <div class="d-flex justify-content-center py-3">
                         {{ $vehiculos->links('pagination::bootstrap-4') }}
                     </div>
+                    {{-- Componente vue mensajes --}}
+                    @if (session('message'))
+                        <message-component :message="'{{ session('message') }}'" />
+                    @endif
                 </div>
             @endif
         </div>

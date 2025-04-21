@@ -93,18 +93,27 @@ class RepartoController extends Controller
      */
     public function destroy(string $repartoId)
     {
-        // Modificar estado de envios del reparto
-        $envios = Envio::where('reparto_id', $repartoId)->get();
-        foreach ($envios as $envio) {
-            if ($envio->estado != 'entregado') {
-                $envio->estado = 'pendiente';
-                $envio->save();
-            }
+        // Borrar reparto sólo si no tiene envíos asignados
+        $numEnvios = Envio::where('reparto_id', $repartoId)->count();
+        if ($numEnvios == 0) {
+            $reparto = Reparto::findOrFail($repartoId);
+            $reparto->delete();
+            return redirect()->route('repartos.index')->with('message', 'deliveryDeleted');
+        } else {
+            return redirect()->route('repartos.index')->with('message', 'deliveryNotDeleted');
         }
+        // Modificar estado de envios del reparto
+        // $envios = Envio::where('reparto_id', $repartoId)->get();
+        // foreach ($envios as $envio) {
+        //     if ($envio->estado != 'entregado') {
+        //         $envio->estado = 'pendiente';
+        //         $envio->save();
+        //     }
+        // }
         // Eliminar reparto
-        $reparto = Reparto::findOrFail($repartoId);
-        $reparto->delete();
-        return redirect()->route('repartos.index');
+        // $reparto = Reparto::findOrFail($repartoId);
+        // $reparto->delete();
+        // return redirect()->route('repartos.index');
     }
 
     /**
@@ -113,10 +122,10 @@ class RepartoController extends Controller
     public function addDeliveries(string $id)
     {
         $reparto = Reparto::findOrFail($id);
-        // $enviosPendientes = Envio::whereNotIn('estado', ['entregado', 'anulado', 'en reparto'])->get();
         $enviosPendientes = Envio::whereNotIn('estado', ['entregado', 'anulado', 'en reparto'])->paginate($this->numPag);
         $enviosAsignados = Envio::where('reparto_id', $id)->get();
-        return view('repartos.deliveries', compact('reparto', 'enviosPendientes', 'enviosAsignados'));
+        $kilosCargados = $reparto->envios->sum('kilos');
+        return view('repartos.deliveries', compact('reparto', 'enviosPendientes', 'enviosAsignados', 'kilosCargados'));
     }
 
     /**

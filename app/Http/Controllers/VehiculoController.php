@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reparto;
 use App\Models\Vehiculo;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class VehiculoController extends Controller
 {
-
+    // variables globales privadas 
     private $elementosPaginacion = 5;
     private $cargasMax = ['500', '600', '700', '800', '900', '1000'];
+
     /**
-     * Display a listing of the resource.
+     * Listar todos los vehículos.
      */
     public function index()
     {
@@ -21,7 +23,7 @@ class VehiculoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Mostrar el formulario para crear un vehículo nuevo.
      */
     public function create()
     {
@@ -30,7 +32,7 @@ class VehiculoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda un nuevo vehículo con los datos recibidos del usuario.
      */
     public function store(Request $request)
     {
@@ -57,7 +59,7 @@ class VehiculoController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar un vehículo.
      */
     public function edit(string $id)
     {
@@ -66,7 +68,7 @@ class VehiculoController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza el vehículo indicado como parámetro.
      */
     public function update(Request $request, string $id)
     {
@@ -93,12 +95,18 @@ class VehiculoController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina el vehículo si no está asignado a ningun reparto.
      */
     public function destroy(string $id)
     {
-        $vehiculo = Vehiculo::findOrFail($id);
-        $vehiculo->delete();
-        return redirect()->route('vehiculos.index');
+        $numRepartos = Reparto::where('vehiculo_id', $id)->count();
+        // Sólo borrar vehíoculo si no tiene ningun reparto
+        if ($numRepartos == 0) {
+            $vehiculo = Vehiculo::findOrFail($id);
+            $vehiculo->delete();
+            return redirect()->route('vehiculos.index')->with('message', 'vehicleDeleted');
+        } else {
+            return redirect()->route('vehiculos.index')->with('message', 'vehicleNotDeleted');
+        }
     }
 }

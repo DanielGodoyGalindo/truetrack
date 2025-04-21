@@ -27,6 +27,14 @@ export default {
                     return 'info-message--error';
                 case 'deliveryAdded':
                     return 'info-message--success';
+                case 'vehicleDeleted':
+                    return 'info-message--success';
+                case 'vehicleNotDeleted':
+                    return 'info-message--error';
+                case 'deliveryDeleted':
+                    return 'info-message--success';
+                case 'deliveryNotDeleted':
+                    return 'info-message--error';
                 default:
                     return 'info-message--info'
             }
@@ -40,6 +48,14 @@ export default {
                     return 'El envío no se ha podido añadir porque se superaría la carga máxima.';
                 case 'deliveryRemoved':
                     return 'El envío ha sido eliminado del reparto.';
+                case 'vehicleDeleted':
+                    return 'Vehículo borrado.';
+                case 'vehicleNotDeleted':
+                    return 'El vehículo tiene repartos activos.';
+                case 'deliveryDeleted':
+                    return 'Reparto borrado.';
+                case 'deliveryNotDeleted':
+                    return 'El reparto tiene envíos asignados.';
             }
         },
     },
