@@ -6,31 +6,54 @@ use App\Models\Envio;
 use App\Models\Reparto;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    // variables globales privadas 
+    private $elementosPaginacion = 5;
+    private $roles = ['cliente', 'gestor_trafico', 'transportista', 'administrador'];
+
     /**
-     * Display a listing of the resource.
+     * Listar todos los usuarios.
      */
     public function index()
     {
-        //
+        // Obtener todos los usuarios excepto el administrador autenticado
+        $usuarios = User::where('id', '!=', Auth::user()->id)->paginate($this->elementosPaginacion);
+        return view('usuarios.all', compact('usuarios'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un usuario.
      */
     public function create()
     {
-        //
+        $usuario = null;
+        return view('usuarios.form', ['usuario' => $usuario, 'roles' => $this->roles]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guardar un nuevo usuario.
      */
     public function store(Request $request)
     {
-        //
+        // Evitar que aparezca error de violación de integridad (no se puede guardar dos veces el mismo email)
+        $request->validate([
+            'email' => 'required|string|regex:/^[\w\.-]+@[\w\.-]+\.\w{2,}$/|unique:users,email',
+            'nombre' => 'required',
+            'password' => 'required',
+            'rol' => 'required',
+        ]);
+
+        $usuario = new User();
+        $usuario->name = $request->nombre;
+        $usuario->email = $request->email;
+        $usuario->password = $request->password;
+        $usuario->rol = $request->rol;
+        $usuario->save();
+        return redirect()->route('users.index');
     }
 
     /**
@@ -42,27 +65,72 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar al usuario.
      */
     public function edit(string $id)
     {
-        //
+        $usuario = User::findOrFail($id);
+        return view('usuarios.form', ['usuario' => $usuario, 'roles' => $this->roles]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza el usuario cuyo id se indica como parámetro.
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Validar que el email no exista ya en la base de datos
+        // Se ignora el usuario actual para que deje modificar sus datos
+        // Sino, encuentra el email y no deja actualizar
+        $usuario = User::findOrFail($id);
+        $request->validate([
+            'email' => [
+                'required',
+                'string',
+                'regex:/^[\w\.-]+@[\w\.-]+\.\w{2,}$/',
+                Rule::unique('users', 'email')->ignore($usuario->id),
+            ],
+            'nombre' => 'required',
+            'rol' => 'required',
+        ]);
+
+        $usuario = User::findOrFail($id);
+        $usuario->name = $request->nombre;
+        $usuario->email = $request->email;
+        // $usuario->password = $request->password;
+        $usuario->rol = $request->rol;
+        $usuario->save();
+        return redirect()->route('users.index');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Borrar el usuario cuyo id se indica como parámetro.
      */
     public function destroy(string $id)
     {
-        //
+        $usuario = User::findOrFail($id);
+        switch ($usuario->rol) {
+            // Solo borrar a un gestor si no tiene creado ningun reparto
+            case 'gestor_trafico':
+                $numRepartos = Reparto::where('gestor_id', $usuario->id)->count();
+                if ($numRepartos == 0) {
+                    $usuario->delete();
+                } else {
+                    return redirect()->route('users.index')->with('message', 'gestorNotDeleted');
+                }
+                break;
+            // Solo borrar a un transportista si no tiene asignado algun reparto
+            case 'transportista':
+                $numRepartos = Reparto::where('transportista_id', $usuario->id)->count();
+                if ($numRepartos == 0) {
+                    $usuario->delete();
+                } else {
+                    return redirect()->route('users.index')->with('message', 'transportistaNotDeleted');
+                }
+                break;
+            default: // Borrar clientes (se borran tambien sus envíos) / administradores
+                $usuario->delete();
+        }
+        return redirect()->route('users.index')->with('message', 'userDeleted');
     }
 
     // Obtener los repartos asignados a un transportista
@@ -103,6 +171,7 @@ class UserController extends Controller
         return redirect()->route('driver.deliveries', $repartoId)->with('success', 'Estados actualizados correctamente');
     }
 
+    // Actualiza el estado de un reparto a finalizado
     public function driverCompleteDistribution(string $repartoId)
     {
         $reparto = Reparto::findOrFail($repartoId);

@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    @section('title', 'Vehículos')
+    @section('title', 'Usuarios')
     @vite(['resources/js/app.js'])
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
@@ -15,11 +15,11 @@
             @if (Auth::user()->rol == 'administrador')
                 <div class="container d-flex flex-row justify-content-between">
                     <div>
-                        <h1>Vehículos</h1>
+                        <h1>Usuarios</h1>
                     </div>
-                    {{-- Componentes botón Vue (nuevo envío) --}}
+                    {{-- Componentes botón Vue (nuevo usuario) --}}
                     <div id="button-app" class="d-flex flex-row gap-3">
-                        <button-component button-text="✚ Nuevo vehículo" button-url="{{ route('vehiculos.create') }}"
+                        <button-component button-text="✚ Nuevo usuario" button-url="{{ route('users.create') }}"
                             class="btn boton-accion1 h-75"></button-component>
                     </div>
                 </div>
@@ -29,29 +29,31 @@
                         <thead class="tabla-header">
                             <tr>
                                 <th scope="col">Id</th>
-                                <th scope="col">Matrícula</th>
-                                <th scope="col">Carga máxima</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Rol</th>
                                 <th scope="col">Editar</th>
                                 <th scope="col">Eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($vehiculos as $vehiculo)
+                            @foreach ($usuarios as $usuario)
                                 <tr>
-                                    <th scope="row">{{ $vehiculo->id }}</th>
-                                    <td>{{ $vehiculo->matricula }}</td>
-                                    <td>{{ $vehiculo->carga_max }}</td>
+                                    <th scope="row">{{ $usuario->id }}</th>
+                                    <td>{{ $usuario->name }}</td>
+                                    <td>{{ $usuario->email }}</td>
+                                    <td>{{ $usuario->rol }}</td>
                                     <td>
-                                        {{-- Formulario editar vehiculos --}}
-                                        <form action="{{ route('vehiculos.edit', $vehiculo->id) }}" method="GET">
+                                        {{-- Formulario editar usuarios --}}
+                                        <form action="{{ route('users.edit', $usuario->id) }}" method="GET">
                                             @csrf
                                             <input type="submit" value="✏️" class="btn icono-grande">
                                         </form>
                                     </td>
                                     <td>
-                                        {{-- Borrar vehículos --}}
+                                        {{-- Borrar usuarios --}}
                                         <button class="btn icono-mediano"
-                                            v-on:click="openModal('{{ route('vehiculos.destroy', $vehiculo->id) }}','DELETE')">
+                                            v-on:click="openModal('{{ route('users.destroy', $usuario->id) }}','DELETE')">
                                             ❌
                                         </button>
                                     </td>
@@ -64,7 +66,7 @@
                     </table>
                     {{-- Paginación --}}
                     <div class="d-flex justify-content-center py-3">
-                        {{ $vehiculos->links('pagination::bootstrap-4') }}
+                        {{ $usuarios->links('pagination::bootstrap-4') }}
                     </div>
                     {{-- Componente vue mensajes --}}
                     @if (session('message'))

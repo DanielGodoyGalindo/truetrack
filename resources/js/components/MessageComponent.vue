@@ -35,6 +35,12 @@ export default {
                     return 'info-message--success';
                 case 'deliveryNotDeleted':
                     return 'info-message--error';
+                case 'gestorNotDeleted':
+                    return 'info-message--error';
+                case 'transportistaNotDeleted':
+                    return 'info-message--error';
+                case 'userDeleted':
+                    return 'info-message--success';
                 default:
                     return 'info-message--info'
             }
@@ -56,6 +62,12 @@ export default {
                     return 'Reparto borrado.';
                 case 'deliveryNotDeleted':
                     return 'El reparto tiene envíos asignados.';
+                case 'gestorNotDeleted':
+                    return 'Gestor no eliminado porque tiene repartos a su nombre.'
+                case 'transportistaNotDeleted':
+                    return 'Transportista no eliminado porque está asignado a algun reparto.'
+                case 'userDeleted':
+                    return 'Usuario borrado con éxito.'
             }
         },
     },
