@@ -100,7 +100,7 @@ class VehiculoController extends Controller
     public function destroy(string $id)
     {
         $numRepartos = Reparto::where('vehiculo_id', $id)->count();
-        // Sólo borrar vehíoculo si no tiene ningun reparto
+        // Sólo borrar vehículo si no tiene ningun reparto
         if ($numRepartos == 0) {
             $vehiculo = Vehiculo::findOrFail($id);
             $vehiculo->delete();

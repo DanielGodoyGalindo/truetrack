@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    @section('title', 'Nuevo vehículo')
+    @section('title', 'Vehículos')
     @vite(['resources/js/app.js'])
 </head>
 
@@ -11,15 +11,13 @@
     @section('content')
         <div id="app">
             <div class="container">
-                <h1>Nuevo vehículo</h1>
+                <h1>{{ $vehiculo ? 'Editar vehículo' : 'Nuevo vehículo' }}</h1>
                 {{-- Formulario --}}
                 @if ($vehiculo)
                     <form action="{{ route('vehiculos.update', $vehiculo->id) }}" method="POST">
                         @method('PUT')
-                        <p>editando</p>
                     @else
                         <form action="{{ route('vehiculos.store') }}" method="POST">
-                        <p>guardando</p>
                 @endif
                 @csrf
                 <div class="d-flex flex-column gap-3">

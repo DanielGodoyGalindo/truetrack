@@ -17,6 +17,7 @@
                 <p>Usuario conectado: {{ Auth::user()->name ?? 'NADIE' }}</p>
                 <p>Con ID: {{ Auth::user()->id ?? '---' }}</p>
             </div>
+            
             {{-- Imagen index + mensaje --}}
             @guest
                 <div class="container d-flex flex-column align-items-center">
@@ -53,7 +54,7 @@
                     class="btn btn-light">
                 </card-component>
                 {{-- Componente card de usuarios --}}
-                <card-component title-text="👤" body-text="Usuarios" card-url="{{ route('index') }}" class="btn btn-light">
+                <card-component title-text="👤" body-text="Usuarios" card-url="{{ route('users.index') }}" class="btn btn-light">
                 </card-component>
             @endif
 

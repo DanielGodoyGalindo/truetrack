@@ -14,11 +14,10 @@
             {{-- Header y botón --}}
             @if (Auth::user()->rol == 'administrador')
                 <div class="container d-flex flex-row justify-content-between">
-                    {{-- Si es cliente, mostrar su nombre --}}
                     <div>
                         <h1>Vehículos</h1>
                     </div>
-                    {{-- Componentes botón Vue (nuevo envío y finalizados) --}}
+                    {{-- Componentes botón Vue (nuevo envío) --}}
                     <div id="button-app" class="d-flex flex-row gap-3">
                         <button-component button-text="✚ Nuevo vehículo" button-url="{{ route('vehiculos.create') }}"
                             class="btn boton-accion1 h-75"></button-component>

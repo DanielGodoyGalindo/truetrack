@@ -34,7 +34,7 @@
             <div class="container">
                 <table class="table align-middle">
                     <thead class="tabla-header">
-                        <tr>
+                        <tr class="text-center">
                             <th scope="col">Id</th>
                             @if (Auth::user()->rol == 'administrador')
                                 <th scope="col">Gestor tráfico</th>
@@ -55,7 +55,7 @@
                         {{-- Datos para gestores --}}
                         @if (Auth::user()->rol == 'gestor_trafico')
                             @foreach ($repartosGestor as $reparto)
-                                <tr>
+                                <tr class="text-center">
                                     <th scope="row">{{ $reparto->id }}</th>
                                     <td>{{ $reparto->transportista->name }}</td>
                                     <td>{{ $reparto->vehiculo->matricula }}</td>
@@ -75,20 +75,14 @@
                         {{-- Datos para admin --}}
                         @if (Auth::user()->rol == 'administrador')
                             @foreach ($repartosAdmin as $reparto)
-                                <tr>
+                                <tr class="text-center">
                                     <th scope="row">{{ $reparto->id }}</th>
                                     <td>{{ $reparto->gestor->name }}</td>
                                     <td>{{ $reparto->transportista->name }}</td>
                                     <td>{{ $reparto->vehiculo->matricula }}</td>
                                     <td>{{ Str::title($reparto->estado) }}</td>
                                     {{-- Borrar repartos --}}
-                                    <td>
-                                        {{-- <form action="{{ route('repartos.destroy', $reparto->id) }}" method="POST"
-                                            class="w-50">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="submit" value="❌" class="btn col-12">
-                                        </form> --}}
+                                    <td >
                                         <button class="btn icono-mediano"
                                             v-on:click="openModal('{{ route('repartos.destroy', $reparto->id) }}','DELETE')">
                                             ❌
