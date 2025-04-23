@@ -10,6 +10,7 @@ Segundo Sprint
 -Cambiar botones de perfil y desconectar a componentes vue.
 -Pruebas unitarias.
 -Pruebas Vehiculos y Usuarios (crear, borrar , editar).
+-Centrar tablas
 
 
 Futuras Mejoras

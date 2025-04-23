@@ -85,7 +85,7 @@
                                         </form>
                                     </td>
                                     <td class="text-center">
-                                        {{-- Formulario mandar editar --}}
+                                        {{-- Formulario editar --}}
                                         <form action="{{ route('envios.edit', $envio->id) }}" method="GET">
                                             @csrf
                                             <input type="submit" value="✏️" class="btn icono-grande">
