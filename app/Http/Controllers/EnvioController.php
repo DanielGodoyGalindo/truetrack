@@ -13,9 +13,10 @@ class EnvioController extends Controller
 {
 
     private $numPag = 5;
+    private $estados = ['pendiente', 'en reparto', 'entregado', 'no entregado', 'anulado'];
 
     /**
-     * Display a listing of the resource.
+     * Muestra todos los envíos.
      */
     public function index(Request $r)
     {
@@ -36,12 +37,13 @@ class EnvioController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Mostrar formulario para crear un envío.
      */
     public function create()
     {
+        $envio = null;
         $clientes = User::where('rol', 'cliente')->get();
-        return view('envios.form', ['clientes' => $clientes]);
+        return view('envios.form', ['clientes' => $clientes, 'envio' => $envio]);
     }
 
     /**
@@ -68,27 +70,41 @@ class EnvioController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar un envío.
      */
     public function edit(string $id)
     {
-        //
+        $envio = Envio::findOrFail($id);
+        return view('envios.form', ['envio' => $envio, 'estados' => $this->estados]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza el envio cuyo id se recibe como parámetro.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $r, string $id)
     {
-        //
+        // Validación
+        $r->validate([
+            'destinatario' => ['required', 'string'],
+            'direccion_destinatario' => ['required', 'string'],
+            'bultos' => ['required', 'integer'],
+            'kilos' => ['required', 'numeric'],
+        ]);
+        // Actualización
+        $envio = Envio::findOrFail($id);
+        $envio->destinatario = $r->destinatario . " - " . $r->direccion_destinatario;
+        $envio->bultos = $r->bultos;
+        $envio->kilos = $r->kilos;
+        $envio->save();
+        return redirect()->route('envios.index');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Borra un envío.
      */
     public function destroy(string $id)
     {
-        $envio = Envio::find($id);
+        $envio = Envio::findOrFail($id);
         $envio->delete();
         return redirect()->route('envios.index');
     }
