@@ -47,6 +47,7 @@
                             @endif
                             @if (Auth::user()->rol == 'gestor_trafico')
                                 <th scope="col">Asignar envíos</th>
+                                <th scope="col">Editar</th>
                             @endif
                         </tr>
                     </thead>
@@ -68,6 +69,13 @@
                                             <input type="submit" value="🚚" class="btn fs-3">
                                         </form>
                                     </td>
+                                    <td>
+                                        {{-- Formulario editar --}}
+                                        <form action="{{ route('repartos.edit', $reparto->id) }}" method="GET">
+                                            @csrf
+                                            <input type="submit" value="✏️" class="btn icono-grande">
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         @endif
@@ -82,7 +90,7 @@
                                     <td>{{ $reparto->vehiculo->matricula }}</td>
                                     <td>{{ Str::title($reparto->estado) }}</td>
                                     {{-- Borrar repartos --}}
-                                    <td >
+                                    <td>
                                         <button class="btn icono-mediano"
                                             v-on:click="openModal('{{ route('repartos.destroy', $reparto->id) }}','DELETE')">
                                             ❌

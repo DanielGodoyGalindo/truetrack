@@ -20,12 +20,12 @@ class RepartoController extends Controller
         // $repartos  = Reparto::with('gestor', 'transportista', 'vehiculo')->paginate($this->numPag);
         // return view('repartos.all', ['repartos' => $repartos]);
 
-        // ->where('gestor_id', Auth::id())
-
+        // Obtener repartos para el gestor autenticado
         $repartosGestor  = Reparto::with('gestor', 'transportista', 'vehiculo')
             ->where('gestor_id', Auth::id())
             ->whereNotIn('estado', ['finalizado'])
             ->paginate($this->numPag);
+        //Obtener repartos para el admin
         $repartosAdmin  = Reparto::with('gestor', 'transportista', 'vehiculo')
             ->paginate($this->numPag);
         return view('repartos.all', ['repartosGestor' => $repartosGestor, 'repartosAdmin' => $repartosAdmin]);
@@ -40,7 +40,8 @@ class RepartoController extends Controller
         $transportistas = User::where('rol', 'transportista')->pluck('name');
         // Pluck() obtiene sólo los valores del campo indicado como parámetro
         $vehiculos = Vehiculo::all()->pluck('matricula');
-        return view('repartos.form', ['transportistas' => $transportistas, 'vehiculos' => $vehiculos]);
+        $reparto = null;
+        return view('repartos.form', compact('transportistas', 'vehiculos', 'reparto'));
     }
 
     /**
@@ -73,23 +74,37 @@ class RepartoController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar un reparto.
      */
     public function edit(string $id)
     {
-        //
+        // $reparto = Reparto::findOrFail($id);
+        $reparto = Reparto::with('transportista', 'vehiculo')->findOrFail($id);
+        $transportistas = User::where('rol', 'transportista')->pluck('name');
+        $vehiculos = Vehiculo::all()->pluck('matricula');
+        return view('repartos.form', compact('reparto', 'transportistas', 'vehiculos'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar el reparto cuyo id se pasa como parámetro.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $r, string $id)
     {
-        //
+        // Validación
+        $r->validate([
+            'transportista' => ['required', 'string'],
+            'vehiculo' => ['required', 'string'],
+        ]);
+        // Actualización
+        $reparto = Reparto::findOrFail($id);
+        $reparto->transportista_id = User::where('name', $r->transportista)->firstOrFail()->id;
+        $reparto->vehiculo_id = Vehiculo::where('matricula', $r->vehiculo)->firstOrFail()->id;
+        $reparto->save();
+        return redirect()->route('repartos.index');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Borrar el reparto con id que se indica como parámetro.
      */
     public function destroy(string $repartoId)
     {

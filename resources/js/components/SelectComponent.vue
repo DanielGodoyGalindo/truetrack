@@ -2,7 +2,7 @@
     <div>
         <!-- Atributos dinámicos (:) -->
         <label v-if="label != ''" :for="id">{{ label }}</label>
-        <select :id="id" :name="name">
+        <select :id="id" :name="name" v-model="internalValue">
             <!-- <option disabled selected>Selecciona un opción</option> -->
             <option v-for="option in options" :value="option" :key="option">
                 {{ option }}
@@ -12,7 +12,10 @@
 </template>
 
 <script setup>
-defineProps({
+
+import { ref } from 'vue';
+
+const props = defineProps({
     id: {
         type: String,
         required: true,
@@ -27,17 +30,26 @@ defineProps({
         type: String,
         default: 'Selecciona una opción:',
     },
-    // Texto por defecto al cargar el componente
-    /*     placeholder: {
-            type: String,
-            default: 'Seleccione un valor:',
-        }, */
     // Elementos option (su valor se obtiene del controlador)
     options: {
         type: Array,
         required: true,
     },
+    selected: {
+        type: String,
+        default: '',
+    }
+    // Texto por defecto al cargar el componente
+    /*     placeholder: {
+            type: String,
+            default: 'Seleccione un valor:',
+        }, */
 });
+
+// Crear variable reactiva que recibe el valor de la prop selected
+// Si no se recibe, se elige el primer option del elemento
+const internalValue = ref(props.selected || (props.options.length > 0 ? props.options[0] : ''))
+
 </script>
 
 <style scoped>
@@ -53,5 +65,4 @@ select {
     border: 1px solid #ccc;
     font-size: 14px;
 }
-
 </style>
