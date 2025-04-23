@@ -1,6 +1,5 @@
 Segundo Sprint
 ***************
--Si un usuario se registra, hay que modificar el formulario para que elija que rol va a tener.
 -Mejorar formulario para crear un nuevo envío (poner campo de nombre, direccion, codigo postal, población, bultos y kilos)
 -En el apartado de repartos finalizados, poner el ratio de entregas / no entregas de cada reparto
 -Modificar el mockup del apartado de asignar envios a reparto, ya que las tablas se encuentran una debajo de la otra.
