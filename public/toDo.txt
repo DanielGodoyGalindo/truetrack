@@ -1,10 +1,9 @@
 Segundo Sprint
 ***************
+-Que un gestor de trafico pueda editar un reparto
 -Mejorar formulario para crear un nuevo envío (poner campo de nombre, direccion, codigo postal, población, bultos y kilos)
 -En el apartado de repartos finalizados, poner el ratio de entregas / no entregas de cada reparto
 -Modificar el mockup del apartado de asignar envios a reparto, ya que las tablas se encuentran una debajo de la otra.
--Que un cliente pueda modificar un envío (excepto su estado)
--Que un gestor de trafico pueda editar un reparto
 -Componente vue para mostrar en una barra de progreso % los kilos cargados en un reparto
 -Controlar que a repartos solo puedan entrar gestores y admin (que no se pueda entrar poniendo la url) --> hacer como en las plantillas de transportistas o crear middleware
 -Al enviar un mail como cliente, que se incluya la info del envío en el mail.

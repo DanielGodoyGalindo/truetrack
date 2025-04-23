@@ -59,6 +59,7 @@
                             <th scope="col">Bultos y kilos</th>
                             @if (Auth::user()->rol == 'cliente')
                                 <th scope="col" class="text-center">Mail</th>
+                                <th scope="col" class="text-center">Editar</th>
                                 <th scope="col" class="text-center">Anular</th>
                             @endif
                             @if (Auth::user()->rol == 'administrador')
@@ -81,6 +82,13 @@
                                         <form action="{{ route('envios.email', $envio->id) }}" method="POST">
                                             @csrf
                                             <input type="submit" value="📧" class="btn icono-grande">
+                                        </form>
+                                    </td>
+                                    <td class="text-center">
+                                        {{-- Formulario mandar editar --}}
+                                        <form action="{{ route('envios.edit', $envio->id) }}" method="GET">
+                                            @csrf
+                                            <input type="submit" value="✏️" class="btn icono-grande">
                                         </form>
                                     </td>
                                     <td class="text-center">
