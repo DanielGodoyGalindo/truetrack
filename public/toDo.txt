@@ -1,16 +1,21 @@
 Segundo Sprint
 ***************
--Que un gestor de trafico pueda editar un reparto
--Mejorar formulario para crear un nuevo envío (poner campo de nombre, direccion, codigo postal, población, bultos y kilos)
--En el apartado de repartos finalizados, poner el ratio de entregas / no entregas de cada reparto
--Modificar el mockup del apartado de asignar envios a reparto, ya que las tablas se encuentran una debajo de la otra.
--Componente vue para mostrar en una barra de progreso % los kilos cargados en un reparto
--Controlar que a repartos solo puedan entrar gestores y admin (que no se pueda entrar poniendo la url) --> hacer como en las plantillas de transportistas o crear middleware
--Al enviar un mail como cliente, que se incluya la info del envío en el mail.
--Cambiar botones de perfil y desconectar a componentes vue.
--Pruebas unitarias.
--Pruebas Vehiculos y Usuarios (crear, borrar , editar).
--Centrar tablas
+-Pruebas funcionales a añadir: 
+    ...
+
+-Poner números a los RF
+
+-Añadidos no funcionales:
+    -En el apartado de repartos finalizados, poner el ratio de entregas / no entregas de cada reparto
+    -Componente vue para mostrar en una barra de progreso % los kilos cargados en un reparto
+    -Controlar que a repartos solo puedan entrar gestores y admin (que no se pueda entrar poniendo la url) --> hacer como en las plantillas de transportistas o crear middleware
+    -Al enviar un mail como cliente, que se incluya la info del envío en el mail.
+    -Cambiar botones de perfil y desconectar a componentes vue.
+    -Mejorar formulario para crear un nuevo envío (poner campo de nombre, direccion, codigo postal, población, bultos y kilos)
+    -Pruebas Vehiculos y Usuarios (crear, borrar , editar).
+    -Centrar tablas
+    -Cambiar todo a "eliminar" o a "borrar"
+    -Añadir seleccion de fechas desde y hasta en la sección de Finalizados para filtrar por fecha
 
 
 Futuras Mejoras

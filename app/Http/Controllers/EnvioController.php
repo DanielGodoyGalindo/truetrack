@@ -120,8 +120,8 @@ class EnvioController extends Controller
     public function sendEmail(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
-            'mensaje' => 'required|string',
+            'email' => ['required','email:rfc,dns'],
+            'mensaje' => ['required','string'],
         ]);
         Mail::raw($request->mensaje, function ($mail) use ($request) {
             $mail->to($request->email)

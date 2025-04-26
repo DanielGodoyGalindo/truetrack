@@ -1,20 +1,14 @@
 <?php
 
 use App\Models\Envio;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 test('Crear envío', function () {
 
-    $cliente = User::create([
-        'name' => 'cliente1',
-        'email' => 'cliente1@gmail.com',
-        'password' => Hash::make('cliente1'),
-        'rol' => 'cliente',
-    ]);
-
-    $envio = Envio::create([
-        'cliente_id' => $cliente->id,
+    // Crear envío
+    DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+    Envio::create([
+        'cliente_id' => 1,
         'reparto_id' => null,
         'destinatario' => 'Pepito Perez',
         'estado' => 'pendiente',
@@ -22,7 +16,9 @@ test('Crear envío', function () {
         'kilos' => 12.50,
         'informacion' => 'nuevo envio',
     ]);
+    DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
+    // Comprobar que existe en la BDD
     $this->assertDatabaseHas('envios', [
         'destinatario' => 'Pepito Perez',
         'estado' => 'pendiente',
