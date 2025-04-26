@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Vehiculo extends Model
 {
+    protected $fillable = [
+        'matricula',
+        'carga_max',
+    ];
+
     // relación 1:N entre vehículo y reparto (un vehiculo puede tener varios repartos)
     public function repartos(): HasMany
     {

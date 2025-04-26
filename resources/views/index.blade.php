@@ -13,7 +13,7 @@
         <div id="app">
 
             {{-- Sólo para pruebas- Mostrar usuario conectado --}}
-            <div class="container">
+            <div class="container" style="color: red; font-size: 1.5rem">
                 <p>Usuario conectado: {{ Auth::user()->name ?? 'NADIE' }}</p>
                 <p>Con ID: {{ Auth::user()->id ?? '---' }}</p>
             </div>
