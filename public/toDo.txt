@@ -3,8 +3,6 @@ Segundo Sprint
 -Pruebas funcionales a añadir: 
     ...
 
--Poner números a los RF
-
 -Añadidos no funcionales:
     -En el apartado de repartos finalizados, poner el ratio de entregas / no entregas de cada reparto
     -Componente vue para mostrar en una barra de progreso % los kilos cargados en un reparto
