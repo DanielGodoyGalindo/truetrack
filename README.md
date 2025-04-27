@@ -7,7 +7,7 @@ Aplicación web para el seguimiento de envíos de una empresa de transporte.
 - Bootstrap 5
 - Javascript
 - MySQL
-- 
+
 <p align="center">
   <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=laravel,vue,bootstrap,js,mysql,vscode" />
