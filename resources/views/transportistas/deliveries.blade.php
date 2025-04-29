@@ -24,9 +24,9 @@
                 {{-- Tabla --}}
                 <div class="container">
                     <h3>Mis entregas:</h3>
-                    <table class="table align-middle">
+                    <table class="table align-middle ">
                         <thead class="tabla-header">
-                            <tr class="text-center">
+                            <tr>
                                 <th scope="col">Envío Id</th>
                                 <th scope="col">Cliente</th>
                                 <th scope="col">Destinatario</th>

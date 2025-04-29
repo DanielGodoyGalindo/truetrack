@@ -44,7 +44,7 @@
             {{-- Tabla --}}
             <div class="container">
                 {{-- <div id="deleteModal-app"> --}}
-                <table class="table align-middle">
+                <table class="table align-middle text-center">
                     <thead class="tabla-header">
                         <tr>
                             <th scope="col">Id</th>
