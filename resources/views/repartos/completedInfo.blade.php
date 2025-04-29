@@ -17,7 +17,7 @@
             </div>
 
             {{-- Tabla --}}
-            <div class="container">
+            <div class="container" style="min-height: 30vh">
                 <table class="table align-middle">
                     <thead class="tabla-header">
                         <tr>
@@ -48,8 +48,17 @@
             <div class="container d-flex justify-content-center py-3">
                 {{ $envios->links('pagination::bootstrap-4') }}
             </div>
+            {{-- Motrar ratio entregados / no entregados --}}
+            {{-- Componente barra progreso --}}
+            <div class="container w-25">
+                <progress-bar-component :valor="{{ $entregados }}"
+                    :total="{{ $enviosTotales }}"></progress-bar-component>
+                <div class="text-center mb-3">
+                    <span class="span-info">{{ round(($entregados * 100) / $enviosTotales, 2) }}% envíos entregados</span>
+                </div>
+            </div>
             {{-- Componente botón Vue (volver) --}}
-            <div id="button-app" class="container text-center">
+            <div class="container text-center">
                 <button-component button-text="Volver" button-url="{{ route('repartos.showDeliveriesCompleted') }}"
                     class="btn boton-accion1"></button-component>
             </div>

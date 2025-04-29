@@ -19,7 +19,7 @@
                 {{-- Tabla --}}
                 <div class="container">
                     <h3>Transportista: {{ Auth::user()->name }}</h3>
-                    <table class="table align-middle">
+                    <table class="table align-middle text-center">
                         <thead class="tabla-header">
                             <tr>
                                 <th scope="col">Num. Reparto</th>

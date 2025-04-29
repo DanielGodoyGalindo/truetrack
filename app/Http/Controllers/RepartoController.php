@@ -64,13 +64,17 @@ class RepartoController extends Controller
     }
 
     /**
-     * Muestra el reparto y todos sus envíos
+     * Muestra el reparto (finalizado) y todos sus envíos
      */
     public function show(string $id)
     {
+        // Obtener reparto y sus envíos
         $reparto = Reparto::findOrFail($id);
         $envios = Envio::where('reparto_id', $id)->paginate($this->numPag);
-        return view('repartos.completedInfo', compact('reparto', 'envios'));
+        // Calculo envios entregados
+        $enviosTotales = $envios->total();
+        $entregados = Envio::where('reparto_id', $id)->where('estado', 'entregado')->count();
+        return view('repartos.completedInfo', compact('reparto', 'envios', 'entregados', 'enviosTotales'));
     }
 
     /**

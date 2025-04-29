@@ -26,7 +26,7 @@
                 {{-- Tabla con envios pendientes de reparto --}}
                 <div class="container">
                     <h2 class="pt-2">Envíos disponibles</h2>
-                    <table class="table align-middle">
+                    <table class="table align-middle text-center">
                         <thead class="tabla-header">
                             <tr>
                                 <th>Envío Id</th>
@@ -66,8 +66,8 @@
                 {{-- Tabla con envíos asignados al reparto actual --}}
                 <div class="container">
                     <h2 class="pt-5">Envíos asignados</h2>
-                    <table class="table align-middle">
-                        <thead class="tabla-header">
+                    <table class="table align-middle text-center">
+                        <thead class="tabla-header2">
                             <tr>
                                 <th>Envío Id</th>
                                 <th>Destinatario</th>
@@ -82,7 +82,7 @@
                                     <td>{{ $envio->id }}</td>
                                     <td>{{ $envio->destinatario }}</td>
                                     {{-- <td>{{ Str::title($envio->estado) }}</td> --}}
-                                    <td>{{ $envio->kilos }}</td>
+                                    <td>{{ $envio->kilos }} kgs</td>
                                     <td>
                                         <form action="{{ route('repartos.removeFromDelivery', $reparto->id) }}"
                                             method="POST">
@@ -99,15 +99,18 @@
 
                 {{-- Mostrar información de kilos --}}
                 <div class="container pt-5 d-flex justify-content-around">
+                    {{-- Null coalescing operator: Muestra el valor de la izquierda, y si es no está definido o es null, muestra el de la derecha --}}
                     <span class="h4"> Kilos cargados: {{ $kilosCargados ?? 0 }} kgs</span>
-                    {{-- Componente vue para mensajes --}}
-                    <div id="message-app">
-                        @if (session('message'))
-                            <message-component :message="'{{ session('message') }}'" />
-                        @endif
-                    </div>
                 </div>
-
+                {{-- Componente barra progreso --}}
+                <progress-bar-component :valor="{{ $kilosCargados }}"
+                    :total="{{ $reparto->vehiculo->carga_max }}"></progress-bar-component>
+            </div>
+            {{-- Componente vue para mensajes --}}
+            <div id="message-app">
+                @if (session('message'))
+                    <message-component :message="'{{ session('message') }}'" />
+                @endif
             </div>
         </div>
     @endsection

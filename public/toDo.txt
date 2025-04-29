@@ -4,8 +4,7 @@ Segundo Sprint
     ...
 
 -Añadidos no funcionales:
-    -En el apartado de repartos finalizados, poner el ratio de entregas / no entregas de cada reparto
-    -Componente vue para mostrar en una barra de progreso % los kilos cargados en un reparto
+    -Apartado para clientes en el que se pueda hacer click en cada envio y mostrar nueva pagina con la info y una barra superior con el estado de la entrega
     -Controlar que a repartos solo puedan entrar gestores y admin (que no se pueda entrar poniendo la url) --> hacer como en las plantillas de transportistas o crear middleware
     -Al enviar un mail como cliente, que se incluya la info del envío en el mail.
     -Cambiar botones de perfil y desconectar a componentes vue.
