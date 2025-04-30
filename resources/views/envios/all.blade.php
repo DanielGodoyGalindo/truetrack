@@ -43,7 +43,6 @@
 
             {{-- Tabla --}}
             <div class="container">
-                {{-- <div id="deleteModal-app"> --}}
                 <table class="table align-middle text-center">
                     <thead class="tabla-header">
                         <tr>
@@ -135,12 +134,11 @@
                             @endforeach
                         @endif
                         {{-- Componente Vue modal --}}
-                        <modal-component v-if="showModal" :show="showModal" :route="route" :method="method"
-                            v-on:close="closeModal"></modal-component>
+                        <modal-component v-if="showModal" :show="showModal" :route="route"
+                            :method="method" v-on:close="closeModal"></modal-component>
                     </tbody>
                 </table>
                 {{-- Fin tabla --}}
-                {{-- </div> --}}
 
                 {{-- Paginación --}}
                 <div class="d-flex justify-content-center py-3">
