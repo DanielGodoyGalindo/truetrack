@@ -41,16 +41,22 @@ class EnvioController extends Controller
      */
     public function create()
     {
+        if (Auth::user()->rol !== 'cliente') {
+            abort(403, 'No tienes permiso para acceder');
+        }
         $envio = null;
         $clientes = User::where('rol', 'cliente')->get();
         return view('envios.form', ['clientes' => $clientes, 'envio' => $envio]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda un nuevo envío con los datos obtenidos.
      */
     public function store(Request $r)
     {
+        if (Auth::user()->rol !== 'cliente') {
+            abort(403, 'No tienes permiso para acceder');
+        }
         $envio = new Envio();
         $envio->cliente_id = Auth::user()->id ?? 1;
         $envio->destinatario = $r->destinatario . " - " . $r->direccion_destinatario;
@@ -74,6 +80,9 @@ class EnvioController extends Controller
      */
     public function edit(string $id)
     {
+        if (Auth::user()->rol !== 'cliente') {
+            abort(403, 'No tienes permiso para acceder');
+        }
         $envio = Envio::findOrFail($id);
         return view('envios.form', ['envio' => $envio, 'estados' => $this->estados]);
     }
@@ -83,6 +92,9 @@ class EnvioController extends Controller
      */
     public function update(Request $r, string $id)
     {
+        if (Auth::user()->rol !== 'cliente') {
+            abort(403, 'No tienes permiso para acceder');
+        }
         // Validación
         $r->validate([
             'destinatario' => ['required', 'string'],
@@ -104,6 +116,9 @@ class EnvioController extends Controller
      */
     public function destroy(string $id)
     {
+        if (Auth::user()->rol !== 'administrador') {
+            abort(403, 'No tienes permiso para acceder');
+        }
         $envio = Envio::findOrFail($id);
         $envio->delete();
         return redirect()->route('envios.index');
@@ -120,8 +135,8 @@ class EnvioController extends Controller
     public function sendEmail(Request $request)
     {
         $request->validate([
-            'email' => ['required','email:rfc,dns'],
-            'mensaje' => ['required','string'],
+            'email' => ['required', 'email:rfc,dns'],
+            'mensaje' => ['required', 'string'],
         ]);
         Mail::raw($request->mensaje, function ($mail) use ($request) {
             $mail->to($request->email)

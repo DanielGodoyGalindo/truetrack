@@ -36,6 +36,9 @@ class RepartoController extends Controller
      */
     public function create()
     {
+        if (Auth::user()->rol !== 'gestor_trafico') {
+            abort(403, 'No tienes permiso para acceder');
+        }
         /* Obtener los transportistas y vehiculos para el formulario de creación de reparto */
         $transportistas = User::where('rol', 'transportista')->pluck('name');
         // Pluck() obtiene sólo los valores del campo indicado como parámetro
@@ -49,6 +52,9 @@ class RepartoController extends Controller
      */
     public function store(Request $r)
     {
+        if (Auth::user()->rol !== 'gestor_trafico') {
+            abort(403, 'No tienes permiso para acceder');
+        }
         // dd($r->all()); // Obtener todos los datos del request
         $reparto = new Reparto();
         // Obtener el id del usuario autenticado
@@ -82,7 +88,9 @@ class RepartoController extends Controller
      */
     public function edit(string $id)
     {
-        // $reparto = Reparto::findOrFail($id);
+        if (Auth::user()->rol !== 'gestor_trafico') {
+            abort(403, 'No tienes permiso para acceder');
+        }
         $reparto = Reparto::with('transportista', 'vehiculo')->findOrFail($id);
         $transportistas = User::where('rol', 'transportista')->pluck('name');
         $vehiculos = Vehiculo::all()->pluck('matricula');
@@ -94,6 +102,9 @@ class RepartoController extends Controller
      */
     public function update(Request $r, string $id)
     {
+        if (Auth::user()->rol !== 'gestor_trafico') {
+            abort(403, 'No tienes permiso para acceder');
+        }
         // Validación
         $r->validate([
             'transportista' => ['required', 'string'],
@@ -112,6 +123,9 @@ class RepartoController extends Controller
      */
     public function destroy(string $repartoId)
     {
+        if (Auth::user()->rol !== 'administrador') {
+            abort(403, 'No tienes permiso para acceder');
+        }
         // Borrar reparto sólo si no tiene envíos asignados
         $numEnvios = Envio::where('reparto_id', $repartoId)->count();
         if ($numEnvios == 0) {

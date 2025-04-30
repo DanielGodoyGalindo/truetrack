@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
 //////////////////////////
 /* Rutas transportistas */
 //////////////////////////
+
 Route::middleware(['auth', 'role:transportista'])->group(function () {
     // Ruta para que los transportistas vean sus repartos
     Route::get('/repartosTransportista/{id}', [UserController::class, 'driverDistributions'])->name('driver.distributions');
@@ -61,10 +62,10 @@ Route::get('/repartos/deliveriesCompleted', [RepartoController::class, 'showDeli
 ////////////////////
 
 // Rutas con método resource, el middleware de auth indica que sólo se puede acceder si el usuario está autenticado
-Route::resource('users', UserController::class)->middleware('auth');
-Route::resource('envios', EnvioController::class)->middleware('auth');
-Route::resource('repartos', RepartoController::class)->middleware('auth');
-Route::resource('vehiculos', VehiculoController::class)->middleware('auth');
+Route::resource('users', UserController::class)->middleware(['auth', 'role:administrador']);
+Route::resource('envios', EnvioController::class)->middleware(['auth', 'role:cliente,gestor_trafico,administrador']);
+Route::resource('repartos', RepartoController::class)->middleware(['auth', 'role:gestor_trafico,administrador']);
+Route::resource('vehiculos', VehiculoController::class)->middleware(['auth', 'role:administrador']);
 
 
 ///////////////////////////////
