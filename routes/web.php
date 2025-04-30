@@ -30,13 +30,16 @@ Route::middleware('auth')->group(function () {
 //////////////////////////
 /* Rutas transportistas */
 //////////////////////////
+Route::middleware(['auth', 'role:transportista'])->group(function () {
+    // Ruta para que los transportistas vean sus repartos
+    Route::get('/repartosTransportista/{id}', [UserController::class, 'driverDistributions'])->name('driver.distributions');
+    // Ruta para mostrar los envíos dentro de un reparto para un transportista
+    Route::get('/repartoTransportista/{id}', [UserController::class, 'driverDeliveries'])->name('driver.deliveries');
+    // Ruta para cambiar el estado de un reparto a finalizado
+    Route::post('repartoTransportista/finalizar/{id}', [UserController::class, 'driverCompleteDistribution'])->name('driver.completeDistribution');
+});
 
-// Ruta para que los transportistas vean sus repartos
-Route::get('/repartosTransportista/{id}', [UserController::class, 'driverDistributions'])->middleware('auth')->name('driver.distributions');
-// Ruta para mostrar los envíos dentro de un reparto para un transportista
-Route::get('/repartoTransportista/{id}', [UserController::class, 'driverDeliveries'])->middleware('auth')->name('driver.deliveries');
-// Ruta para cambiar el estado de un reparto a finalizado
-Route::post('repartoTransportista/finalizar/{id}', [UserController::class, 'driverCompleteDistribution'])->middleware('auth')->name('driver.completeDistribution');
+
 
 
 ///////////////////
@@ -46,9 +49,11 @@ Route::post('repartoTransportista/finalizar/{id}', [UserController::class, 'driv
 // Ruta para devolver el número de envios y repartos totales
 Route::get('/', [EnvioController::class, 'showDatosIndex'])->name('index');
 // Ruta para mostrar los envios entregados y anulados
-Route::get('/envios/completed', [EnvioController::class, 'showCompleted'])->middleware('auth')->name('envios.showCompleted');
+Route::get('/envios/completed', [EnvioController::class, 'showCompleted'])
+    ->middleware(['auth', 'role:cliente,gestor_trafico,administrador'])->name('envios.showCompleted');
 // Ruta para mostrar los repartos completados (estado finalizado)
-Route::get('/repartos/deliveriesCompleted', [RepartoController::class, 'showDeliveriesCompleted'])->middleware('auth')->name('repartos.showDeliveriesCompleted');
+Route::get('/repartos/deliveriesCompleted', [RepartoController::class, 'showDeliveriesCompleted'])
+    ->middleware(['auth', 'role:gestor_trafico,administrador'])->name('repartos.showDeliveriesCompleted');
 
 
 /////////////////////
@@ -67,11 +72,13 @@ Route::resource('vehiculos', VehiculoController::class)->middleware('auth');
 //////////////////////////////
 
 // Se pasa el parametro del id para saber cual es el envio del que se quiere mandar un email
-Route::post('/envios/mail/{id}', [EnvioController::class, 'email'])->middleware('auth')->name('envios.email');
-Route::post('/envios/send-email', [EnvioController::class, 'sendEmail'])->middleware('auth')->name('envios.sendEmail');
-Route::post('/envios/anular/{id}', [EnvioController::class, 'setNull'])->middleware('auth')->name('envios.setNull');
+Route::middleware(['auth', 'role:cliente'])->group(function () {
+    Route::post('/envios/mail/{id}', [EnvioController::class, 'email'])->name('envios.email');
+    Route::post('/envios/send-email', [EnvioController::class, 'sendEmail'])->name('envios.sendEmail');
+    Route::post('/envios/anular/{id}', [EnvioController::class, 'setNull'])->name('envios.setNull');
+});
 // Ruta para que Rol Transportista pueda actualizar el estado de un envío
-Route::post('/envios/actualizar/{id}', [EnvioController::class, 'actualizarEnvio'])->name('envios.actualizar');
+Route::post('/envios/actualizar/{id}', [EnvioController::class, 'actualizarEnvio'])->middleware(['auth', 'role:transportista'])->name('envios.actualizar');
 
 
 /////////////////////////////////
@@ -79,15 +86,14 @@ Route::post('/envios/actualizar/{id}', [EnvioController::class, 'actualizarEnvio
 ////////////////////////////////
 
 // Ruta para añadir envios a un reparto, se pasa el id del reparto en el que el usuario ha hecho clic en la vista repartos.all
-Route::get('/repartos/{id}/addDeliveries', [RepartoController::class, 'addDeliveries'])->middleware('auth')->name('repartos.addDeliveries');
-// Ruta para actualizar la vista repartos.deliveries (para ver cómo se van asignando / sacando los envios de un reparto)
-Route::get('/repartos/{id}/showDeliveries', [RepartoController::class, 'showDeliveries'])->middleware('auth')->name('repartos.showDeliveries');
-// Ruta para usar en el botón de asignar envío a un reparto
-Route::post('/repartos/{id}/asignar', [RepartoController::class, 'assignDelivery'])->middleware('auth')->name('repartos.asignar');
-// Ruta para usar en el botón de quitar un envío de un reparto
-Route::post('/repartos/{id}/removeDelivery', [RepartoController::class, 'removeFromDelivery'])->middleware('auth')->name('repartos.removeFromDelivery');
-// Ruta para ver listado de envíos en un reparto completado
-// Route::post('/repartos/{id}/showCompletedDeliveries', [RepartoController::class, 'showCompletedDeliveries'])->middleware('auth')->name('repartos.showCompletedDeliveries');
-
+Route::middleware(['auth', 'role:gestor_trafico'])->group(function () {
+    Route::get('/repartos/{id}/addDeliveries', [RepartoController::class, 'addDeliveries'])->name('repartos.addDeliveries');
+    // Ruta para actualizar la vista repartos.deliveries (para ver cómo se van asignando / sacando los envios de un reparto)
+    Route::get('/repartos/{id}/showDeliveries', [RepartoController::class, 'showDeliveries'])->name('repartos.showDeliveries');
+    // Ruta para usar en el botón de asignar envío a un reparto
+    Route::post('/repartos/{id}/asignar', [RepartoController::class, 'assignDelivery'])->name('repartos.asignar');
+    // Ruta para usar en el botón de quitar un envío de un reparto
+    Route::post('/repartos/{id}/removeDelivery', [RepartoController::class, 'removeFromDelivery'])->name('repartos.removeFromDelivery');
+});
 
 require __DIR__ . '/auth.php';

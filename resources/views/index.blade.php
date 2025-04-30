@@ -13,11 +13,13 @@
         <div id="app">
 
             {{-- Sólo para pruebas- Mostrar usuario conectado --}}
-            <div class="container" style="color: red; font-size: 1.5rem">
-                <p>Usuario conectado: {{ Auth::user()->name ?? 'NADIE' }}</p>
-                <p>Con ID: {{ Auth::user()->id ?? '---' }}</p>
-            </div>
-            
+            @auth
+                <div class="container" style="color: red; font-size: 1.5rem">
+                    <p>Usuario conectado: {{ Auth::user()->name }}</p>
+                    <p>Con ID: {{ Auth::user()->id }}</p>
+                </div>
+            @endauth
+
             {{-- Imagen index + mensaje --}}
             @guest
                 <div class="container d-flex flex-column align-items-center">
@@ -50,11 +52,12 @@
             {{-- Solo Admin --}}
             {{-- Componente card de vehiculos --}}
             @if (Auth::check() && Auth::user()->rol == 'administrador')
-                <card-component title-text="🔧{{-- ⚙️ --}}" body-text="Vehículos" card-url="{{ route('vehiculos.index') }}"
-                    class="btn btn-light">
+                <card-component title-text="🔧{{-- ⚙️ --}}" body-text="Vehículos"
+                    card-url="{{ route('vehiculos.index') }}" class="btn btn-light">
                 </card-component>
                 {{-- Componente card de usuarios --}}
-                <card-component title-text="👤" body-text="Usuarios" card-url="{{ route('users.index') }}" class="btn btn-light">
+                <card-component title-text="👤" body-text="Usuarios" card-url="{{ route('users.index') }}"
+                    class="btn btn-light">
                 </card-component>
             @endif
 

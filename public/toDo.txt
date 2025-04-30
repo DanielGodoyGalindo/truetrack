@@ -5,7 +5,7 @@ Segundo Sprint
 
 -Añadidos no funcionales:
     -Apartado para clientes en el que se pueda hacer click en cada envio y mostrar nueva pagina con la info y una barra superior con el estado de la entrega
-    -Controlar que a repartos solo puedan entrar gestores y admin (que no se pueda entrar poniendo la url) --> hacer como en las plantillas de transportistas o crear middleware
+    -Controlar con middleware las rutas resource (hacerlo en los controladores)
     -Al enviar un mail como cliente, que se incluya la info del envío en el mail.
     -Cambiar botones de perfil y desconectar a componentes vue.
     -Mejorar formulario para crear un nuevo envío (poner campo de nombre, direccion, codigo postal, población, bultos y kilos)

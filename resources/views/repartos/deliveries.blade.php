@@ -63,8 +63,17 @@
                     </div>
                 </div>
 
-                {{-- Tabla con envíos asignados al reparto actual --}}
+
                 <div class="container">
+                    {{-- Mostrar información de kilos --}}
+                    <div class="container pt-5 d-flex justify-content-around">
+                        {{-- Null coalescing operator: Muestra el valor de la izquierda, y si es no está definido o es null, muestra el de la derecha --}}
+                        <span class="h4"> Kilos cargados: {{ $kilosCargados ?? 0 }} kgs</span>
+                    </div>
+                    {{-- Componente barra progreso --}}
+                    <progress-bar-component :valor="{{ $kilosCargados }}"
+                        :total="{{ $reparto->vehiculo->carga_max }}"></progress-bar-component>
+                    {{-- Tabla con envíos asignados al reparto actual --}}
                     <h2 class="pt-5">Envíos asignados</h2>
                     <table class="table align-middle text-center">
                         <thead class="tabla-header2">
@@ -97,14 +106,6 @@
                     </table>
                 </div>
 
-                {{-- Mostrar información de kilos --}}
-                <div class="container pt-5 d-flex justify-content-around">
-                    {{-- Null coalescing operator: Muestra el valor de la izquierda, y si es no está definido o es null, muestra el de la derecha --}}
-                    <span class="h4"> Kilos cargados: {{ $kilosCargados ?? 0 }} kgs</span>
-                </div>
-                {{-- Componente barra progreso --}}
-                <progress-bar-component :valor="{{ $kilosCargados }}"
-                    :total="{{ $reparto->vehiculo->carga_max }}"></progress-bar-component>
             </div>
             {{-- Componente vue para mensajes --}}
             <div id="message-app">
