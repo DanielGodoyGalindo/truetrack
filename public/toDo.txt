@@ -4,7 +4,6 @@ Segundo Sprint
     ...
 
 -Añadidos no funcionales:
-    -Apartado para clientes en el que se pueda hacer click en cada envio y mostrar nueva pagina con la info y una barra superior con el estado de la entrega
     -Al enviar un mail como cliente, que se incluya la info del envío en el mail.
     -Cambiar botones de perfil y desconectar a componentes vue.
     -Mejorar formulario para crear un nuevo envío (poner campo de nombre, direccion, codigo postal, población, bultos y kilos)

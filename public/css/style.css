@@ -14,7 +14,7 @@ textarea {
     font-size: 2rem;
 }
 
-#furgoneta{
+#furgoneta {
     width: 50%;
 }
 
@@ -22,7 +22,7 @@ textarea {
     width: 25%;
 }
 
-.span-info{
+.span-info {
     font-size: 1.5rem;
 }
 
@@ -34,7 +34,7 @@ textarea {
     --color-rojo: #D00000;
     --color-naranja: #FFBA08;
     --color-verde: #136F63;
-  }
+}
 
 .boton-accion1 {
     background-color: var(--color-azul1);
@@ -94,4 +94,38 @@ textarea {
 .tabla-header2 th {
     background-color: var(--color-azul1);
     color: white;
+}
+
+@keyframes parpadeo-verde {
+
+    0%,
+    100% {
+        color: var(--color-verde);
+    }
+
+    50% {
+        color: transparent;
+    }
+}
+
+@keyframes parpadeo-rojo {
+
+    0%,
+    100% {
+        color: var(--color-rojo);
+    }
+
+    50% {
+        color: transparent;
+    }
+}
+
+.texto-parpadeo-verde {
+    font-weight: bold;
+    animation: parpadeo-verde 1s infinite;
+}
+
+.texto-parpadeo-rojo {
+    font-weight: bold;
+    animation: parpadeo-rojo 1s infinite;
 }

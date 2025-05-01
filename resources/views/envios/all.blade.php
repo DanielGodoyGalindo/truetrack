@@ -74,7 +74,11 @@
                                 <tr>
                                     <th scope="row">{{ $envio->id }}</th>
                                     <td>{{ $envio->destinatario }}</td>
-                                    <td>{{ Str::title($envio->estado) }}</td>
+                                    <td @class([
+                                        'texto-parpadeo-verde' => $envio->estado == 'en reparto',
+                                        'texto-parpadeo-rojo' => $envio->estado == 'no entregado',
+                                    ])>
+                                        {{ Str::title($envio->estado) }}</td>
                                     <td>{{ $envio->bultos }} bultos - {{ $envio->kilos }} kilos</td>
                                     <td class="text-center">
                                         {{-- Formulario mandar emails --}}
