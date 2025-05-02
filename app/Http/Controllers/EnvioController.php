@@ -127,8 +127,18 @@ class EnvioController extends Controller
     /* Método para mostrar la vista de envío de mail */
     public function email(string $id)
     {
-        $envio = Envio::with('cliente')->findOrFail($id);;
-        return view('envios.email', ['envio' => $envio]);
+        $envio = Envio::with('cliente')->findOrFail($id);
+        // Generar cabecera del mensaje para incluyir en el mail
+        $cabecera = <<<STR
+        Información de tu envío
+        -----------------------
+        Cliente: {$envio->cliente->name}
+        Tu dirección: {$envio->destinatario}
+        Bultos:  {$envio->bultos}
+        Kilos: {$envio->kilos}
+        Estado: {$envio->estado}
+        STR;
+        return view('envios.email', ['envio' => $envio, 'cabecera' => $cabecera]);
     }
 
     /* Método para que un cliente pueda enviar un email */
@@ -138,7 +148,7 @@ class EnvioController extends Controller
             'email' => ['required', 'email:rfc,dns'],
             'mensaje' => ['required', 'string'],
         ]);
-        Mail::raw($request->mensaje, function ($mail) use ($request) {
+        Mail::raw($request->cabecera . "\n\n" . $request->mensaje, function ($mail) use ($request) {
             $mail->to($request->email)
                 ->subject('Mensaje desde TrueTrack');
         });

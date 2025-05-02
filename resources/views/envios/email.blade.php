@@ -36,6 +36,7 @@
                         <div class="d-flex gap-3 justify-content-start">
                             <button type="submit" class="btn boton-accion2">Enviar</button>
                         </div>
+                        <textarea name="cabecera" hidden>{{ $cabecera }}</textarea>
                     </form>
                 </div>
                 {{-- Componente botón Vue (volver) --}}
