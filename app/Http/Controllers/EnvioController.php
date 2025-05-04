@@ -57,9 +57,18 @@ class EnvioController extends Controller
         if (Auth::user()->rol !== 'cliente') {
             abort(403, 'No tienes permiso para acceder');
         }
+        // Validación
+        $r->validate([
+            'nombre' => ['required', 'string'],
+            'direccion' => ['required', 'string'],
+            'codigo_postal' => ['required', 'string', 'regex:/^\d{5}$/'],
+            'poblacion' => ['required', 'string'],
+            'bultos' => ['required', 'integer'],
+            'kilos' => ['required', 'numeric'],
+        ]);
         $envio = new Envio();
-        $envio->cliente_id = Auth::user()->id ?? 1;
-        $envio->destinatario = $r->destinatario . " - " . $r->direccion_destinatario;
+        $envio->cliente_id = Auth::user()->id;
+        $envio->destinatario = trim($r->nombre) . " - " . trim($r->direccion) . ", " . $r->codigo_postal . " " . trim($r->poblacion);
         $envio->bultos = $r->bultos;
         $envio->kilos = $r->kilos;
         $envio->estado = "pendiente";
@@ -84,7 +93,13 @@ class EnvioController extends Controller
             abort(403, 'No tienes permiso para acceder');
         }
         $envio = Envio::findOrFail($id);
-        return view('envios.form', ['envio' => $envio, 'estados' => $this->estados]);
+        // Obtener partes de la cadena "destinatario" -> [Nombre completo] - [Dirección], [Código postal] [Población]
+        preg_match('/^(.*?)\s*-\s*(.*?),\s*(\d{5})\s+(.*)$/', $envio->destinatario, $subcadenas);
+        $nombre = $subcadenas[1];
+        $direccion = $subcadenas[2];
+        $codigo_postal = $subcadenas[3];
+        $poblacion = $subcadenas[4];
+        return view('envios.form', compact('envio', 'nombre', 'direccion', 'codigo_postal', 'poblacion') + ['estados' => $this->estados]);
     }
 
     /**
@@ -97,14 +112,16 @@ class EnvioController extends Controller
         }
         // Validación
         $r->validate([
-            'destinatario' => ['required', 'string'],
-            'direccion_destinatario' => ['required', 'string'],
+            'nombre' => ['required', 'string'],
+            'direccion' => ['required', 'string'],
+            'codigo_postal' => ['required', 'string', 'regex:/^\d{5}$/'],
+            'poblacion' => ['required', 'string'],
             'bultos' => ['required', 'integer'],
             'kilos' => ['required', 'numeric'],
         ]);
         // Actualización
         $envio = Envio::findOrFail($id);
-        $envio->destinatario = $r->destinatario . " - " . $r->direccion_destinatario;
+        $envio->destinatario = $r->nombre . " - " . $r->direccion . ", " . $r->codigo_postal . " " . $r->poblacion;
         $envio->bultos = $r->bultos;
         $envio->kilos = $r->kilos;
         $envio->save();
