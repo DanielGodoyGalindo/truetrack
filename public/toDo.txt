@@ -4,12 +4,13 @@ Segundo Sprint
     ...
 
 -Añadidos no funcionales:
-    -Cambiar botones de perfil y desconectar a componentes vue.
-    -Mejorar formulario para crear un nuevo envío (poner campo de nombre, direccion, codigo postal, población, bultos y kilos)
+    -Mejorar formulario para crear un nuevo envío (poner campo de nombre, direccion, codigo postal, población, bultos y kilos) --> comprobar
+    -Siendo admin, al borrar un envío, que se pregunte si está seguro de borrarlo
     -Pruebas Vehiculos y Usuarios (crear, borrar , editar).
     -Centrar tablas
     -Cambiar todo a "eliminar" o a "borrar"
     -Añadir seleccion de fechas desde y hasta en la sección de Finalizados para filtrar por fecha
+    -Footer
 
 
 Futuras Mejoras

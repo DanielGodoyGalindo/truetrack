@@ -19,25 +19,41 @@
                         <form action="{{ route('envios.store') }}" method="POST">
                 @endif
                 @csrf
+                {{-- Nombre --}}
                 <div class="mb-3">
-                    <label for="destinatario">Destinatario:</label>
-                    <input type="text" name="destinatario" class="form-control w-25" placeholder="Nombre y apellidos"
-                        value="{{ $envio ? Str::before($envio->destinatario, ' -') : '' }}" required>
+                    <label for="nombre">Destinatario:</label>
+                    <input type="text" name="nombre" class="form-control w-25" placeholder="Nombre y apellidos"
+                        value="{{ $envio ? $nombre : '' }}" required>
                 </div>
+                {{-- Dirección --}}
                 <div class="mb-3">
-                    <label for="direccion_destinatario">Dirección de destino:</label>
-                    <input type="text" name="direccion_destinatario" class="form-control w-50"
-                        placeholder="Dirección completa" value="{{ $envio ? Str::after($envio->destinatario, '- ') : '' }}"
-                        required>
+                    <label for="direccion">Dirección de destino:</label>
+                    <input type="text" name="direccion" class="form-control w-50" placeholder="Dirección completa"
+                        value="{{ $envio ? $direccion : '' }}" required>
                 </div>
+                {{-- Código postal --}}
+                <div class="mb-3">
+                    <label for="codigo_postal">Código postal:</label>
+                    <input type="text" name="codigo_postal" class="form-control w-10" pattern="[0-9]{5}"
+                        title="Introduce un código postal de 5 cifras" placeholder="Cinco dígitos"
+                        value="{{ $envio ? $codigo_postal : '' }}" required>
+                </div>
+                {{-- Población --}}
+                <div class="mb-3">
+                    <label for="poblacion">Población:</label>
+                    <input type="text" name="poblacion" class="form-control w-25" placeholder="Nombre de la población"
+                        value="{{ $envio ? $poblacion : '' }}" required>
+                </div>
+                {{-- Bultos --}}
                 <div class="mb-3">
                     <label for="bultos">Número de bultos:</label>
-                    <input type="number" name="bultos" class="form-control w-25" placeholder="Bultos" min="1"
+                    <input type="number" name="bultos" class="form-control w-10" placeholder="Bultos" min="1"
                         max="100" value="{{ $envio ? $envio->bultos : '' }}" required>
                 </div>
+                {{-- Kilos --}}
                 <div class="mb-3">
                     <label for="kilos">Número de kilos:</label>
-                    <input type="number" name="kilos" class="form-control w-25" placeholder="Kilos" step="0.01"
+                    <input type="number" name="kilos" class="form-control w-10" placeholder="Kilos" step="0.01"
                         min="1" max="1000" value="{{ $envio ? $envio->kilos : '' }}" required>
                 </div>
                 <button type="submit" class="btn boton-accion1">Guardar</button>
