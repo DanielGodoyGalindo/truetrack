@@ -41,10 +41,10 @@ class UserController extends Controller
     {
         // Evitar que aparezca error de violación de integridad (no se puede guardar dos veces el mismo email)
         $request->validate([
-            'email' => 'required|string|regex:/^[\w\.-]+@[\w\.-]+\.\w{2,}$/|unique:users,email',
-            'nombre' => 'required',
-            'password' => 'required',
-            'rol' => 'required',
+            'email' => ['required', 'string', 'email', 'unique:users,email'],
+            'nombre' => ['required', 'string', 'regex:/^[\pL\s]{3,}$/'],
+            'password' => 'required|string|min:8',
+            'rol' => ['required', 'string']
         ]);
 
         $usuario = new User();
@@ -89,8 +89,8 @@ class UserController extends Controller
                 'regex:/^[\w\.-]+@[\w\.-]+\.\w{2,}$/',
                 Rule::unique('users', 'email')->ignore($usuario->id),
             ],
-            'nombre' => 'required',
-            'rol' => 'required',
+            'nombre' => ['required', 'string', 'regex:/^[\pL\s]{3,}$/'],
+            'rol' => ['required', 'string']
         ]);
 
         $usuario = User::findOrFail($id);

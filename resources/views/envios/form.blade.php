@@ -3,6 +3,7 @@
 
 <head>
     @section('title', 'Crear envío')
+    @vite(['resources/js/app.js'])
 </head>
 
 <body>
@@ -23,13 +24,15 @@
                 <div class="mb-3">
                     <label for="nombre">Destinatario:</label>
                     <input type="text" name="nombre" class="form-control w-25" placeholder="Nombre y apellidos"
-                        value="{{ $envio ? $nombre : '' }}" required>
+                        value="{{ $envio ? $nombre : '' }}" pattern="[A-Za-z\s]{3,}"
+                        title="Introduce un nombre de al menos 3 letras" required>
                 </div>
                 {{-- Dirección --}}
                 <div class="mb-3">
                     <label for="direccion">Dirección de destino:</label>
                     <input type="text" name="direccion" class="form-control w-50" placeholder="Dirección completa"
-                        value="{{ $envio ? $direccion : '' }}" required>
+                        value="{{ $envio ? $direccion : '' }}" minlength="8"
+                        title="Introduce una dirección de al menos 8 caracteres" required>
                 </div>
                 {{-- Código postal --}}
                 <div class="mb-3">
@@ -42,7 +45,8 @@
                 <div class="mb-3">
                     <label for="poblacion">Población:</label>
                     <input type="text" name="poblacion" class="form-control w-25" placeholder="Nombre de la población"
-                        value="{{ $envio ? $poblacion : '' }}" required>
+                        value="{{ $envio ? $poblacion : '' }}" minlength="3"
+                        title="Introduce una población de al menos 3 caracteres" required>
                 </div>
                 {{-- Bultos --}}
                 <div class="mb-3">
@@ -59,6 +63,7 @@
                 <button type="submit" class="btn boton-accion1">Guardar</button>
                 </form>
             </div>
+            <message-component v-if="'{{ session('vue_message') }}'" message="{{ session('vue_message') }}"> />
         </div>
     @endsection
 </body>

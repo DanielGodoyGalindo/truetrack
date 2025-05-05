@@ -62,7 +62,7 @@
                                 <th scope="col" class="text-center">Anular</th>
                             @endif
                             @if (Auth::user()->rol == 'administrador')
-                                <th scope="col">Borrar</th>
+                                <th scope="col">Eliminar</th>
                             @endif
                         </tr>
                     </thead>
@@ -127,7 +127,7 @@
                                                     @method('DELETE')
                                                     <input type="submit" value="✖" class="btn boton-rojo col-12">
                                                 </form> --}}
-                                            {{-- Botón anular envío --}}
+                                            {{-- Botón borrar envío --}}
                                             <button class="btn icono-mediano"
                                                 v-on:click="openModal('{{ route('envios.destroy', $envio->id) }}','DELETE')">
                                                 ❌

@@ -4,13 +4,11 @@ Segundo Sprint
     ...
 
 -Añadidos no funcionales:
-    -Mejorar formulario para crear un nuevo envío (poner campo de nombre, direccion, codigo postal, población, bultos y kilos) --> comprobar
-    -Siendo admin, al borrar un envío, que se pregunte si está seguro de borrarlo
-    -Pruebas Vehiculos y Usuarios (crear, borrar , editar).
-    -Centrar tablas
-    -Cambiar todo a "eliminar" o a "borrar"
+    -En pagina Inicio, poner un componente con un gráfico circular indicando los envíos con estados --> pendientes, en reparto y no entregados
+    -Cambiar diseño de la barra superior
     -Añadir seleccion de fechas desde y hasta en la sección de Finalizados para filtrar por fecha
     -Footer
+    -Pruebas Vehiculos y Usuarios (crear, borrar , editar).
 
 
 Futuras Mejoras

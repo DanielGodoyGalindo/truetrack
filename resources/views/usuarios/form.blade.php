@@ -22,24 +22,29 @@
                 @csrf
                 <div class="d-flex flex-column gap-3">
                     <div class="d-flex flex-column">
-                        <label for="nombre">Nombre:</label>
-                        <input name="nombre" type="text" placeholder="Nombre" class="input25"
-                            value="{{ $usuario ? $usuario->name : '' }}" required>
+                        {{-- Nombre --}}
+                        <label for="nombre" class="form-label">Nombre:</label>
+                        <input name="nombre" type="text" placeholder="Nombre" class="input25 form-control"
+                            value="{{ $usuario ? $usuario->name : '' }}" minlength="3" required>
                     </div>
                     <div class="d-flex flex-column">
-                        <label for="email">Email:</label>
-                        <input name="email" type="email" placeholder="nombre@dominio.com" class="input25"
-                            value="{{ $usuario ? $usuario->email : '' }}" required>
+                        {{-- Email --}}
+                        <label for="email" class="form-label">Email:</label>
+                        <input name="email" type="email" placeholder="nombre@dominio.com" class="input25 form-control"
+                            value="{{ $usuario ? $usuario->email : '' }}" pattern="^[\w\.-]+@[\w\.-]+\.\w{2,}$" required>
                     </div>
                     @if (!$usuario)
                         <div class="d-flex flex-column">
-                            <label for="password">Password:</label>
-                            <input name="password" type="password" placeholder="********" class="input25" minlength="8" required>
+                            {{-- Contraseña --}}
+                            <label for="password" class="form-label">Password:</label>
+                            <input name="password" type="password" placeholder="********" class="input25 form-control"
+                                minlength="8" required>
                         </div>
                     @endif
                     <div class="d-flex flex-column">
-                        <label for="rol">Rol: </label>
-                        <select name="rol" id="rol" class="input25">
+                        {{-- Rol de usuario --}}
+                        <label for="rol" class="form-label">Rol: </label>
+                        <select name="rol" id="rol" class="input25 form-select">
                             @foreach ($roles as $rol)
                                 <option value="{{ $rol }}"
                                     {{ old('rol', $usuario->rol ?? '') == $rol ? 'selected' : '' }}>

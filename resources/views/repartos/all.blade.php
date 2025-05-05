@@ -43,7 +43,7 @@
                             <th scope="col">Vehículo</th>
                             <th scope="col">Estado</th>
                             @if (Auth::user()->rol == 'administrador')
-                                <th scope="col" class="text-center">Borrar</th>
+                                <th scope="col" class="text-center">Eliminar</th>
                             @endif
                             @if (Auth::user()->rol == 'gestor_trafico')
                                 <th scope="col">Asignar envíos</th>

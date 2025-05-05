@@ -22,13 +22,15 @@
                 @csrf
                 <div class="d-flex flex-column gap-3">
                     <div class="d-flex flex-column">
-                        <label for="matricula">Matrícula:</label>
-                        <input name="matricula" type="text" placeholder="1234AAA" pattern="^\d{4}\w{3}$" class="input25"
+                        {{-- Matrícula --}}
+                        <label for="matricula" class="form-label">Matrícula:</label>
+                        <input name="matricula" type="text" placeholder="1234AAA" pattern="^\d{4}\w{3}$" class="input25 form-control"
                             value="{{ $vehiculo ? $vehiculo->matricula : '' }}" required>
                     </div>
                     <div class="d-flex flex-column">
-                        <label for="cargaMax">Carga máxima: </label>
-                        <select name="cargaMax" id="cargaMax" class="input25">
+                        {{-- Carga máxima --}}
+                        <label for="cargaMax" class="form-label">Carga máxima: </label>
+                        <select name="cargaMax" id="cargaMax" class="input25 form-select">
                             @foreach ($cargasMax as $cargaMax)
                                 <option value="{{ $cargaMax }}"
                                     {{ old('cargaMax', $vehiculo->carga_max ?? '') == $cargaMax ? 'selected' : '' }}>
