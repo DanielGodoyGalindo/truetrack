@@ -3,6 +3,7 @@
 
 <head>
     @section('title', 'Envios Completados')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite(['resources/js/app.js'])
 </head>
 
@@ -41,7 +42,7 @@
                             @endif
                             <th scope="col">Bultos y kilos</th>
                             @if (Auth::user()->rol == 'administrador')
-                                <th scope="col">Borrar</th>
+                                <th scope="col">Eliminar</th>
                             @endif
                             @if (Auth::user()->rol == 'cliente')
                                 <th scope="col" class="text-center">Mail</th>
@@ -85,18 +86,24 @@
                                     {{-- Borrar envíos --}}
                                     @if (Auth::user()->rol == 'administrador')
                                         <td>
-                                            <form action="{{ route('envios.destroy', $envio->id) }}" method="POST"
+                                            {{-- <form action="{{ route('envios.destroy', $envio->id) }}" method="POST"
                                                 class="w-50">
                                                 @csrf
                                                 @method('DELETE')
                                                 <input type="submit" value="✖" class="btn boton-rojo col-12">
-                                            </form>
+                                            </form> --}}
+                                            <button class="btn icono-mediano"
+                                                v-on:click="openModal('{{ route('envios.destroy', $envio->id) }}','DELETE')">
+                                                ❌
+                                            </button>
                                         </td>
                                     @endif
                                 </tr>
                             @endforeach
                         @endif
-
+                        {{-- Componente Vue modal --}}
+                        <modal-component v-if="showModal" :show="showModal" :route="route"
+                            :method="method" v-on:close="closeModal"></modal-component>
                     </tbody>
                 </table>
                 {{-- Fin tabla --}}

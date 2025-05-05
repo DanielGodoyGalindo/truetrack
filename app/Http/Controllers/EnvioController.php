@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class EnvioController extends Controller
 {
@@ -57,15 +58,20 @@ class EnvioController extends Controller
         if (Auth::user()->rol !== 'cliente') {
             abort(403, 'No tienes permiso para acceder');
         }
-        // Validación
-        $r->validate([
-            'nombre' => ['required', 'string'],
+        // Validación backend
+        $validator = Validator::make($r->all(), [
+            'nombre' => ['required', 'string', 'regex:/^[\pL\s]{3,}$/'],
             'direccion' => ['required', 'string'],
             'codigo_postal' => ['required', 'string', 'regex:/^\d{5}$/'],
-            'poblacion' => ['required', 'string'],
+            'poblacion' => ['required', 'string', 'regex:/^[\pL\s]{3,}$/u'],
             'bultos' => ['required', 'integer'],
             'kilos' => ['required', 'numeric'],
         ]);
+        if ($validator->fails()) {
+            return back()
+                ->with('vue_message', 'formInvalid')
+                ->withInput();
+        }
         $envio = new Envio();
         $envio->cliente_id = Auth::user()->id;
         $envio->destinatario = trim($r->nombre) . " - " . trim($r->direccion) . ", " . $r->codigo_postal . " " . trim($r->poblacion);
@@ -93,7 +99,8 @@ class EnvioController extends Controller
             abort(403, 'No tienes permiso para acceder');
         }
         $envio = Envio::findOrFail($id);
-        // Obtener partes de la cadena "destinatario" -> [Nombre completo] - [Dirección], [Código postal] [Población]
+        // Obtener nombre, direccion, codigo postal y población a partir de
+        // la cadena "destinatario" que se guarda de cada envío -> [Nombre completo] - [Dirección], [Código postal] [Población]
         preg_match('/^(.*?)\s*-\s*(.*?),\s*(\d{5})\s+(.*)$/', $envio->destinatario, $subcadenas);
         $nombre = $subcadenas[1];
         $direccion = $subcadenas[2];
@@ -110,15 +117,20 @@ class EnvioController extends Controller
         if (Auth::user()->rol !== 'cliente') {
             abort(403, 'No tienes permiso para acceder');
         }
-        // Validación
-        $r->validate([
-            'nombre' => ['required', 'string'],
+        // Validación backend
+        $validator = Validator::make($r->all(), [
+            'nombre' => ['required', 'string', 'regex:/^[\pL\s]{3,}$/'],
             'direccion' => ['required', 'string'],
             'codigo_postal' => ['required', 'string', 'regex:/^\d{5}$/'],
-            'poblacion' => ['required', 'string'],
+            'poblacion' => ['required', 'string', 'regex:/^[\pL\s]{3,}$/u'],
             'bultos' => ['required', 'integer'],
             'kilos' => ['required', 'numeric'],
         ]);
+        if ($validator->fails()) {
+            return back()
+                ->with('vue_message', 'formInvalid')
+                ->withInput();
+        }
         // Actualización
         $envio = Envio::findOrFail($id);
         $envio->destinatario = $r->nombre . " - " . $r->direccion . ", " . $r->codigo_postal . " " . $r->poblacion;

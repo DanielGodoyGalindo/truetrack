@@ -41,6 +41,8 @@ export default {
                     return 'info-message--error';
                 case 'userDeleted':
                     return 'info-message--success';
+                case 'formInvalid':
+                    return 'info-message--error';
                 default:
                     return 'info-message--info'
             }
@@ -68,6 +70,8 @@ export default {
                     return 'Transportista no eliminado porque está asignado a algun reparto.'
                 case 'userDeleted':
                     return 'Usuario borrado con éxito.'
+                case 'formInvalid':
+                    return 'Uno de los campos no es correcto.'
             }
         },
     },
