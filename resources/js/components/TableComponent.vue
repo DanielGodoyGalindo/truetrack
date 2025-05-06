@@ -1,3 +1,4 @@
+<!-- Componente no utilizado -->
 <script>
 export default {
     data() {

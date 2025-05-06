@@ -6,6 +6,7 @@ import TableComponent from './components/TableComponent.vue';
 import MessageComponent from './components/MessageComponent.vue';
 import ModalComponent from './components/ModalComponent.vue';
 import ProgressBarComponent from './components/ProgressBarComponent.vue';
+import DoughnutChart from './components/DoughnutChart.vue'
 
 const app = createApp({
     data() {
@@ -33,4 +34,5 @@ app.component('table-component', TableComponent);
 app.component('message-component', MessageComponent);
 app.component('modal-component', ModalComponent);
 app.component('progress-bar-component', ProgressBarComponent);
+app.component('doughnut-chart-component', DoughnutChart)
 app.mount('#app');
