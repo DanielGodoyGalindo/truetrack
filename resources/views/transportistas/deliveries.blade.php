@@ -45,7 +45,7 @@
                                         {{-- Elemento select para seleccionar estado de envio --}}
                                         <form action="{{ route('envios.actualizar', $envio->id) }}" method="POST">
                                             @csrf
-                                            <div class="d-flex gap-3">
+                                            <div class="d-flex gap-3 justify-content-center">
                                                 <select name="estado" id="estado-{{ $envio->id }}"
                                                     onchange="cambiarEstado({{ $envio->id }})">
                                                     @foreach ($estados as $estado)

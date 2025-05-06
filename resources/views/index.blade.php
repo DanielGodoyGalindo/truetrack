@@ -29,6 +29,11 @@
                 </div>
             @endguest
 
+            {{-- Componente donut chart --}}
+            @if (Auth::check() && Auth::user()->rol == 'cliente')
+                <doughnut-chart-component :datos-chart='@json($datosChart)' class="mb-5"></doughnut-chart-component>
+            @endif
+
             {{-- Componente card envíos --}}
             {{-- Comprueba que el rol del usuario autenticado sea cliente, administrador o gestor --}}
             {{-- Se muestra el total de envíos y permite acceder a la sección de envíos --}}

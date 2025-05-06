@@ -215,7 +215,18 @@ class EnvioController extends Controller
             ->count();
         // Devuelve el número total de repartos (para mostrarselos al admin)
         $numRepartosTotales = Reparto::whereNotIn('estado', ['finalizado'])->count();
-        return view('index', ['numEnviosCliente' => $numEnviosCliente, 'numEnviosTotales' => $numEnviosTotales, 'numRepartosGestor' => $numRepartosGestor, 'numRepartosTotales' => $numRepartosTotales]);
+        // Donut chart
+        $pendientes = Envio::where('estado', 'pendiente')->where('cliente_id', Auth::id())->count();
+        $enReparto = Envio::where('estado', 'en reparto')->where('cliente_id', Auth::id())->count();
+        $noEntregados = Envio::where('estado', 'no entregado')->where('cliente_id', Auth::id())->count();
+        $datosChart = [$pendientes, $enReparto, $noEntregados];
+        return view('index', [
+            'numEnviosCliente' => $numEnviosCliente,
+            'numEnviosTotales' => $numEnviosTotales,
+            'numRepartosGestor' => $numRepartosGestor,
+            'numRepartosTotales' => $numRepartosTotales,
+            'datosChart' => $datosChart
+        ]);
     }
 
     // Mostrar los envíos que ya han sido entregados y los envíos que han sido anulados
