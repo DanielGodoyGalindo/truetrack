@@ -46,7 +46,7 @@
                                         <form action="{{ route('envios.actualizar', $envio->id) }}" method="POST">
                                             @csrf
                                             <div class="d-flex gap-3 justify-content-center">
-                                                <select name="estado" id="estado-{{ $envio->id }}"
+                                                <select class="form-select" name="estado" id="estado-{{ $envio->id }}"
                                                     onchange="cambiarEstado({{ $envio->id }})">
                                                     @foreach ($estados as $estado)
                                                         <option value="{{ $estado }}"
@@ -60,7 +60,7 @@
                                                     style="display: {{ $envio->estado == 'no entregado' ? 'block' : 'none' }}">
                                                     <input id="info-{{ $envio->id }}" type="text" name="informacion"
                                                         value="{{ $envio->informacion }}"
-                                                        placeholder="Información no entrega" required>
+                                                        placeholder="Información no entrega" class="form-control" required>
                                                 </div>
                                                 <button type="submit" class="btn boton-accion1">Actualizar</button>
                                             </div>

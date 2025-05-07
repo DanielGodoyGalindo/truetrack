@@ -14,3 +14,10 @@ Segundo Sprint
 Futuras Mejoras
 ***************
 -Añadir botón en reparto para hacer foto al albarán de entrega
+
+
+Dependencias
+*************
+Install Node.js version 18.3 or higher
+npm install (dependencias)
+npm install chart.js vue-chartjs

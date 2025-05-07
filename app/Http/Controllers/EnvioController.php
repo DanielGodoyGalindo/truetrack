@@ -215,10 +215,16 @@ class EnvioController extends Controller
             ->count();
         // Devuelve el número total de repartos (para mostrarselos al admin)
         $numRepartosTotales = Reparto::whereNotIn('estado', ['finalizado'])->count();
-        // Donut chart
-        $pendientes = Envio::where('estado', 'pendiente')->where('cliente_id', Auth::id())->count();
-        $enReparto = Envio::where('estado', 'en reparto')->where('cliente_id', Auth::id())->count();
-        $noEntregados = Envio::where('estado', 'no entregado')->where('cliente_id', Auth::id())->count();
+        // Datos para componente Donut chart
+        if (Auth::check() && Auth::user()->rol == 'cliente') {
+            $pendientes = Envio::where('estado', 'pendiente')->where('cliente_id', Auth::id())->count();
+            $enReparto = Envio::where('estado', 'en reparto')->where('cliente_id', Auth::id())->count();
+            $noEntregados = Envio::where('estado', 'no entregado')->where('cliente_id', Auth::id())->count();
+        } else {
+            $pendientes = Envio::where('estado', 'pendiente')->count();
+            $enReparto = Envio::where('estado', 'en reparto')->count();
+            $noEntregados = Envio::where('estado', 'no entregado')->count();
+        }
         $datosChart = [$pendientes, $enReparto, $noEntregados];
         return view('index', [
             'numEnviosCliente' => $numEnviosCliente,

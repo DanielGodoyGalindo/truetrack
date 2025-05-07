@@ -13,6 +13,7 @@ import {
   Legend,
   ArcElement,
 } from 'chart.js'
+import { color } from 'chart.js/helpers'
 
 ChartJS.register(Title, Tooltip, Legend, ArcElement)
 
@@ -26,7 +27,7 @@ const props = defineProps({
 
 /* Etiquetas y colores */
 const labels = ['Pendientes', 'En reparto', 'No entregados']
-const colors = ['#facc15', '#38bdf8', '#f87171']
+const colors = ['#FFBA08', '#3F88C5', '#D00000']
 
 /* Datos generados en el controlador y obtenidos de Blade */
 const chartData = computed(() => ({
@@ -49,7 +50,10 @@ const chartOptions = {
     },
     title: {
       display: true,
-      text: 'Mis envíos'
+      text: 'Mis envíos',
+      font: {
+        size: 28
+      },
     },
   },
 }
@@ -57,8 +61,8 @@ const chartOptions = {
 
 <style scoped>
 * {
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 400px;
   margin: 0 auto;
 }
 </style>
