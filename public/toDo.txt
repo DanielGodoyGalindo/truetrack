@@ -4,10 +4,7 @@ Segundo Sprint
     ...
 
 -Añadidos no funcionales:
-    -En pagina Inicio, poner un componente con un gráfico circular indicando los envíos con estados --> comprobar
-    -Cambiar diseño de la barra superior
     -Añadir seleccion de fechas desde y hasta en la sección de Finalizados para filtrar por fecha
-    -Footer
     -Pruebas Vehiculos y Usuarios (crear, borrar , editar).
 
 

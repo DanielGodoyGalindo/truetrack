@@ -12,7 +12,7 @@
         {{-- Carga de componente Vue --}}
         <div id="app">
 
-            {{-- Sólo para pruebas- Mostrar usuario conectado --}}
+            {{-- Mensaje usuario --}}
             @auth
                 <div class="container" id="mensaje-bienvenida">
                     <h1>Bienvenido a tu dashboard, {{ Auth::user()->name }}</h1>
