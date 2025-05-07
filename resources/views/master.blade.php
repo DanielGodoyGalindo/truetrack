@@ -17,24 +17,22 @@
 
 <body>
     <div id="app">
-        <header class="mb-4 border-bottom border-dark">
-            <div class="container">
-                <div class="d-flex flex-wrap align-items-center justify-content-center">
+        <header class="mb-4">
+            <div>
+                {{-- Barra navegación --}}
+                <div class="d-flex flex-wrap align-items-center justify-content-center" id="barra-navegacion">
                     {{-- Logo --}}
                     <a href="{{ route('index') }}"
-                        class="d-flex align-items-center mb-2 text-white text-decoration-none">
+                        class="d-flex align-items-center mb-2 mt-2 text-white text-decoration-none">
                         <img src="{{ asset('img\Logo_TrueTrack.png') }}" alt="Logo TrueTrack" width="200px"
-                            height="70px">
+                            height="70px" title="Inicio - TrueTrack" id="logo-truetrack">
                     </a>
                     {{-- Botones login, registrarse, editar perfil y salir --}}
                     <div class="col-md-8 text-end">
                         @guest
                             <div class="d-flex justify-content-end gap-3">
-                                {{-- <a type="button" class="btn boton-accion1 col-2" href="{{ route('login') }}">Login</a>
-                                <a type="button" class="btn boton-accion2 col-2"
-                                    href="{{ route('register') }}">Registrarse</a> --}}
                                 <button-component button-text="Login" button-url="{{ route('login') }}"
-                                    class="btn boton-accion1"></button-component>
+                                    class="btn boton-naranja"></button-component>
                                 <button-component button-text="Registrarse" button-url="{{ route('register') }}"
                                     class="btn boton-accion2"></button-component>
                             </div>
@@ -64,10 +62,6 @@
 
         {{-- @include('includes.footer') --}}
 
-        {{-- Bootstrap --}}
-        {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-        </script> --}}
     </div>
 </body>
 

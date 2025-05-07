@@ -14,9 +14,9 @@
 
             {{-- Sólo para pruebas- Mostrar usuario conectado --}}
             @auth
-                <div class="container" style="color: red; font-size: 1.5rem">
-                    <p>Usuario conectado: {{ Auth::user()->name }}</p>
-                    <p>Con ID: {{ Auth::user()->id }}</p>
+                <div class="container" id="mensaje-bienvenida">
+                    <h1>Bienvenido a tu dashboard, {{ Auth::user()->name }}</h1>
+                    {{-- <p>Este es tu dashboard</p> --}}
                 </div>
             @endauth
 
@@ -29,20 +29,22 @@
                 </div>
             @endguest
 
-            {{-- Componente donut chart --}}
-            @if (Auth::check() && Auth::user()->rol == 'cliente')
-                <doughnut-chart-component :datos-chart='@json($datosChart)' class="mb-5"></doughnut-chart-component>
-            @endif
-
-            {{-- Componente card envíos --}}
-            {{-- Comprueba que el rol del usuario autenticado sea cliente, administrador o gestor --}}
-            {{-- Se muestra el total de envíos y permite acceder a la sección de envíos --}}
             @if (Auth::check() && in_array(Auth::user()->rol, ['cliente', 'administrador', 'gestor_trafico']))
-                <card-component title-text="📦"
-                    @if (Auth::check() && Auth::user()->rol == 'cliente') body-text="{{ $numEnviosCliente }} {{ $numEnviosCliente == 1 ? 'Envío' : 'Envíos' }}"
+                {{-- Componente donut chart --}}
+                <div class="container d-flex justify-content-around">
+                    <div>
+                        <doughnut-chart-component :datos-chart='@json($datosChart)'></doughnut-chart-component>
+                    </div>
+                    <div>
+                        <div class="d-flex flex-column">
+                            {{-- Componente card envíos --}}
+                            {{-- Comprueba que el rol del usuario autenticado sea cliente, administrador o gestor --}}
+                            {{-- Se muestra el total de envíos y permite acceder a la sección de envíos --}}
+                            <card-component title-text="📦"
+                                @if (Auth::check() && Auth::user()->rol == 'cliente') body-text="{{ $numEnviosCliente }} {{ $numEnviosCliente == 1 ? 'Envío' : 'Envíos' }}"
                 @elseif (Auth::check() && in_array(Auth::user()->rol, ['gestor_trafico', 'administrador']))
                     body-text="{{ $numEnviosTotales }} {{ $numEnviosTotales == 1 ? 'Envío' : 'Envíos' }}" @endif
-                    card-url="{{ route('envios.index') }}" class="btn btn-light"></card-component>
+                                card-url="{{ route('envios.index') }}" class="btn btn-light"></card-component>
             @endif
 
             {{-- Componente card repartos --}} {{-- Muestra el total de repartos y permite acceder a la sección de repartos --}}
@@ -65,6 +67,8 @@
                     class="btn btn-light">
                 </card-component>
             @endif
+        </div>
+        </div>
 
         </div>
     @endsection

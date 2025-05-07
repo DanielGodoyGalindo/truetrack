@@ -53,12 +53,13 @@ textarea {
 
 .boton-accion2:hover {
     background-color: #02273d;
-    color: white;
+    color: #bfd5e7;
 }
 
 .boton-rojo {
     background-color: var(--color-rojo);
     color: white;
+    border: 1px solid dimgray;
 }
 
 .boton-rojo:hover {
@@ -67,11 +68,14 @@ textarea {
 }
 
 .boton-naranja {
-    border: 1px solid var(--color-naranja);
+    /* color: white; */
+    background-color: var(--color-naranja);
+    border: 1px solid dimgray;
 }
 
 .boton-naranja:hover {
-    background-color: var(--color-naranja);
+    background-color: rgb(218, 157, 2);
+    color: rgb(36, 36, 36);
 }
 
 .boton-verde {
@@ -85,6 +89,27 @@ textarea {
 }
 
 /* Fin estilos botones */
+
+#barra-navegacion {
+    background-color: var(--color-azul1);
+    border-bottom: 2px solid var(--color-azul2);
+}
+
+#logo-truetrack {
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+#logo-truetrack:hover {
+    box-shadow: 0 0 0 2px var(--color-azul2);
+}
+
+#mensaje-bienvenida{
+    padding-bottom: 1rem;
+    color: var(--color-azul2);
+}
 
 .tabla-header th {
     background-color: var(--color-azul2);
@@ -130,6 +155,6 @@ textarea {
     animation: parpadeo-rojo 1s infinite;
 }
 
-.w-10{
+.w-10 {
     width: 10%;
 }
