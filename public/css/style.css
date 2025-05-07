@@ -95,6 +95,21 @@ textarea {
     border-bottom: 2px solid var(--color-azul2);
 }
 
+#footer {
+    background-color: lightgrey;
+    padding: 1rem;
+}
+
+#footer a{
+    text-decoration: none;
+    color: black;
+}
+
+#footer a:hover {
+    text-decoration: underline;
+    color: var(--color-azul1)
+}
+
 #logo-truetrack {
     border: 1px solid #ccc;
     border-radius: 12px;
@@ -106,7 +121,7 @@ textarea {
     box-shadow: 0 0 0 2px var(--color-azul2);
 }
 
-#mensaje-bienvenida{
+#mensaje-bienvenida {
     padding-bottom: 1rem;
     color: var(--color-azul2);
 }
