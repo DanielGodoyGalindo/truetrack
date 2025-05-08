@@ -4,7 +4,7 @@ Segundo Sprint
     ...
 
 -Añadidos no funcionales:
-    -Añadir seleccion de fechas desde y hasta en la sección de Finalizados para filtrar por fecha
+    -Añadir seleccion de fechas desde y hasta en la sección de Finalizados para filtrar por fecha --> poner bonito y hacer pruebas
     -Pruebas Vehiculos y Usuarios (crear, borrar , editar).
 
 

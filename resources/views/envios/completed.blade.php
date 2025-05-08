@@ -12,19 +12,36 @@
     @section('content')
         <div id="app">
 
-            {{-- Header y botón --}}
-            @if (Auth::user()->rol == 'cliente') {{-- Clientes --}}
-                <div class="container d-flex flex-row justify-content-between">
-                    {{-- Si es cliente, mostrar su nombre --}}
-                    <h1>Envíos @if (Auth::user()->rol == 'cliente')
-                            de {{ Auth::user()->name }} completados
-                        @endif
-                    </h1>
-                </div>
-            @else
-                {{-- Gestores y Admin --}}
-                <h1 class="container">Envíos finalizados</h1>
-            @endif
+            <div class="d-flex container">
+                {{-- Header y botón --}}
+                @if (Auth::user()->rol == 'cliente') {{-- Clientes --}}
+                    <div class="container d-flex flex-row justify-content-between">
+                        {{-- Si es cliente, mostrar su nombre --}}
+                        <h1>Envíos @if (Auth::user()->rol == 'cliente')
+                                de {{ Auth::user()->name }} completados
+                            @endif
+                        </h1>
+                    </div>
+                @else
+                    {{-- Gestores y Admin --}}
+                    <h1 class="container">Envíos finalizados</h1>
+                @endif
+
+                {{-- Inputs de fechas --}}
+                <form method="GET" action="{{ route('envios.showCompleted') }}">
+                    <div>
+                        <label for="fecha1">Desde:</label>
+                        <input type="date" name="fecha1" value="{{ request('fecha1') }}">
+                    </div>
+                    <div>
+                        <label for="fecha2">Hasta:</label>
+                        <input type="date" name="fecha2" value="{{ request('fecha2') }}">
+                    </div>
+                    <div>
+                        <button type="submit">Mostrar</button>
+                    </div>
+                </form>
+            </div>
 
             {{-- Tabla --}}
             <div class="container">
