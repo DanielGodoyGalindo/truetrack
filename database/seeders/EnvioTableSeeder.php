@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -21,6 +21,7 @@ class EnvioTableSeeder extends Seeder
                 'estado' => 'pendiente',
                 'bultos' => 2,
                 'kilos' => 14.6,
+                'created_at' => Carbon::now(),
             ],
             [
                 'cliente_id' => '2',
@@ -28,6 +29,7 @@ class EnvioTableSeeder extends Seeder
                 'estado' => 'pendiente',
                 'bultos' => 9,
                 'kilos' => 46,
+                'created_at' => Carbon::now(),
             ],
             [
                 'cliente_id' => '2',
@@ -35,6 +37,7 @@ class EnvioTableSeeder extends Seeder
                 'estado' => 'pendiente',
                 'bultos' => 5,
                 'kilos' => 22.8,
+                'created_at' => Carbon::now(),
             ],
             [
                 'cliente_id' => '3',
@@ -42,6 +45,7 @@ class EnvioTableSeeder extends Seeder
                 'estado' => 'pendiente',
                 'bultos' => 1,
                 'kilos' => 9,
+                'created_at' => Carbon::now(),
             ],
             [
                 'cliente_id' => '3',
@@ -49,6 +53,7 @@ class EnvioTableSeeder extends Seeder
                 'estado' => 'pendiente',
                 'bultos' => 4,
                 'kilos' => 80.70,
+                'created_at' => Carbon::now(),
             ],
             [
                 'cliente_id' => '3',
@@ -56,6 +61,7 @@ class EnvioTableSeeder extends Seeder
                 'estado' => 'pendiente',
                 'bultos' => 2,
                 'kilos' => 27.6,
+                'created_at' => Carbon::now(),
             ],
             [
                 'cliente_id' => '3',
@@ -63,6 +69,7 @@ class EnvioTableSeeder extends Seeder
                 'estado' => 'pendiente',
                 'bultos' => 3,
                 'kilos' => 320.1,
+                'created_at' => Carbon::now(),
             ],
             [
                 'cliente_id' => '2',
@@ -70,6 +77,7 @@ class EnvioTableSeeder extends Seeder
                 'estado' => 'pendiente',
                 'bultos' => 2,
                 'kilos' => 284.26,
+                'created_at' => Carbon::now(),
             ],
             [
                 'cliente_id' => '2',
@@ -77,6 +85,7 @@ class EnvioTableSeeder extends Seeder
                 'estado' => 'pendiente',
                 'bultos' => 1,
                 'kilos' => 150.44,
+                'created_at' => Carbon::now(),
             ],
             [
                 'cliente_id' => '3',
@@ -84,6 +93,7 @@ class EnvioTableSeeder extends Seeder
                 'estado' => 'pendiente',
                 'bultos' => 4,
                 'kilos' => 160,
+                'created_at' => Carbon::now(),
             ],
             [
                 'cliente_id' => '3',
@@ -91,6 +101,7 @@ class EnvioTableSeeder extends Seeder
                 'estado' => 'pendiente',
                 'bultos' => 3,
                 'kilos' => 74.3,
+                'created_at' => Carbon::now(),
             ],
             [
                 'cliente_id' => '2',
@@ -98,6 +109,7 @@ class EnvioTableSeeder extends Seeder
                 'estado' => 'pendiente',
                 'bultos' => 2,
                 'kilos' => 210.8,
+                'created_at' => Carbon::now(),
             ],
             [
                 'cliente_id' => '2',
@@ -105,6 +117,7 @@ class EnvioTableSeeder extends Seeder
                 'estado' => 'pendiente',
                 'bultos' => 3,
                 'kilos' => 163.7,
+                'created_at' => Carbon::now(),
             ]
         ]);
 

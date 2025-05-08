@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Envio;
 use App\Models\Reparto;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -21,17 +22,6 @@ class EnvioController extends Controller
      */
     public function index(Request $r)
     {
-        // Se construye una consulta con las relaciones del model Envio
-        // Si viene como request el nombre de un cliente, se busca en la tabla Users
-        // el usuario con el nombre indicado en el request $r
-        // $query  = Envio::with('cliente', 'reparto')->where('cliente_id', Auth::id());
-        // if ($r->filled("cliente")) {
-        //     $query->whereHas('cliente', function ($user) use ($r) {
-        //         $user->where('nombre', 'like', '%' . $r->cliente . '%');
-        //     });
-        // }
-        // $envios = $query->paginate($this->numPag)->appends(['cliente' => $r->cliente]);
-
         $enviosCliente = Envio::with('cliente', 'reparto')->where('cliente_id', Auth::id())->whereNotIn('estado', ['entregado', 'anulado'])->paginate($this->numPag);
         $enviosTotales = Envio::with('cliente', 'reparto')->whereNotIn('estado', ['entregado', 'anulado'])->paginate($this->numPag);
         return view('envios.all', ['enviosCliente' => $enviosCliente, 'enviosTotales' => $enviosTotales]);
@@ -237,11 +227,35 @@ class EnvioController extends Controller
 
     // Mostrar los envíos que ya han sido entregados y los envíos que han sido anulados
     // Se ejecuta cuando se solicita ver envios finalizados
-    public function showCompleted()
+    public function showCompleted(Request $r)
     {
-        $enviosCompletadosCli = Envio::where('cliente_id', Auth::id())->whereIn('estado', ['entregado', 'anulado'])->paginate($this->numPag);
-        $enviosCompletadosNoCli = Envio::whereIn('estado', ['entregado', 'anulado'])->paginate($this->numPag);
-        return view('envios.completed', ['enviosCompletadosCli' => $enviosCompletadosCli, 'enviosCompletadosNoCli' => $enviosCompletadosNoCli]);
+        /* Original */
+        /* $enviosCompletadosCli = Envio::where('cliente_id', Auth::id())->whereIn('estado', ['entregado', 'anulado'])->paginate($this->numPag);
+        $enviosCompletadosNoCli = Envio::whereIn('estado', ['entregado', 'anulado'])->paginate($this->numPag); 
+        return view('envios.completed', ['enviosCompletadosCli' => $enviosCompletadosCli, 'enviosCompletadosNoCli' => $enviosCompletadosNoCli]); */
+
+        // Se construye una consulta con las relaciones del model Envio
+        // Si vienen como request las fechas de busqueda, se busca en la tabla Envios
+        // los envíos que tengan la fecha de creacion entre las dos fechas que vienen en el request $r
+
+        $enviosCompletadosCli = null;
+        $enviosCompletadosNoCli = null;
+        /* Si el usuario es cliente: obtener sus envios y si se reciben fechas, filtrarlos por ellas (appends() preserva las fechas entre las paginaciones) */
+        if (Auth::check() && Auth::user()->rol == 'cliente') {
+            $query  = Envio::where('cliente_id', Auth::id())->whereIn('estado', ['entregado', 'anulado']);
+            if ($r->filled(['fecha1', 'fecha2'])) {
+                $query->whereBetween('created_at', [Carbon::parse($r->fecha1)->startOfDay(), Carbon::parse($r->fecha2)->endOfDay()]);
+            }
+            $enviosCompletadosCli = $query->paginate($this->numPag)->appends($r->only([$r->fecha1, $r->fecha2]));
+            /* Si el usuario es gestor o administrador */
+        } else if ((in_array(Auth::user()->rol, ['gestor_trafico', 'administrador']))) {
+            $query = Envio::whereIn('estado', ['entregado', 'anulado']);
+            if ($r->filled(['fecha1', 'fecha2'])) {
+                $query->whereBetween('created_at', [Carbon::parse($r->fecha1)->startOfDay(), Carbon::parse($r->fecha2)->endOfDay()]);
+            }
+            $enviosCompletadosNoCli = $query->paginate($this->numPag)->appends($r->only([$r->fecha1, $r->fecha2]));
+        }
+        return view('envios.completed', compact('enviosCompletadosCli', 'enviosCompletadosNoCli'));
     }
 
     // Método para que Transportista pueda actualizar el estado de un envío
