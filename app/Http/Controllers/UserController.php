@@ -39,6 +39,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // Validación backend
         // Evitar que aparezca error de violación de integridad (no se puede guardar dos veces el mismo email)
         $request->validate([
             'email' => ['required', 'string', 'email', 'unique:users,email'],
@@ -57,14 +58,6 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Muestra el formulario para editar al usuario.
      */
     public function edit(string $id)
@@ -78,10 +71,10 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $usuario = User::findOrFail($id);
         // Validar que el email no exista ya en la base de datos
         // Se ignora el usuario actual para que deje modificar sus datos
         // Sino, encuentra el email y no deja actualizar
-        $usuario = User::findOrFail($id);
         $request->validate([
             'email' => [
                 'required',
@@ -89,7 +82,7 @@ class UserController extends Controller
                 'regex:/^[\w\.-]+@[\w\.-]+\.\w{2,}$/',
                 Rule::unique('users', 'email')->ignore($usuario->id),
             ],
-            'nombre' => ['required', 'string', 'regex:/^[\pL\s]{3,}$/'],
+            'nombre' => ['required', 'string', 'min:3'],
             'rol' => ['required', 'string']
         ]);
 

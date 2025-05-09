@@ -29,17 +29,22 @@
 
                 {{-- Inputs de fechas --}}
                 <form method="GET" action="{{ route('envios.showCompleted') }}">
-                    <div>
-                        <label for="fecha1">Desde:</label>
-                        <input type="date" name="fecha1" value="{{ request('fecha1') }}">
+                    <div class="d-flex gap-2">
+                        <div>
+                            <label for="fecha1">Desde:</label>
+                            <input type="date" name="fecha1" value="{{ request('fecha1') }}" class="form-control"
+                                required>
+                        </div>
+                        <div>
+                            <label for="fecha2">Hasta:</label>
+                            <input type="date" name="fecha2" value="{{ request('fecha2') }}" class="form-control"
+                                required>
+                        </div>
                     </div>
-                    <div>
-                        <label for="fecha2">Hasta:</label>
-                        <input type="date" name="fecha2" value="{{ request('fecha2') }}">
+                    <div class="d-flex justify-content-end mt-2 mb-3">
+                        <button type="submit" class="btn boton-accion1">Búsqueda for fechas</button>
                     </div>
-                    <div>
-                        <button type="submit">Mostrar</button>
-                    </div>
+
                 </form>
             </div>
 
@@ -61,6 +66,7 @@
                             @if (Auth::user()->rol == 'administrador')
                                 <th scope="col">Eliminar</th>
                             @endif
+                            <th scope="col">Fecha creación</th>
                             @if (Auth::user()->rol == 'cliente')
                                 <th scope="col" class="text-center">Mail</th>
                             @endif
@@ -74,9 +80,10 @@
                             @foreach ($enviosCompletadosCli as $envio)
                                 <tr>
                                     <th scope="row">{{ $envio->id }}</th>
-                                    <td>{{ $envio->destinatario }}</td>
+                                    <td class="text-start -2">{{ $envio->destinatario }}</td>
                                     <td>{{ Str::title($envio->estado) }}</td>
                                     <td>{{ $envio->bultos }} bultos - {{ $envio->kilos }} kilos</td>
+                                    <td>{{ $envio->created_at->format('d-m-Y') }}</td>
                                     <td class="text-center">
                                         {{-- Formulario mandar emails --}}
                                         <form action="{{ route('envios.email', $envio->id) }}" method="POST">

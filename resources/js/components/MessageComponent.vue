@@ -27,6 +27,8 @@ export default {
                     return 'info-message--error';
                 case 'deliveryAdded':
                     return 'info-message--success';
+                case 'vehicleCreated':
+                    return 'info-message--success';
                 case 'vehicleDeleted':
                     return 'info-message--success';
                 case 'vehicleNotDeleted':
@@ -56,12 +58,14 @@ export default {
                     return 'El envío no se ha podido añadir porque se superaría la carga máxima.';
                 case 'deliveryRemoved':
                     return 'El envío ha sido eliminado del reparto.';
+                case 'vehicleCreated':
+                    return 'Vehículo creado con éxito.';
                 case 'vehicleDeleted':
-                    return 'Vehículo borrado.';
+                    return 'Vehículo eliminado.';
                 case 'vehicleNotDeleted':
                     return 'El vehículo tiene repartos activos.';
                 case 'deliveryDeleted':
-                    return 'Reparto borrado.';
+                    return 'Reparto eliminado.';
                 case 'deliveryNotDeleted':
                     return 'El reparto tiene envíos asignados.';
                 case 'gestorNotDeleted':
@@ -69,7 +73,7 @@ export default {
                 case 'transportistaNotDeleted':
                     return 'Transportista no eliminado porque está asignado a algun reparto.'
                 case 'userDeleted':
-                    return 'Usuario borrado con éxito.'
+                    return 'Usuario eliminado con éxito.'
                 case 'formInvalid':
                     return 'Uno de los campos no es correcto.'
             }
@@ -97,7 +101,7 @@ export default {
 <style scoped>
 .info-message {
     position: fixed;
-    bottom: 20px;
+    bottom: 30px;
     right: 20px;
     padding: 16px 24px;
     border-radius: 8px;
@@ -106,6 +110,7 @@ export default {
     z-index: 1000;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
     animation: aparecer 0.5s ease forwards;
+    border: 2px solid lightgray;
 }
 
 .info-message--success {
@@ -142,7 +147,7 @@ export default {
 @keyframes aparecer {
     from {
         opacity: 0;
-        transform: translateX(30px);
+        transform: translateX(100px);
     }
 
     to {
@@ -160,7 +165,7 @@ export default {
 
     to {
         opacity: 0;
-        transform: translateX(30px);
+        transform: translateX(100px);
     }
 }
 
