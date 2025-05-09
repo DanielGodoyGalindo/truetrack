@@ -16,6 +16,7 @@
 </head>
 
 <body>
+    {{-- Carga de app Vue --}}
     <div id="app" class="d-flex flex-column min-vh-100">
         {{-- Barra de navegación --}}
         <header class="mb-4">

@@ -47,15 +47,7 @@ class VehiculoController extends Controller
         $vehiculo->matricula = $request->matricula;
         $vehiculo->carga_max = $request->cargaMax;
         $vehiculo->save();
-        return redirect()->route('vehiculos.index');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        return redirect()->route('vehiculos.index')->with('message', 'vehicleCreated');;
     }
 
     /**

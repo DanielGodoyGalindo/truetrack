@@ -118,7 +118,7 @@ class EnvioController extends Controller
         ]);
         if ($validator->fails()) {
             return back()
-                ->with('vue_message', 'formInvalid')
+                ->with('message', 'formInvalid')
                 ->withInput();
         }
         // Actualización

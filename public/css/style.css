@@ -68,7 +68,6 @@ textarea {
 }
 
 .boton-naranja {
-    /* color: white; */
     background-color: var(--color-naranja);
     border: 1px solid dimgray;
 }
@@ -88,7 +87,7 @@ textarea {
     color: white;
 }
 
-/* Fin estilos botones */
+/* Estilos para Layouts */
 
 #barra-navegacion {
     background-color: var(--color-azul1);
@@ -96,19 +95,22 @@ textarea {
 }
 
 #footer {
-    background-color: lightgrey;
+    background-color: var(--color-azul2);
     padding: 1rem;
+    color: white;
 }
 
-#footer a{
+#footer a {
     text-decoration: none;
-    color: black;
+    color: white;
 }
 
 #footer a:hover {
     text-decoration: underline;
-    color: var(--color-azul1)
+    color: var(--color-naranja)
 }
+
+/* Estilos varios */
 
 #logo-truetrack {
     border: 1px solid #ccc;
