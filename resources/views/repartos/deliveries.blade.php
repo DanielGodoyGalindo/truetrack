@@ -40,7 +40,7 @@
                             @foreach ($enviosPendientes as $envio)
                                 <tr>
                                     <td>{{ $envio->id }}</td>
-                                    <td>{{ $envio->destinatario }}</td>
+                                    <td class="text-start">{{ $envio->destinatario }}</td>
                                     <td>{{ Str::title($envio->estado) }}</td>
                                     <td>{{ $envio->kilos }} kgs</td>
                                     <td>
@@ -63,7 +63,6 @@
                     </div>
                 </div>
 
-
                 <div class="container">
                     {{-- Mostrar información de kilos --}}
                     <div class="container pt-5 d-flex justify-content-around">
@@ -73,9 +72,10 @@
                     {{-- Componente barra progreso --}}
                     <progress-bar-component :valor="{{ $kilosCargados }}"
                         :total="{{ $reparto->vehiculo->carga_max }}"></progress-bar-component>
+
                     {{-- Tabla con envíos asignados al reparto actual --}}
                     <h2 class="pt-5">Envíos asignados</h2>
-                    <table class="table align-middle text-center">
+                    <table class="table align-middle text-center mb-5">
                         <thead class="tabla-header2">
                             <tr>
                                 <th>Envío Id</th>
@@ -89,7 +89,7 @@
                             @foreach ($enviosAsignados as $envio)
                                 <tr>
                                     <td>{{ $envio->id }}</td>
-                                    <td>{{ $envio->destinatario }}</td>
+                                    <td class="text-start">{{ $envio->destinatario }}</td>
                                     {{-- <td>{{ Str::title($envio->estado) }}</td> --}}
                                     <td>{{ $envio->kilos }} kgs</td>
                                     <td>

@@ -25,7 +25,7 @@
 
             {{-- Tabla --}}
             <div class="container">
-                <table class="table align-middle">
+                <table class="table align-middle text-center">
                     <thead class="tabla-header">
                         <tr>
                             <th scope="col">Id</th>
@@ -51,7 +51,7 @@
                                 <td>{{ $reparto->transportista->name }}</td>
                                 <td>{{ $reparto->vehiculo->matricula }}</td>
                                 <td>{{ Str::title($reparto->estado) }}</td>
-                                <td>{{ $reparto->updated_at }}</td>
+                                <td>{{ $reparto->updated_at->format('d-m-Y H:i:s') }}</td>
                                 <td>
                                     <form action="{{ route('repartos.show', $reparto->id) }}" method="GET">
                                         @csrf

@@ -18,15 +18,15 @@
 
             {{-- Tabla --}}
             <div class="container" style="min-height: 30vh">
-                <table class="table align-middle">
+                <table class="table align-middle text-center">
                     <thead class="tabla-header">
                         <tr>
                             <th scope="col">Id</th>
                             <th scope="col">Cliente</th>
                             <th scope="col">Destinatario</th>
                             <th scope="col">Estado</th>
-                            <th scope="col">Num. reparto</th>
                             <th scope="col">Bultos y kilos</th>
+                            <th scope="col">Fecha y hora</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,10 +35,10 @@
                             <tr>
                                 <th scope="row">{{ $envio->id }}</th>
                                 <td>{{ $envio->cliente->name }}</td>
-                                <td>{{ $envio->destinatario }}</td>
+                                <td class="text-start">{{ $envio->destinatario }}</td>
                                 <td>{{ Str::title($envio->estado) }}</td>
-                                <td>{{ $envio->reparto_id ?? 'No asignado' }}</td>
                                 <td>{{ $envio->bultos }} bultos - {{ $envio->kilos }} kilos</td>
+                                <td>{{ $envio->updated_at->format('d-m-Y H:i:s') }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -54,7 +54,13 @@
                 <progress-bar-component :valor="{{ $entregados }}"
                     :total="{{ $enviosTotales }}"></progress-bar-component>
                 <div class="text-center mb-3">
-                    <span class="span-info">{{ round(($entregados * 100) / $enviosTotales, 2) }}% envíos entregados</span>
+                    <span class="span-info">
+                        @if ($enviosTotales > 0)
+                            {{ round(($entregados * 100) / $enviosTotales, 2) }}% envíos entregados
+                        @else
+                            0% envíos entregados
+                        @endif
+                    </span>
                 </div>
             </div>
             {{-- Componente botón Vue (volver) --}}

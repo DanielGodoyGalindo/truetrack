@@ -73,14 +73,6 @@ class EnvioController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Muestra el formulario para editar un envío.
      */
     public function edit(string $id)
@@ -229,31 +221,27 @@ class EnvioController extends Controller
     // Se ejecuta cuando se solicita ver envios finalizados
     public function showCompleted(Request $r)
     {
-        /* Original */
-        /* $enviosCompletadosCli = Envio::where('cliente_id', Auth::id())->whereIn('estado', ['entregado', 'anulado'])->paginate($this->numPag);
-        $enviosCompletadosNoCli = Envio::whereIn('estado', ['entregado', 'anulado'])->paginate($this->numPag); 
-        return view('envios.completed', ['enviosCompletadosCli' => $enviosCompletadosCli, 'enviosCompletadosNoCli' => $enviosCompletadosNoCli]); */
-
         // Se construye una consulta con las relaciones del model Envio
         // Si vienen como request las fechas de busqueda, se busca en la tabla Envios
         // los envíos que tengan la fecha de creacion entre las dos fechas que vienen en el request $r
-
         $enviosCompletadosCli = null;
         $enviosCompletadosNoCli = null;
-        /* Si el usuario es cliente: obtener sus envios y si se reciben fechas, filtrarlos por ellas (appends() preserva las fechas entre las paginaciones) */
+        /* Si el usuario es cliente: obtener sus envios y si se reciben fechas, filtrarlos por ellas 
+        appends() --> preserva las fechas entre las paginaciones
+        startOfDay() y  endOfDay() permiten obtener las fechas desde el inicio del dia 00:00h hasta el final 23:59h*/
         if (Auth::check() && Auth::user()->rol == 'cliente') {
             $query  = Envio::where('cliente_id', Auth::id())->whereIn('estado', ['entregado', 'anulado']);
             if ($r->filled(['fecha1', 'fecha2'])) {
                 $query->whereBetween('created_at', [Carbon::parse($r->fecha1)->startOfDay(), Carbon::parse($r->fecha2)->endOfDay()]);
             }
-            $enviosCompletadosCli = $query->paginate($this->numPag)->appends($r->only([$r->fecha1, $r->fecha2]));
+            $enviosCompletadosCli = $query->paginate($this->numPag)->appends($r->only(['fecha1', 'fecha2']));
             /* Si el usuario es gestor o administrador */
         } else if ((in_array(Auth::user()->rol, ['gestor_trafico', 'administrador']))) {
             $query = Envio::whereIn('estado', ['entregado', 'anulado']);
             if ($r->filled(['fecha1', 'fecha2'])) {
                 $query->whereBetween('created_at', [Carbon::parse($r->fecha1)->startOfDay(), Carbon::parse($r->fecha2)->endOfDay()]);
             }
-            $enviosCompletadosNoCli = $query->paginate($this->numPag)->appends($r->only([$r->fecha1, $r->fecha2]));
+            $enviosCompletadosNoCli = $query->paginate($this->numPag)->appends($r->only(['fecha1', 'fecha2']));
         }
         return view('envios.completed', compact('enviosCompletadosCli', 'enviosCompletadosNoCli'));
     }

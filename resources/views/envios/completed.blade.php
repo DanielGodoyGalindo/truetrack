@@ -18,7 +18,7 @@
                     <div class="container d-flex flex-row justify-content-between">
                         {{-- Si es cliente, mostrar su nombre --}}
                         <h1>Envíos @if (Auth::user()->rol == 'cliente')
-                                de {{ Auth::user()->name }} completados
+                                de {{ Auth::user()->name }} finalizados
                             @endif
                         </h1>
                     </div>
@@ -63,10 +63,10 @@
                                 <th scope="col">Num. reparto</th>
                             @endif
                             <th scope="col">Bultos y kilos</th>
+                            <th scope="col">Fecha creación</th>
                             @if (Auth::user()->rol == 'administrador')
                                 <th scope="col">Eliminar</th>
                             @endif
-                            <th scope="col">Fecha creación</th>
                             @if (Auth::user()->rol == 'cliente')
                                 <th scope="col" class="text-center">Mail</th>
                             @endif
@@ -107,6 +107,7 @@
                                         <td>{{ $envio->reparto_id ?? 'No asignado' }}</td>
                                     @endif
                                     <td>{{ $envio->bultos }} bultos - {{ $envio->kilos }} kilos</td>
+                                    <td>{{ $envio->created_at->format('d-m-Y') }}</td>
                                     {{-- Borrar envíos --}}
                                     @if (Auth::user()->rol == 'administrador')
                                         <td>

@@ -1,6 +1,11 @@
 <!-- https://vue-chartjs.org/guide/ -->
 <template>
-  <Doughnut :data="chartData" :options="chartOptions" />
+  <div v-if="hasData">
+    <Doughnut :data="chartData" :options="chartOptions" />
+  </div>
+  <div v-else class="no-data">
+    <p>No hay datos para mostrar</p>
+  </div>
 </template>
 
 <script setup>
@@ -23,6 +28,12 @@ const props = defineProps({
     type: Array,
     required: true
   }
+})
+
+/* Comprobar si hay datos para mostrar */
+/* Se comprobará en el template y si no hay, se muestra un mensaje de que no hay datos para mostrar */
+const hasData = computed(() => {
+  return props.datosChart.some(value => value > 0)
 })
 
 /* Etiquetas y colores */
