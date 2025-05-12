@@ -73,7 +73,7 @@
                             @foreach ($enviosCliente as $envio)
                                 <tr>
                                     <th scope="row">{{ $envio->id }}</th>
-                                    <td>{{ $envio->destinatario }}</td>
+                                    <td class="text-start">{{ $envio->destinatario }}</td>
                                     <td @class([
                                         'texto-parpadeo-verde' => $envio->estado == 'en reparto',
                                         'texto-parpadeo-rojo' => $envio->estado == 'no entregado',
@@ -112,7 +112,7 @@
                                 <tr>
                                     <th scope="row">{{ $envio->id }}</th>
                                     <td>{{ $envio->cliente->name }}</td>
-                                    <td>{{ $envio->destinatario }}</td>
+                                    <td class="text-start">{{ $envio->destinatario }}</td>
                                     <td>{{ Str::title($envio->estado) }}</td>
                                     @if (Auth::user()->rol == 'gestor_trafico')
                                         <td>{{ $envio->reparto_id ?? 'No asignado' }}</td>
@@ -152,6 +152,10 @@
                         {{ $enviosTotales->links('pagination::bootstrap-4') }}
                     @endif
                 </div>
+                {{-- Componente vue mensajes --}}
+                @if (session('message'))
+                    <message-component :message="'{{ session('message') }}'" />
+                @endif
             </div>
         </div>
     @endsection
