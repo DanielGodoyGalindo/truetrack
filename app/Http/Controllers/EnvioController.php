@@ -163,7 +163,7 @@ class EnvioController extends Controller
             $mail->to($request->email)
                 ->subject('Mensaje desde TrueTrack');
         });
-        return redirect()->route('envios.index');
+        return redirect()->route('envios.index')->with('message', 'emailSent');
     }
 
     /* Método para cambiar estado de un envio a 'anulado' */

@@ -45,8 +45,10 @@ export default {
                     return 'info-message--success';
                 case 'formInvalid':
                     return 'info-message--error';
+                case 'emailSent':
+                    return 'info-message--success';
                 default:
-                    return 'info-message--info'
+                    return 'info-message--info';
             }
         },
         messageText() {
@@ -76,6 +78,8 @@ export default {
                     return 'Usuario eliminado con éxito.'
                 case 'formInvalid':
                     return 'Uno de los campos no es correcto.'
+                case 'emailSent':
+                    return 'Mensaje enviado correctamente.'
             }
         },
     },

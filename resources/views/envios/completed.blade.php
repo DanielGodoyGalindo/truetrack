@@ -80,7 +80,7 @@
                             @foreach ($enviosCompletadosCli as $envio)
                                 <tr>
                                     <th scope="row">{{ $envio->id }}</th>
-                                    <td class="text-start -2">{{ $envio->destinatario }}</td>
+                                    <td class="text-start">{{ $envio->destinatario }}</td>
                                     <td>{{ Str::title($envio->estado) }}</td>
                                     <td>{{ $envio->bultos }} bultos - {{ $envio->kilos }} kilos</td>
                                     <td>{{ $envio->created_at->format('d-m-Y') }}</td>
@@ -101,7 +101,7 @@
                                 <tr>
                                     <th scope="row">{{ $envio->id }}</th>
                                     <td>{{ $envio->cliente->name }}</td>
-                                    <td>{{ $envio->destinatario }}</td>
+                                    <td class="text-start">{{ $envio->destinatario }}</td>
                                     <td>{{ Str::title($envio->estado) }}</td>
                                     @if (Auth::user()->rol == 'gestor_trafico')
                                         <td>{{ $envio->reparto_id ?? 'No asignado' }}</td>
