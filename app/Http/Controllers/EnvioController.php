@@ -69,7 +69,7 @@ class EnvioController extends Controller
         $envio->kilos = $r->kilos;
         $envio->estado = "pendiente";
         $envio->save();
-        return redirect()->route('envios.index');
+        return redirect()->route('envios.index')->with('message', 'recordCreated');
     }
 
     /**
@@ -132,7 +132,7 @@ class EnvioController extends Controller
         }
         $envio = Envio::findOrFail($id);
         $envio->delete();
-        return redirect()->route('envios.index');
+        return redirect()->route('envios.index')->with('message', 'recordDeleted');
     }
 
     /* Método para mostrar la vista de envío de mail */
@@ -172,7 +172,7 @@ class EnvioController extends Controller
         $envio = Envio::find($id);
         $envio->estado = 'anulado';
         $envio->save();
-        return redirect()->back();
+        return redirect()->back()->with('message', 'shipmentCancelled');
     }
 
     /* Método para devolver el número total de envíos no entregados ni anulados */

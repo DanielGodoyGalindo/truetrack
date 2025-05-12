@@ -123,7 +123,7 @@ class UserController extends Controller
             default: // Borrar clientes (se borran tambien sus envíos) / administradores
                 $usuario->delete();
         }
-        return redirect()->route('users.index')->with('message', 'userDeleted');
+        return redirect()->route('users.index')->with('message', 'recordDeleted');
     }
 
     // Obtener los repartos asignados a un transportista
