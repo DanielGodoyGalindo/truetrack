@@ -1,3 +1,4 @@
+<!-- Componente que muestra un texto y un botón para cerrar -->
 <template>
     <div :class="['info-message', messageType]" v-if="visible">
         <span class="message-content">{{ messageText }}</span>
@@ -27,8 +28,6 @@ export default {
                     return 'info-message--error';
                 case 'deliveryAdded':
                     return 'info-message--success';
-                case 'vehicleCreated':
-                    return 'info-message--success';
                 case 'vehicleDeleted':
                     return 'info-message--success';
                 case 'vehicleNotDeleted':
@@ -41,12 +40,16 @@ export default {
                     return 'info-message--error';
                 case 'transportistaNotDeleted':
                     return 'info-message--error';
-                case 'userDeleted':
-                    return 'info-message--success';
                 case 'formInvalid':
                     return 'info-message--error';
                 case 'emailSent':
                     return 'info-message--success';
+                case 'recordCreated':
+                    return 'info-message--success';
+                case 'recordDeleted':
+                    return 'info-message--success';
+                case 'shipmentCancelled':
+                    return 'info-message--info';
                 default:
                     return 'info-message--info';
             }
@@ -58,10 +61,6 @@ export default {
                     return 'El envío fue asignado correctamente al reparto.';
                 case 'deliveryNotAdded':
                     return 'El envío no se ha podido añadir porque se superaría la carga máxima.';
-                case 'deliveryRemoved':
-                    return 'El envío ha sido eliminado del reparto.';
-                case 'vehicleCreated':
-                    return 'Vehículo creado con éxito.';
                 case 'vehicleDeleted':
                     return 'Vehículo eliminado.';
                 case 'vehicleNotDeleted':
@@ -74,12 +73,16 @@ export default {
                     return 'Gestor no eliminado porque tiene repartos a su nombre.'
                 case 'transportistaNotDeleted':
                     return 'Transportista no eliminado porque está asignado a algun reparto.'
-                case 'userDeleted':
-                    return 'Usuario eliminado con éxito.'
                 case 'formInvalid':
                     return 'Uno de los campos no es correcto.'
                 case 'emailSent':
                     return 'Mensaje enviado correctamente.'
+                case 'recordDeleted':
+                    return 'Registro eliminado.'
+                case 'recordCreated':
+                    return 'Registro creado.'
+                case 'shipmentCancelled':
+                    return 'Envío anulado.'
             }
         },
     },
