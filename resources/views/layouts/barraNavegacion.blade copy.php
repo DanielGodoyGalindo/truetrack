@@ -6,7 +6,7 @@
             title="Inicio - TrueTrack" id="logo-truetrack">
     </a>
     {{-- Botones login, registrarse, editar perfil y salir --}}
-    <div class="d-flex col-md-8 justify-content-end">
+    <div class="col-md-8 text-end">
         @guest
             <div class="d-flex justify-content-end gap-3">
                 <button-component button-text="Login" button-url="{{ route('login') }}"
@@ -18,25 +18,14 @@
         @auth
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-end gap-3">
                 @if (Auth::check() && Auth::user()->rol != 'transportista')
-                    <a type="button" class="btn boton-naranja"
-                        href="{{ route('profile.edit') }}">{{ __('messages.myProfile') }}</a>
+                    <a type="button" class="btn boton-naranja" href="{{ route('profile.edit') }}">Mi
+                        Perfil</a>
                 @endif
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <input type="submit" class="btn boton-rojo" value="{{ __('messages.disconnect') }}" />
+                    <input type="submit" class="btn boton-rojo" value="Desconectar" />
                 </form>
             </div>
         @endauth
-        {{-- Botones para el idioma --}}
-        <div class="d-flex align-items-center justify-content-center ms-5 gap-2" id="cuadro-idioma">
-            <span>Idioma:</span>
-            @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                <a rel="alternate" hreflang="{{ $localeCode }}"
-                    href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                    {{ ucfirst($properties['native']) }}
-                </a>
-            @endforeach
-        </div>
     </div>
-
 </div>

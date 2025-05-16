@@ -175,3 +175,19 @@ textarea {
 .w-10 {
     width: 10%;
 }
+
+#cuadro-idioma {
+    background-color: var(--color-azul2);
+    color: white;
+    padding: 0.5rem;
+    border: var(--color-naranja) solid 0.1rem;
+    border-radius: 2px;
+}
+
+#cuadro-idioma>a {
+    color: white;
+}
+
+#cuadro-idioma>a:hover {
+    color: var(--color-azul1);
+}

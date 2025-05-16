@@ -27,6 +27,14 @@ const props = defineProps({
   datosChart: {
     type: Array,
     required: true
+  },
+  tituloChart: {
+    type: String,
+    required: true
+  },
+  etiquetas: {
+    type: Array,
+    required: true
   }
 })
 
@@ -37,8 +45,8 @@ const hasData = computed(() => {
 })
 
 /* Etiquetas y colores */
-const labels = ['Pendientes', 'En reparto', 'No entregados']
-const colors = ['#FFBA08', '#3F88C5', '#D00000']
+const labels = props.etiquetas;
+const colors = ['#FFBA08', '#3F88C5', '#D00000'];
 
 /* Datos generados en el controlador y obtenidos de Blade */
 const chartData = computed(() => ({
@@ -61,7 +69,7 @@ const chartOptions = {
     },
     title: {
       display: true,
-      text: 'Mis envíos',
+      text: props.tituloChart,
       font: {
         size: 28
       },
