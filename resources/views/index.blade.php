@@ -14,7 +14,7 @@
         @guest
             <div class="container d-flex flex-column align-items-center">
                 <img src="{{ asset('img/furgoneta-reparto.jpg') }}" alt="Furgoneta de reparto" id="furgoneta">
-                <p class="h1">¡Bienvenido/a!</p>
+                <p class="h1">{{ __('messages.welcome') }}</p>
                 <p class="h1">Por favor, accede con tu usuario o regístrate</p>
             </div>
         @endguest
@@ -22,13 +22,17 @@
         @if (Auth::check() && in_array(Auth::user()->rol, ['cliente', 'administrador', 'gestor_trafico']))
             {{-- Mensaje usuario --}}
             <div class="container" id="mensaje-bienvenida">
-                <h1>Bienvenido a tu dashboard, {{ Auth::user()->name }}</h1>
+                <h1>{{ __('messages.welcomeDashboard') }} {{ Auth::user()->name }}</h1>
                 {{-- <p>Este es tu dashboard</p> --}}
             </div>
             {{-- Componente donut chart --}}
             <div class="container d-flex justify-content-around">
                 <div>
-                    <doughnut-chart-component :datos-chart='@json($datosChart)'></doughnut-chart-component>
+                    <doughnut-chart-component :datos-chart='@json($datosChart)'
+                        titulo-chart="{{ __('messages.myDeliveries') }}"
+                        :etiquetas="['{{ __('messages.pending') }}', '{{ __('messages.onDelivery') }}',
+                            '{{ __('messages.notDelivered') }}'
+                        ]"></doughnut-chart-component>
                 </div>
 
                 <div class="d-flex flex-column">
