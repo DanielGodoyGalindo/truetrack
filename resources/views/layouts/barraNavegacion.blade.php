@@ -11,7 +11,7 @@
             <div class="d-flex justify-content-end gap-3">
                 <button-component button-text="Login" button-url="{{ route('login') }}"
                     class="btn boton-naranja"></button-component>
-                <button-component button-text="Registrarse" button-url="{{ route('register') }}"
+                <button-component button-text="{{ __('messages.register') }}" button-url="{{ route('register') }}"
                     class="btn boton-accion2"></button-component>
             </div>
         @endguest
@@ -29,7 +29,7 @@
         @endauth
         {{-- Botones para el idioma --}}
         <div class="d-flex align-items-center justify-content-center ms-5 gap-2" id="cuadro-idioma">
-            <span>Idioma:</span>
+            <span>{{ __('messages.language') }}:</span>
             @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                 <a rel="alternate" hreflang="{{ $localeCode }}"
                     href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">

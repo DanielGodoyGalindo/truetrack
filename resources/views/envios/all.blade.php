@@ -16,23 +16,24 @@
                 <div class="container d-flex flex-row justify-content-between">
                     {{-- Si es cliente, mostrar su nombre --}}
                     <div>
-                        <h1>Envíos @if (Auth::user()->rol == 'cliente')
-                                de {{ Auth::user()->name }}
+                        <h1>{{ __('messages.shipments') }} @if (Auth::user()->rol == 'cliente')
+                                {{ __('messages.of') }} {{ Auth::user()->name }}
                             @endif
                         </h1>
                     </div>
                     {{-- Componentes botón Vue (nuevo envío y finalizados) --}}
                     <div id="button-app" class="d-flex flex-row gap-3">
-                        <button-component button-text="✚ Nuevo envío" button-url="{{ route('envios.create') }}"
-                            class="btn boton-accion1 h-75"></button-component>
-                        <button-component button-text="Finalizados" button-url="{{ route('envios.showCompleted') }}"
+                        <button-component button-text="✚ {{ __('messages.newShipment') }}"
+                            button-url="{{ route('envios.create') }}" class="btn boton-accion1 h-75"></button-component>
+                        <button-component button-text="{{ __('messages.finished') }}"
+                            button-url="{{ route('envios.showCompleted') }}"
                             class="btn boton-accion1 h-75"></button-component>
                     </div>
                 </div>
             @elseif (in_array(Auth::user()->rol, ['gestor_trafico', 'administrador']))
                 {{-- Gestores y Admin --}}
                 <div class="container d-flex flex-row">
-                    <h1 class="container">Envíos</h1>
+                    <h1 class="container">{{ __('messages.shipments') }}</h1>
                     {{-- Componente botón Vue (finalizados) --}}
                     <div id="button-app">
                         <button-component button-text="Finalizados" button-url="{{ route('envios.showCompleted') }}"
@@ -48,21 +49,21 @@
                         <tr>
                             <th scope="col">Id</th>
                             @if (in_array(Auth::user()->rol, ['gestor_trafico', 'administrador']))
-                                <th scope="col">Cliente</th>
+                                <th scope="col">{{ __('messages.client') }}</th>
                             @endif
-                            <th scope="col">Destinatario</th>
-                            <th scope="col">Estado</th>
+                            <th scope="col">{{ __('messages.addressee') }}</th>
+                            <th scope="col">{{ __('messages.status') }}</th>
                             @if (Auth::user()->rol == 'gestor_trafico')
-                                <th scope="col">Num. reparto</th>
+                                <th scope="col">{{ __('messages.deliveryRouteNum') }}</th>
                             @endif
-                            <th scope="col">Bultos y kilos</th>
+                            <th scope="col">{{ __('messages.packages&Weight') }}</th>
                             @if (Auth::user()->rol == 'cliente')
                                 <th scope="col" class="text-center">Mail</th>
-                                <th scope="col" class="text-center">Editar</th>
-                                <th scope="col" class="text-center">Anular</th>
+                                <th scope="col" class="text-center">{{ __('messages.edit') }}</th>
+                                <th scope="col" class="text-center">{{ __('messages.cancel') }}</th>
                             @endif
                             @if (Auth::user()->rol == 'administrador')
-                                <th scope="col">Eliminar</th>
+                                <th scope="col">{{ __('messages.delete') }}</th>
                             @endif
                         </tr>
                     </thead>
