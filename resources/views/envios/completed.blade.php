@@ -17,32 +17,32 @@
                 @if (Auth::user()->rol == 'cliente') {{-- Clientes --}}
                     <div class="container d-flex flex-row justify-content-between">
                         {{-- Si es cliente, mostrar su nombre --}}
-                        <h1>Envíos @if (Auth::user()->rol == 'cliente')
-                                de {{ Auth::user()->name }} finalizados
+                        <h1>{{ __('messages.shipments') }} @if (Auth::user()->rol == 'cliente')
+                                {{ __('messages.of') }} {{ Auth::user()->name }} finalizados
                             @endif
                         </h1>
                     </div>
                 @else
                     {{-- Gestores y Admin --}}
-                    <h1 class="container">Envíos finalizados</h1>
+                    <h1 class="container">{{ __('messages.finishedShipments') }}</h1>
                 @endif
 
                 {{-- Inputs de fechas --}}
                 <form method="GET" action="{{ route('envios.showCompleted') }}">
                     <div class="d-flex gap-2">
                         <div>
-                            <label for="fecha1">Desde:</label>
+                            <label for="fecha1">{{ __('messages.from') }}:</label>
                             <input type="date" name="fecha1" value="{{ request('fecha1') }}" class="form-control"
                                 required>
                         </div>
                         <div>
-                            <label for="fecha2">Hasta:</label>
+                            <label for="fecha2">{{ __('messages.until') }}:</label>
                             <input type="date" name="fecha2" value="{{ request('fecha2') }}" class="form-control"
                                 required>
                         </div>
                     </div>
                     <div class="d-flex justify-content-end mt-2 mb-3">
-                        <button type="submit" class="btn boton-accion1">Búsqueda for fechas</button>
+                        <button type="submit" class="btn boton-accion1">{{ __('messages.filterByDates') }}</button>
                     </div>
 
                 </form>
@@ -55,20 +55,20 @@
                         <tr>
                             <th scope="col">Id</th>
                             @if (in_array(Auth::user()->rol, ['gestor_trafico', 'administrador']))
-                                <th scope="col">Cliente</th>
+                                <th scope="col">{{ __('messages.client') }}</th>
                             @endif
-                            <th scope="col">Destinatario</th>
-                            <th scope="col">Estado</th>
+                            <th scope="col">{{ __('messages.addressee') }}</th>
+                            <th scope="col">{{ __('messages.status') }}</th>
                             @if (Auth::user()->rol == 'gestor_trafico')
-                                <th scope="col">Num. reparto</th>
+                                <th scope="col">{{ __('messages.deliveryRouteNum') }}</th>
                             @endif
-                            <th scope="col">Bultos y kilos</th>
-                            <th scope="col">Fecha creación</th>
+                            <th scope="col">{{ __('messages.packages&Weight') }}</th>
+                            <th scope="col">{{ __('messages.creationDate') }}</th>
                             @if (Auth::user()->rol == 'administrador')
-                                <th scope="col">Eliminar</th>
+                                <th scope="col">{{ __('messages.delete') }}</th>
                             @endif
                             @if (Auth::user()->rol == 'cliente')
-                                <th scope="col" class="text-center">Mail</th>
+                                <th scope="col" class="text-center">Email</th>
                             @endif
                         </tr>
                     </thead>
@@ -82,7 +82,8 @@
                                     <th scope="row">{{ $envio->id }}</th>
                                     <td class="text-start">{{ $envio->destinatario }}</td>
                                     <td>{{ Str::title($envio->estado) }}</td>
-                                    <td>{{ $envio->bultos }} bultos - {{ $envio->kilos }} kilos</td>
+                                    <td>{{ $envio->bultos }} {{ __('messages.packages') }} - {{ $envio->kilos }}
+                                        {{ __('messages.kilograms') }}</td>
                                     <td>{{ $envio->created_at->format('d-m-Y') }}</td>
                                     <td class="text-center">
                                         {{-- Formulario mandar emails --}}
@@ -106,7 +107,8 @@
                                     @if (Auth::user()->rol == 'gestor_trafico')
                                         <td>{{ $envio->reparto_id ?? 'No asignado' }}</td>
                                     @endif
-                                    <td>{{ $envio->bultos }} bultos - {{ $envio->kilos }} kilos</td>
+                                    <td>{{ $envio->bultos }} {{ __('messages.packages') }} - {{ $envio->kilos }}
+                                        {{ __('messages.kilograms') }}</td>
                                     <td>{{ $envio->created_at->format('d-m-Y') }}</td>
                                     {{-- Borrar envíos --}}
                                     @if (Auth::user()->rol == 'administrador')
@@ -145,7 +147,7 @@
 
             {{-- Componente botón Vue (volver) --}}
             <div id="button-app" class="container text-center">
-                <button-component button-text="Volver" button-url="{{ route('envios.index') }}"
+                <button-component button-text="{{ __('messages.back') }}" button-url="{{ route('envios.index') }}"
                     class="btn boton-accion1"></button-component>
             </div>
         </div>

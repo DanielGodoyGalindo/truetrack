@@ -36,7 +36,7 @@
                     <h1 class="container">{{ __('messages.shipments') }}</h1>
                     {{-- Componente botón Vue (finalizados) --}}
                     <div id="button-app">
-                        <button-component button-text="Finalizados" button-url="{{ route('envios.showCompleted') }}"
+                        <button-component button-text="{{ __('messages.finished') }}" button-url="{{ route('envios.showCompleted') }}"
                             class="btn boton-accion1"></button-component>
                     </div>
                 </div>
