@@ -15,11 +15,11 @@
             {{-- Header y botón --}}
             <div class="container d-flex flex-row justify-content-between">
                 {{-- Si es gestor, mostrar su nombre --}}
-                <h1>Repartos
+                <h1>{{ __('messages.deliveryRoutes') }}
                     @if (Auth::user()->rol == 'gestor_trafico')
-                        de {{ Auth::user()->name }}
+                        {{ __('messages.of') }} {{ Auth::user()->name }}
                     @endif
-                    finalizados
+                    {{ __('messages.finished') }}
                 </h1>
             </div>
 
@@ -30,13 +30,13 @@
                         <tr>
                             <th scope="col">Id</th>
                             @if (Auth::user()->rol == 'administrador')
-                                <th scope="col">Gestor tráfico</th>
+                                <th scope="col">{{ __('messages.trafficManager') }}</th>
                             @endif
-                            <th scope="col">Transportista</th>
-                            <th scope="col">Vehículo</th>
-                            <th scope="col">Estado</th>
-                            <th scope="col">Fecha y hora</th>
-                            <th scope="col">Ver Reparto</th>
+                            <th scope="col">{{ __('messages.vanDriver') }}</th>
+                            <th scope="col">{{ __('messages.vehicle') }}</th>
+                            <th scope="col">{{ __('messages.status') }}</th>
+                            <th scope="col">{{ __('messages.dateTime') }}</th>
+                            <th scope="col">{{ __('messages.seeDistribution') }}</th>
                         </tr>
                     </thead>
 
@@ -74,7 +74,7 @@
 
             {{-- Componente botón Vue (volver) --}}
             <div id="button-app" class="container text-center">
-                <button-component button-text="Volver" button-url="{{ route('repartos.index') }}"
+                <button-component button-text="{{ __('messages.back') }}" button-url="{{ route('repartos.index') }}"
                     class="btn boton-accion1"></button-component>
             </div>
         </div>

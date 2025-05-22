@@ -11,7 +11,7 @@
     @section('content')
         <div id="app">
             <div class="container">
-                <h1>{{ $reparto ? 'Editar reparto' : 'Nuevo reparto' }}</h1>
+                <h1>{{ $reparto ? __('messages.editDistribution') : __('messages.newDistribution') }}</h1>
                 {{-- Formulario --}}
                 @if ($reparto)
                     <form action="{{ route('repartos.update', $reparto->id) }}" method="POST">
@@ -24,12 +24,12 @@
                     {{-- Componente select de transportistas --}}
                     <select-component name="transportista" :options='@json($transportistas)' id="transportistas-select"
                         @if ($reparto) :selected='@json($reparto->transportista->name)' @endif
-                        label="Seleccione un transportista:">
+                        label="{{ __('messages.selectVanDriver') }}">
                     </select-component>
                     {{-- Componente select de vehiculos --}}
                     <select-component name="vehiculo" :options='@json($vehiculos)' id="vehiculos-select"
                         @if ($reparto) :selected='@json($reparto->vehiculo->matricula)' @endif
-                        label="Seleccione un vehiculo:">
+                        label="{{ __('messages.selectVehicle') }}">
                     </select-component>
                     <button type="submit" class="btn boton-accion1 mt-5">Guardar</button>
                     </form>
