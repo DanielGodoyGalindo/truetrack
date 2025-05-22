@@ -40,7 +40,7 @@ return [
     "shipmentNumber"      => "Número de envío",
     "deliveryRouteNum"    => "Num. reparto",
     "select"              => "Seleccionar",
-    "finalizeDistribution" => "Finalizar distribución",
+    "finalizeDistribution" => "Finalizar reparto",
     "shipment"            => "Envío",
     "maxLoad"             => "Carga máxima",
     "newVehicle"          => "Nuevo vehículo",
@@ -89,4 +89,8 @@ return [
     "newDistribution"     => "Nuevo reparto",
     "selectVanDriver"     => "Seleccione un transportista:",
     "selectVehicle"       => "Seleccione un vehiculo:",
+    "myDeliveries"        => "Mis entregas",
+    "update"              => "Actualizar",
+    "toFinish"            => "para finalizar",
+    "myDistributions"     => "Mis Repartos",
 ];

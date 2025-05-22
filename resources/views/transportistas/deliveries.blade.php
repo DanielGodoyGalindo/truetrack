@@ -13,25 +13,25 @@
             @if (Auth::check() && Auth::user()->rol == 'transportista')
                 {{-- Header --}}
                 <div class="container d-flex flex-row justify-content-between">
-                    <h1>Reparto {{ $reparto->id }}</h1>
+                    <h1>{{ __('messages.deliveryRoute') }} {{ $reparto->id }}</h1>
                     <div>
-                        <p>Gestor de tráfico: {{ $reparto->gestor->name }}</p>
-                        <p>Transportista: {{ $reparto->transportista->name }}</p>
-                        <p>Vehículo: {{ $reparto->vehiculo->matricula }}</p>
+                        <p>{{ __('messages.trafficManager') }}: {{ $reparto->gestor->name }}</p>
+                        <p>{{ __('messages.vanDriver') }}: {{ $reparto->transportista->name }}</p>
+                        <p>{{ __('messages.vehicle') }}: {{ $reparto->vehiculo->matricula }}</p>
                     </div>
                 </div>
 
                 {{-- Tabla --}}
                 <div class="container">
-                    <h3>Mis entregas:</h3>
+                    <h3>{{ __('messages.myDeliveries') }}:</h3>
                     <table class="table align-middle ">
                         <thead class="tabla-header">
                             <tr>
-                                <th scope="col">Envío Id</th>
-                                <th scope="col">Cliente</th>
-                                <th scope="col">Destinatario</th>
-                                <th scope="col">Estado</th>
-                                <th scope="col">Bultos y kilos</th>
+                                <th scope="col">{{ __('messages.deliveryId') }}</th>
+                                <th scope="col">{{ __('messages.client') }}</th>
+                                <th scope="col">{{ __('messages.addressee') }}</th>
+                                <th scope="col">{{ __('messages.status') }}</th>
+                                <th scope="col">{{ __('messages.packages&Weight') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,7 +62,7 @@
                                                         value="{{ $envio->informacion }}"
                                                         placeholder="Razón no entrega" class="form-control" required>
                                                 </div>
-                                                <button type="submit" class="btn boton-accion1">Actualizar</button>
+                                                <button type="submit" class="btn boton-accion1">{{ __('messages.update') }}</button>
                                             </div>
                                         </form>
                                     </td>
@@ -80,12 +80,12 @@
                         <span>
                             @if ($enviosPendientes > 0)
                                 {{ $enviosPendientes }} {{ $enviosPendientes == 1 ? 'envío' : 'envíos' }}
-                                para finalizar
+                                {{ __('messages.toFinish') }}
                             @endif
                         </span>
 
                         {{-- Mostrar botón de finalizar reparto --}}
-                        <input type="submit" value="Finalizar reparto"
+                        <input type="submit" value="{{ __('messages.finalizeDistribution') }}"
                             @if ($numEnvios == 0 || ($numEnvios > 0 && $enviosPendientes > 0)) @disabled(true) class="btn btn-secondary"
                         @else @disabled(false) class="btn boton-verde" @endif>
                     </form>
