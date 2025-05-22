@@ -15,16 +15,16 @@
                 @if (Auth::user()->rol == 'gestor_trafico') class="container d-flex flex-row justify-content-between" 
                 @else class="container" @endif>
                 {{-- Si es gestor de tráfico, mostrar su nombre --}}
-                <h1>Repartos @if (Auth::user()->rol == 'gestor_trafico')
-                        de {{ Auth::user()->name }}
+                <h1>{{ __('messages.deliveryRoutes') }} @if (Auth::user()->rol == 'gestor_trafico')
+                        {{ __('messages.of') }} {{ Auth::user()->name }}
                     @endif
                 </h1>
                 @if (Auth::user()->rol == 'gestor_trafico')
                     {{-- Componentes botón Vue (nuevo reparto y finalizados) --}}
                     <div id="button-app" class="d-flex flex-row gap-3">
-                        <button-component button-text="✚ Nuevo reparto" button-url="{{ route('repartos.create') }}"
+                        <button-component button-text="✚ {{ __('messages.newDistribution') }}" button-url="{{ route('repartos.create') }}"
                             class="btn boton-accion1 h-75"></button-component>
-                        <button-component button-text="Finalizados"
+                        <button-component button-text="{{ __('messages.finished') }}"
                             button-url="{{ route('repartos.showDeliveriesCompleted') }}"
                             class="btn boton-accion1 h-75"></button-component>
                     </div>
@@ -37,17 +37,17 @@
                         <tr class="text-center">
                             <th scope="col">Id</th>
                             @if (Auth::user()->rol == 'administrador')
-                                <th scope="col">Gestor tráfico</th>
+                                <th scope="col">{{ __('messages.trafficManager') }}</th>
                             @endif
-                            <th scope="col">Transportista</th>
-                            <th scope="col">Vehículo</th>
-                            <th scope="col">Estado</th>
+                            <th scope="col">{{ __('messages.vanDriver') }}</th>
+                            <th scope="col">{{ __('messages.vehicle') }}</th>
+                            <th scope="col">{{ __('messages.status') }}</th>
                             @if (Auth::user()->rol == 'administrador')
-                                <th scope="col" class="text-center">Eliminar</th>
+                                <th scope="col" class="text-center">{{ __('messages.delete') }}</th>
                             @endif
                             @if (Auth::user()->rol == 'gestor_trafico')
-                                <th scope="col">Asignar envíos</th>
-                                <th scope="col">Editar</th>
+                                <th scope="col">{{ __('messages.assignShipments') }}</th>
+                                <th scope="col">{{ __('messages.edit') }}</th>
                             @endif
                         </tr>
                     </thead>

@@ -22,11 +22,11 @@
                     <thead class="tabla-header">
                         <tr>
                             <th scope="col">Id</th>
-                            <th scope="col">Cliente</th>
-                            <th scope="col">Destinatario</th>
-                            <th scope="col">Estado</th>
-                            <th scope="col">Bultos y kilos</th>
-                            <th scope="col">Fecha y hora</th>
+                            <th scope="col">{{ __('messages.client') }}</th>
+                            <th scope="col">{{ __('messages.addressee') }}</th>
+                            <th scope="col">{{ __('messages.status') }}</th>
+                            <th scope="col">{{ __('messages.packages&Weight') }}</th>
+                            <th scope="col">{{ __('messages.dateTime') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,7 +37,7 @@
                                 <td>{{ $envio->cliente->name }}</td>
                                 <td class="text-start">{{ $envio->destinatario }}</td>
                                 <td>{{ Str::title($envio->estado) }}</td>
-                                <td>{{ $envio->bultos }} bultos - {{ $envio->kilos }} kilos</td>
+                                <td>{{ $envio->bultos }} {{ __('messages.packages') }} - {{ $envio->kilos }} {{ __('messages.kilograms') }}</td>
                                 <td>{{ $envio->updated_at->format('d-m-Y H:i:s') }}</td>
                             </tr>
                         @endforeach
@@ -56,16 +56,16 @@
                 <div class="text-center mb-3">
                     <span class="span-info">
                         @if ($enviosTotales > 0)
-                            {{ round(($entregados * 100) / $enviosTotales, 2) }}% envíos entregados
+                            {{ round(($entregados * 100) / $enviosTotales, 2) }}% {{ __('messages.shipmentsDelivered') }}
                         @else
-                            0% envíos entregados
+                            0% {{ __('messages.shipmentsDelivered') }}
                         @endif
                     </span>
                 </div>
             </div>
             {{-- Componente botón Vue (volver) --}}
             <div class="container text-center">
-                <button-component button-text="Volver" button-url="{{ route('repartos.showDeliveriesCompleted') }}"
+                <button-component button-text="{{ __('messages.back') }}" button-url="{{ route('repartos.showDeliveriesCompleted') }}"
                     class="btn boton-accion1"></button-component>
             </div>
         </div>

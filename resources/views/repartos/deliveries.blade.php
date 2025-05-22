@@ -12,12 +12,12 @@
         <div id="app">
             {{-- Header e info del reparto --}}
             <div class="container d-flex flex-row justify-content-around">
-                <h1>Reparto {{ $reparto->id }}</h1>
+                <h1>{{ __('messages.deliveryRoute') }} {{ $reparto->id }}</h1>
                 <div>
-                    <p>Gestor de tráfico: {{ $reparto->gestor->name }}</p>
-                    <p>Transportista: {{ $reparto->transportista->name }}</p>
-                    <p>Vehículo: {{ $reparto->vehiculo->matricula }}</p>
-                    <p>Carga máxima: {{ $reparto->vehiculo->carga_max }} kg</p>
+                    <p>{{ __('messages.trafficManager') }}: {{ $reparto->gestor->name }}</p>
+                    <p>{{ __('messages.vanDriver') }}: {{ $reparto->transportista->name }}</p>
+                    <p>{{ __('messages.vehicle') }}: {{ $reparto->vehiculo->matricula }}</p>
+                    <p>{{ __('messages.maxLoad') }}: {{ $reparto->vehiculo->carga_max }} kg</p>
                 </div>
             </div>
 
@@ -25,15 +25,15 @@
             <div class="container">
                 {{-- Tabla con envios pendientes de reparto --}}
                 <div class="container">
-                    <h2 class="pt-2">Envíos disponibles</h2>
+                    <h2 class="pt-2">{{ __('messages.availableDeliveries') }}</h2>
                     <table class="table align-middle text-center">
                         <thead class="tabla-header">
                             <tr>
-                                <th>Envío Id</th>
-                                <th>Destinatario</th>
-                                <th>Estado</th>
-                                <th>Peso</th>
-                                <th>Asignar</th>
+                                <th>{{ __('messages.deliveryId') }}</th>
+                                <th>{{ __('messages.addressee') }}</th>
+                                <th>{{ __('messages.status') }}</th>
+                                <th>{{ __('messages.weight') }}</th>
+                                <th>{{ __('messages.assign') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,8 +48,8 @@
                                         <form action="{{ route('repartos.asignar', $reparto->id) }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="envio_id" value="{{ $envio->id }}">
-                                            <button type="submit" class="btn {{-- btn-outline-success --}} boton-verde">Añadir al
-                                                reparto</button>
+                                            <button type="submit"
+                                                class="btn {{-- btn-outline-success --}} boton-verde">{{ __('messages.add2Distribution') }}</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -67,22 +67,22 @@
                     {{-- Mostrar información de kilos --}}
                     <div class="container pt-5 d-flex justify-content-around">
                         {{-- Null coalescing operator: Muestra el valor de la izquierda, y si es no está definido o es null, muestra el de la derecha --}}
-                        <span class="h4"> Kilos cargados: {{ $kilosCargados ?? 0 }} kgs</span>
+                        <span class="h4"> {{ __('messages.loadedKilos') }}: {{ $kilosCargados ?? 0 }} kgs</span>
                     </div>
                     {{-- Componente barra progreso --}}
                     <progress-bar-component :valor="{{ $kilosCargados }}"
                         :total="{{ $reparto->vehiculo->carga_max }}"></progress-bar-component>
 
                     {{-- Tabla con envíos asignados al reparto actual --}}
-                    <h2 class="pt-5">Envíos asignados</h2>
+                    <h2 class="pt-5">{{ __('messages.assignedDeliveries') }}</h2>
                     <table class="table align-middle text-center mb-5">
                         <thead class="tabla-header2">
                             <tr>
-                                <th>Envío Id</th>
-                                <th>Destinatario</th>
+                                <th>{{ __('messages.deliveryId') }}</th>
+                                <th>{{ __('messages.addressee') }}</th>
                                 {{-- <th>Estado</th> --}}
-                                <th>Kilos</th>
-                                <th>Quitar del reparto</th>
+                                <th>{{ __('messages.kilograms') }}</th>
+                                <th>{{ __('messages.removeFromDistribution') }}</th>
                             </tr>
                         </thead>
                         <tbody>
