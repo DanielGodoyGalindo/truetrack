@@ -89,4 +89,8 @@ return [
     "newDistribution"     => "New distribution",
     "selectVanDriver"     => "Select van driver:",
     "selectVehicle"       => "Select vehicle:",
+    "myDeliveries"        => "My deliveries",
+    "update"              => "Update",
+    "toFinish"            => "to finish",
+    "myDistributions"     => "My Distributions",
 ];

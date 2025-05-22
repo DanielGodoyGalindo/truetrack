@@ -13,19 +13,19 @@
             @if (Auth::check() && Auth::user()->rol == 'transportista')
                 {{-- Header --}}
                 <div class="container">
-                    <h1>Mis Repartos</h1>
+                    <h1>{{ __('messages.myDistributions') }}</h1>
                 </div>
 
                 {{-- Tabla --}}
                 <div class="container">
-                    <h3>Transportista: {{ Auth::user()->name }}</h3>
+                    <h3>{{ __('messages.vanDriver') }}: {{ Auth::user()->name }}</h3>
                     <table class="table align-middle text-center">
                         <thead class="tabla-header">
                             <tr>
-                                <th scope="col">Num. Reparto</th>
-                                <th scope="col">Gestor de tráfico</th>
-                                <th scope="col">Vehículo</th>
-                                <th scope="col">Seleccionar</th>
+                                <th scope="col">{{ __('messages.deliveryRouteNum') }}</th>
+                                <th scope="col">{{ __('messages.trafficManager') }}</th>
+                                <th scope="col">{{ __('messages.vehicle') }}</th>
+                                <th scope="col">{{ __('messages.select') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -38,7 +38,7 @@
                                     <td>
                                         {{-- Componente botón Vue --}}
                                         <div id="button-app">
-                                            <button-component button-text="Ver reparto"
+                                            <button-component button-text="{{ __('messages.seeDistribution') }}"
                                                 button-url="{{ route('driver.deliveries', [$reparto->id]) }}"
                                                 class="boton-accion1"></button-component>
                                         </div>

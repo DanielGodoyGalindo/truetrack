@@ -55,7 +55,7 @@ const internalValue = ref(props.selected || (props.options.length > 0 ? props.op
 <style scoped>
 label {
     display: block;
-    margin-bottom: 8px;
+    /* margin-bottom: 8px; */
 }
 
 select {
@@ -64,5 +64,6 @@ select {
     border-radius: 4px;
     border: 1px solid #ccc;
     font-size: 14px;
+    margin-bottom: 20px;
 }
 </style>

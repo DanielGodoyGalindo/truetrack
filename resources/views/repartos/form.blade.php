@@ -31,7 +31,7 @@
                         @if ($reparto) :selected='@json($reparto->vehiculo->matricula)' @endif
                         label="{{ __('messages.selectVehicle') }}">
                     </select-component>
-                    <button type="submit" class="btn boton-accion1 mt-5">Guardar</button>
+                    <button type="submit" class="btn boton-accion1 mt-5">{{ __('messages.save') }}</button>
                     </form>
                 </div>
             </div>
