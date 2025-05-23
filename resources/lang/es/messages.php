@@ -93,4 +93,11 @@ return [
     "update"              => "Actualizar",
     "toFinish"            => "para finalizar",
     "myDistributions"     => "Mis Repartos",
+    "newUser"             => "Nuevo usuario",
+    "editUser"            => "Editar usuario",
+    "name"                => "Nombre",
+    "emailPlaceholder"    => "nombre@dominio.com",
+    "newVehicle"          => "Nuevo vehículo",
+    "numberPlate"         => "Matrícula",
+    "editVehicle"         => "Editar vehículo",
 ];

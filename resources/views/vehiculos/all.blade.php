@@ -15,11 +15,11 @@
             @if (Auth::user()->rol == 'administrador')
                 <div class="container d-flex flex-row justify-content-between">
                     <div>
-                        <h1>Vehículos</h1>
+                        <h1>{{ __('messages.vehicles') }}</h1>
                     </div>
                     {{-- Componentes botón Vue (nuevo envío) --}}
                     <div id="button-app" class="d-flex flex-row gap-3">
-                        <button-component button-text="✚ Nuevo vehículo" button-url="{{ route('vehiculos.create') }}"
+                        <button-component button-text="✚ {{ __('messages.newVehicle') }}" button-url="{{ route('vehiculos.create') }}"
                             class="btn boton-accion1 h-75"></button-component>
                     </div>
                 </div>
@@ -29,10 +29,10 @@
                         <thead class="tabla-header">
                             <tr>
                                 <th scope="col">Id</th>
-                                <th scope="col">Matrícula</th>
-                                <th scope="col">Carga máxima</th>
-                                <th scope="col">Editar</th>
-                                <th scope="col">Eliminar</th>
+                                <th scope="col">{{ __('messages.numberPlate') }}</th>
+                                <th scope="col">{{ __('messages.maxLoad') }}</th>
+                                <th scope="col">{{ __('messages.edit') }}</th>
+                                <th scope="col">{{ __('messages.delete') }}</th>
                             </tr>
                         </thead>
                         <tbody>
