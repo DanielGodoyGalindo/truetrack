@@ -15,11 +15,11 @@
             @if (Auth::user()->rol == 'administrador')
                 <div class="container d-flex flex-row justify-content-between">
                     <div>
-                        <h1>Usuarios</h1>
+                        <h1>{{ __('messages.users') }}</h1>
                     </div>
                     {{-- Componentes botón Vue (nuevo usuario) --}}
                     <div id="button-app" class="d-flex flex-row gap-3">
-                        <button-component button-text="✚ Nuevo usuario" button-url="{{ route('users.create') }}"
+                        <button-component button-text="✚ {{ __('messages.newUser') }}" button-url="{{ route('users.create') }}"
                             class="btn boton-accion1 h-75"></button-component>
                     </div>
                 </div>
@@ -29,11 +29,11 @@
                         <thead class="tabla-header">
                             <tr>
                                 <th scope="col">Id</th>
-                                <th scope="col">Nombre</th>
+                                <th scope="col">{{ __('messages.name') }}</th>
                                 <th scope="col">Email</th>
-                                <th scope="col">Rol</th>
-                                <th scope="col">Editar</th>
-                                <th scope="col">Eliminar</th>
+                                <th scope="col">{{ __('messages.role') }}</th>
+                                <th scope="col">{{ __('messages.edit') }}</th>
+                                <th scope="col">{{ __('messages.delete') }}</th>
                             </tr>
                         </thead>
                         <tbody>

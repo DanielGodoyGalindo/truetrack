@@ -11,7 +11,7 @@
     @section('content')
         <div id="app">
             <div class="container">
-                <h1>{{ $usuario ? 'Editar usuario' : 'Nuevo usuario' }}</h1>
+                <h1>{{ $usuario ? __('messages.editUser') : __('messages.newUser') }}</h1>
                 {{-- Formulario --}}
                 @if ($usuario)
                     <form action="{{ route('users.update', $usuario->id) }}" method="POST">
@@ -23,14 +23,14 @@
                 <div class="d-flex flex-column gap-3">
                     <div class="d-flex flex-column">
                         {{-- Nombre --}}
-                        <label for="nombre" class="form-label">Nombre:</label>
-                        <input name="nombre" type="text" placeholder="Nombre" class="input25 form-control"
+                        <label for="nombre" class="form-label">{{ __('messages.name') }}:</label>
+                        <input name="nombre" type="text" placeholder="{{ __('messages.name') }}" class="input25 form-control"
                             value="{{ $usuario ? $usuario->name : '' }}" minlength="3" required>
                     </div>
                     <div class="d-flex flex-column">
                         {{-- Email --}}
                         <label for="email" class="form-label">Email:</label>
-                        <input name="email" type="email" placeholder="nombre@dominio.com" class="input25 form-control"
+                        <input name="email" type="email" placeholder="{{ __('messages.emailPlaceholder') }}" class="input25 form-control"
                             value="{{ $usuario ? $usuario->email : '' }}" pattern="^[\w\.-]+@[\w\.-]+\.\w{2,}$" required>
                     </div>
                     @if (!$usuario)
@@ -43,7 +43,7 @@
                     @endif
                     <div class="d-flex flex-column">
                         {{-- Rol de usuario --}}
-                        <label for="rol" class="form-label">Rol: </label>
+                        <label for="rol" class="form-label">{{ __('messages.role') }}: </label>
                         <select name="rol" id="rol" class="input25 form-select">
                             @foreach ($roles as $rol)
                                 <option value="{{ $rol }}"
@@ -54,7 +54,7 @@
                         </select>
                     </div>
                     <div>
-                        <button type="submit" class="btn boton-accion1 mt-3 text-center">Guardar</button>
+                        <button type="submit" class="btn boton-accion1 mt-3 text-center">{{ __('messages.save') }}</button>
                     </div>
                     </form>
                 </div>
