@@ -25,7 +25,7 @@
                     <label for="nombre">{{ __('messages.addressee') }}:</label>
                     <input type="text" name="nombre" class="form-control w-25"
                         placeholder="{{ __('messages.nameSurname') }}" value="{{ $envio ? $nombre : '' }}"
-                        pattern="[A-Za-z\s]{3,}" title="Introduce un nombre de al menos 3 letras" required>
+                        pattern=".{3,}" title="Introduce un nombre de al menos 3 letras" required>
                 </div>
                 {{-- Dirección --}}
                 <div class="mb-3">
@@ -65,8 +65,10 @@
                 <button type="submit" class="btn boton-accion1">{{ __('messages.save') }}</button>
                 </form>
             </div>
-            <message-component :message="'{{ session('message') }}'"
-                lang="{{ LaravelLocalization::getCurrentLocale() }}" />
+            @if (session('message'))
+                <message-component :message="'{{ session('message') }}'"
+                    lang="{{ LaravelLocalization::getCurrentLocale() }}" />
+            @endif
         </div>
     @endsection
 </body>

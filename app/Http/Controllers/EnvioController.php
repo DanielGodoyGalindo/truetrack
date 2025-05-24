@@ -101,7 +101,7 @@ class EnvioController extends Controller
         }
         // Validación backend
         $validator = Validator::make($r->all(), [
-            'nombre' => ['required', 'string', 'regex:/^[\pL\s]{3,}$/'],
+            'nombre' => ['required', 'string', 'regex:/^[\pL\s]{3,}$/u'],
             'direccion' => ['required', 'string'],
             'codigo_postal' => ['required', 'string', 'regex:/^\d{5}$/'],
             'poblacion' => ['required', 'string', 'regex:/^[\pL\s]{3,}$/u'],
