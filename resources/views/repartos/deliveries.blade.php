@@ -110,7 +110,8 @@
             {{-- Componente vue para mensajes --}}
             <div id="message-app">
                 @if (session('message'))
-                    <message-component :message="'{{ session('message') }}'" />
+                    <message-component :message="'{{ session('message') }}'"
+                        lang="{{ LaravelLocalization::getCurrentLocale() }}" />
                 @endif
             </div>
         </div>

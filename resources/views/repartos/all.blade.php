@@ -22,8 +22,8 @@
                 @if (Auth::user()->rol == 'gestor_trafico')
                     {{-- Componentes botón Vue (nuevo reparto y finalizados) --}}
                     <div id="button-app" class="d-flex flex-row gap-3">
-                        <button-component button-text="✚ {{ __('messages.newDistribution') }}" button-url="{{ route('repartos.create') }}"
-                            class="btn boton-accion1 h-75"></button-component>
+                        <button-component button-text="✚ {{ __('messages.newDistribution') }}"
+                            button-url="{{ route('repartos.create') }}" class="btn boton-accion1 h-75"></button-component>
                         <button-component button-text="{{ __('messages.finished') }}"
                             button-url="{{ route('repartos.showDeliveriesCompleted') }}"
                             class="btn boton-accion1 h-75"></button-component>
@@ -100,7 +100,8 @@
                             @endforeach
                             {{-- Componente Vue modal --}}
                             <modal-component v-if="showModal" :show="showModal" :route="route"
-                                :method="method" v-on:close="closeModal"></modal-component>
+                                :method="method" v-on:close="closeModal"
+                                lang="{{ LaravelLocalization::getCurrentLocale() }}"></modal-component>
                         @endif
                     </tbody>
                 </table>
@@ -118,7 +119,8 @@
 
             {{-- Componente vue mensajes --}}
             @if (session('message'))
-                <message-component :message="'{{ session('message') }}'" />
+                <message-component :message="'{{ session('message') }}'"
+                    lang="{{ LaravelLocalization::getCurrentLocale() }}" />
             @endif
 
         </div>
