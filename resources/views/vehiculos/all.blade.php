@@ -19,8 +19,8 @@
                     </div>
                     {{-- Componentes botón Vue (nuevo envío) --}}
                     <div id="button-app" class="d-flex flex-row gap-3">
-                        <button-component button-text="✚ {{ __('messages.newVehicle') }}" button-url="{{ route('vehiculos.create') }}"
-                            class="btn boton-accion1 h-75"></button-component>
+                        <button-component button-text="✚ {{ __('messages.newVehicle') }}"
+                            button-url="{{ route('vehiculos.create') }}" class="btn boton-accion1 h-75"></button-component>
                     </div>
                 </div>
                 {{-- Tabla --}}
@@ -59,7 +59,8 @@
                             @endforeach
                             {{-- Componente Vue modal --}}
                             <modal-component v-if="showModal" :show="showModal" :route="route"
-                                :method="method" v-on:close="closeModal"></modal-component>
+                                :method="method" v-on:close="closeModal"
+                                lang="{{ LaravelLocalization::getCurrentLocale() }}"></modal-component>
                         </tbody>
                     </table>
                     {{-- Paginación --}}
@@ -68,7 +69,8 @@
                     </div>
                     {{-- Componente vue mensajes --}}
                     @if (session('message'))
-                        <message-component :message="'{{ session('message') }}'" />
+                        <message-component :message="'{{ session('message') }}'"
+                            lang="{{ LaravelLocalization::getCurrentLocale() }}" />
                     @endif
                 </div>
             @endif

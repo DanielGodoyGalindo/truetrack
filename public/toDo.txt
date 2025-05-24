@@ -1,13 +1,6 @@
 para finalizar
 ***************
 - reservar espacio para paginaciones: style="min-height: 30vh"
-- incluir idioma Inglés?
-
-
-Futuras Mejoras
-***************
--Añadir botón en reparto para hacer foto al albarán de entrega
-
 
 Dependencias
 *************

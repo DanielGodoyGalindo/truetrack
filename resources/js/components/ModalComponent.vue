@@ -3,10 +3,10 @@
     <div v-if="show" class="contenedor">
         <div class="modal">
             <div class="interior">
-                <span class="mensaje">¿Deseas confirmar?</span>
+                <span class="mensaje">{{ texts.confirmMessage }}</span>
                 <div>
-                    <button @click="confirmar" class="btn boton-rojo">Confirmar</button>
-                    <button @click="$emit('close')" class="btn btn-secondary">Cancelar</button>
+                    <button @click="confirmar" class="btn boton-rojo">{{ texts.confirm }}</button>
+                    <button @click="$emit('close')" class="btn btn-secondary">{{ texts.cancel }}</button>
                 </div>
             </div>
         </div>
@@ -31,6 +31,29 @@ export default {
         method: {
             type: String,
             required: true,
+        },
+        // Idioma
+        lang: {
+            type: String,
+            default: 'es',
+        },
+    },
+    computed: {
+        // Devuelve los mensajes dependiendo del idioma
+        texts() {
+            const translations = {
+                es: {
+                    confirmMessage: '¿Deseas confirmar?',
+                    confirm: 'Confirmar',
+                    cancel: 'Cancelar'
+                },
+                en: {
+                    confirmMessage: 'Do you want to confirm?',
+                    confirm: 'Confirm',
+                    cancel: 'Cancel'
+                }
+            };
+            return translations[this.lang] || translations.es;
         }
     },
     methods: {

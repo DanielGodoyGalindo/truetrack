@@ -36,8 +36,8 @@
                     <h1 class="container">{{ __('messages.shipments') }}</h1>
                     {{-- Componente botón Vue (finalizados) --}}
                     <div id="button-app">
-                        <button-component button-text="{{ __('messages.finished') }}" button-url="{{ route('envios.showCompleted') }}"
-                            class="btn boton-accion1"></button-component>
+                        <button-component button-text="{{ __('messages.finished') }}"
+                            button-url="{{ route('envios.showCompleted') }}" class="btn boton-accion1"></button-component>
                     </div>
                 </div>
             @endif
@@ -140,7 +140,8 @@
                         @endif
                         {{-- Componente Vue modal --}}
                         <modal-component v-if="showModal" :show="showModal" :route="route"
-                            :method="method" v-on:close="closeModal"></modal-component>
+                            :method="method" v-on:close="closeModal"
+                            lang="{{ LaravelLocalization::getCurrentLocale() }}"></modal-component>
                     </tbody>
                 </table>
                 {{-- Fin tabla --}}
@@ -155,7 +156,8 @@
                 </div>
                 {{-- Componente vue mensajes --}}
                 @if (session('message'))
-                    <message-component :message="'{{ session('message') }}'" />
+                    <message-component :message="'{{ session('message') }}'"
+                        lang="{{ LaravelLocalization::getCurrentLocale() }}" />
                 @endif
             </div>
         </div>

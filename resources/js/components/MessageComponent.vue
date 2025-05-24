@@ -2,7 +2,7 @@
 <template>
     <div :class="['info-message', messageType]" v-if="visible">
         <span class="message-content">{{ messageText }}</span>
-        <button class="close-button" @click="closeMessage">Cerrar</button>
+        <button class="close-button" @click="closeMessage">❌</button>
     </div>
 </template>
 
@@ -14,6 +14,10 @@ export default {
             type: String,
             required: true,
         },
+        lang: {
+            type: String,
+            required: true,
+        }
     },
     data() {
         return {
@@ -55,35 +59,42 @@ export default {
             }
         },
         messageText() {
-            // Texto para los mensajes de información
-            switch (this.message) {
-                case 'deliveryAdded':
-                    return 'El envío fue asignado correctamente al reparto.';
-                case 'deliveryNotAdded':
-                    return 'El envío no se ha podido añadir porque se superaría la carga máxima.';
-                case 'vehicleDeleted':
-                    return 'Vehículo eliminado.';
-                case 'vehicleNotDeleted':
-                    return 'El vehículo tiene repartos activos.';
-                case 'deliveryDeleted':
-                    return 'Reparto eliminado.';
-                case 'deliveryNotDeleted':
-                    return 'El reparto tiene envíos asignados.';
-                case 'gestorNotDeleted':
-                    return 'Gestor no eliminado porque tiene repartos a su nombre.'
-                case 'transportistaNotDeleted':
-                    return 'Transportista no eliminado porque está asignado a algun reparto.'
-                case 'formInvalid':
-                    return 'Uno de los campos no es correcto.'
-                case 'emailSent':
-                    return 'Mensaje enviado correctamente.'
-                case 'recordDeleted':
-                    return 'Registro eliminado.'
-                case 'recordCreated':
-                    return 'Registro creado.'
-                case 'shipmentCancelled':
-                    return 'Envío anulado.'
-            }
+            // Mensaje que se devuelve dependiendo del idioma
+            // Se crea un objeto con dos propiedades (una por idioma)
+            const messages = {
+                es: {
+                    deliveryAdded: 'El envío fue asignado correctamente al reparto.',
+                    deliveryNotAdded: 'El envío no se ha podido añadir porque se superaría la carga máxima.',
+                    vehicleDeleted: 'Vehículo eliminado.',
+                    vehicleNotDeleted: 'El vehículo tiene repartos activos.',
+                    deliveryDeleted: 'Reparto eliminado.',
+                    deliveryNotDeleted: 'El reparto tiene envíos asignados.',
+                    gestorNotDeleted: 'Gestor no eliminado porque tiene repartos a su nombre.',
+                    transportistaNotDeleted: 'Transportista no eliminado porque está asignado a algun reparto.',
+                    formInvalid: 'Uno de los campos no es correcto.',
+                    emailSent: 'Mensaje enviado correctamente.',
+                    recordDeleted: 'Registro eliminado.',
+                    recordCreated: 'Registro creado.',
+                    shipmentCancelled: 'Envío anulado.'
+                },
+                en: {
+                    deliveryAdded: 'The shipment was correctly assigned to the delivery.',
+                    deliveryNotAdded: 'The shipment could not be added because the maximum load would be exceeded.',
+                    vehicleDeleted: 'Vehicle deleted.',
+                    vehicleNotDeleted: 'The vehicle has active deliveries.',
+                    deliveryDeleted: 'Delivery route deleted.',
+                    deliveryNotDeleted: 'The delivery route has assigned shipments.',
+                    gestorNotDeleted: 'Traffic manager not deleted because he has created distributions.',
+                    transportistaNotDeleted: 'Van driver not deleted because it is assigned to a delivery.',
+                    formInvalid: 'One of the input fields is not correct.',
+                    emailSent: 'Message sent successfully.',
+                    recordDeleted: 'Record deleted.',
+                    recordCreated: 'Record created.',
+                    shipmentCancelled: 'Shipment cancelled'
+                }
+            };
+            // Devolver string dependiendo del idioma y del tipo de mensaje
+            return messages[this.lang]?.[this.message] || '';
         },
     },
     mounted() {
