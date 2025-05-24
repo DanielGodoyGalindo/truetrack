@@ -16,7 +16,7 @@ export default {
         },
         lang: {
             type: String,
-            required: true,
+            default: 'es',
         }
     },
     data() {
