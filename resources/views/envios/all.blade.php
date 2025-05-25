@@ -79,7 +79,10 @@
                                         'texto-parpadeo-verde' => $envio->estado == 'en reparto',
                                         'texto-parpadeo-rojo' => $envio->estado == 'no entregado',
                                     ])>
-                                        {{ Str::title($envio->estado) }}</td>
+                                        {{ Str::title($envio->estado) }} @if ($envio->informacion)
+                                            - {{ Str::title($envio->informacion) }}
+                                        @endif
+                                    </td>
                                     <td>{{ $envio->bultos }} bultos - {{ $envio->kilos }} kilos</td>
                                     <td class="text-center">
                                         {{-- Formulario mandar emails --}}
@@ -114,7 +117,10 @@
                                     <th scope="row">{{ $envio->id }}</th>
                                     <td>{{ $envio->cliente->name }}</td>
                                     <td class="text-start">{{ $envio->destinatario }}</td>
-                                    <td>{{ Str::title($envio->estado) }}</td>
+                                    <td>{{ Str::title($envio->estado) }} @if ($envio->informacion)
+                                            - {{ Str::title($envio->informacion) }}
+                                        @endif
+                                    </td>
                                     @if (Auth::user()->rol == 'gestor_trafico')
                                         <td>{{ $envio->reparto_id ?? 'No asignado' }}</td>
                                     @endif
@@ -122,12 +128,6 @@
                                     {{-- Borrar envíos --}}
                                     @if (Auth::user()->rol == 'administrador')
                                         <td>
-                                            {{-- <form action="{{ route('envios.destroy', $envio->id) }}" method="POST"
-                                                    class="w-50">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <input type="submit" value="✖" class="btn boton-rojo col-12">
-                                                </form> --}}
                                             {{-- Botón borrar envío --}}
                                             <button class="btn icono-mediano"
                                                 v-on:click="openModal('{{ route('envios.destroy', $envio->id) }}','DELETE')">

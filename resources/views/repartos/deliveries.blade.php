@@ -13,11 +13,11 @@
             {{-- Header e info del reparto --}}
             <div class="container d-flex flex-row justify-content-around">
                 <h1>{{ __('messages.deliveryRoute') }} {{ $reparto->id }}</h1>
-                <div>
-                    <p>{{ __('messages.trafficManager') }}: {{ $reparto->gestor->name }}</p>
-                    <p>{{ __('messages.vanDriver') }}: {{ $reparto->transportista->name }}</p>
-                    <p>{{ __('messages.vehicle') }}: {{ $reparto->vehiculo->matricula }}</p>
-                    <p>{{ __('messages.maxLoad') }}: {{ $reparto->vehiculo->carga_max }} kg</p>
+                <div class="border bg-light p-3">
+                    <p><span class="fw-bold">{{ __('messages.trafficManager') }}:</span> {{ $reparto->gestor->name }}</p>
+                    <p><span class="fw-bold">{{ __('messages.vanDriver') }}:</span> {{ $reparto->transportista->name }}</p>
+                    <p><span class="fw-bold">{{ __('messages.vehicle') }}:</span> {{ $reparto->vehiculo->matricula }}</p>
+                    <p><span class="fw-bold">{{ __('messages.maxLoad') }}:</span> {{ $reparto->vehiculo->carga_max }} kg</p>
                 </div>
             </div>
 

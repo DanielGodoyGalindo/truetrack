@@ -2,7 +2,7 @@
 <template>
     <div :class="['info-message', messageType]" v-if="visible">
         <span class="message-content">{{ messageText }}</span>
-        <button class="close-button" @click="closeMessage">❌</button>
+        <button class="close-button" @click="closeMessage">❎</button>
     </div>
 </template>
 
@@ -32,6 +32,8 @@ export default {
                     return 'info-message--error';
                 case 'deliveryAdded':
                     return 'info-message--success';
+                case 'deliveryRemoved':
+                    return 'info-message--success';
                 case 'vehicleDeleted':
                     return 'info-message--success';
                 case 'vehicleNotDeleted':
@@ -52,6 +54,8 @@ export default {
                     return 'info-message--success';
                 case 'recordDeleted':
                     return 'info-message--success';
+                case 'recordUpdated':
+                    return 'info-message--info';
                 case 'shipmentCancelled':
                     return 'info-message--info';
                 default:
@@ -65,6 +69,7 @@ export default {
                 es: {
                     deliveryAdded: 'El envío fue asignado correctamente al reparto.',
                     deliveryNotAdded: 'El envío no se ha podido añadir porque se superaría la carga máxima.',
+                    deliveryRemoved: 'Envío quitado del reparto.',
                     vehicleDeleted: 'Vehículo eliminado.',
                     vehicleNotDeleted: 'El vehículo tiene repartos activos.',
                     deliveryDeleted: 'Reparto eliminado.',
@@ -75,11 +80,13 @@ export default {
                     emailSent: 'Mensaje enviado correctamente.',
                     recordDeleted: 'Registro eliminado.',
                     recordCreated: 'Registro creado.',
+                    recordUpdated: 'Registro actualizado.',
                     shipmentCancelled: 'Envío anulado.'
                 },
                 en: {
                     deliveryAdded: 'The shipment was correctly assigned to the delivery.',
                     deliveryNotAdded: 'The shipment could not be added because the maximum load would be exceeded.',
+                    deliveryRemoved: 'Shipment removed.',
                     vehicleDeleted: 'Vehicle deleted.',
                     vehicleNotDeleted: 'The vehicle has active deliveries.',
                     deliveryDeleted: 'Delivery route deleted.',
@@ -90,6 +97,7 @@ export default {
                     emailSent: 'Message sent successfully.',
                     recordDeleted: 'Record deleted.',
                     recordCreated: 'Record created.',
+                    recordUpdated: 'Record updated.',
                     shipmentCancelled: 'Shipment cancelled'
                 }
             };
