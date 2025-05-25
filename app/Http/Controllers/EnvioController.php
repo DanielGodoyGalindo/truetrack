@@ -59,7 +59,7 @@ class EnvioController extends Controller
         ]);
         if ($validator->fails()) {
             return back()
-                ->with('vue_message', 'formInvalid')
+                ->with('message', 'formInvalid')
                 ->withInput();
         }
         $envio = new Envio();
@@ -140,14 +140,18 @@ class EnvioController extends Controller
     {
         $envio = Envio::with('cliente')->findOrFail($id);
         // Generar cabecera del mensaje para incluyir en el mail
+        if ($envio->estado == 'no entregado')
+            $envioInfo = $envio->estado . " --> " . $envio->updated_at->format('d-m-Y H:i:s') . "h";
+        else
+            $envioInfo = $envio->estado;
         $cabecera = <<<STR
         Información de tu envío
-        -----------------------
+        -----------------------------------------
         Cliente: {$envio->cliente->name}
         Tu dirección: {$envio->destinatario}
         Bultos:  {$envio->bultos}
         Kilos: {$envio->kilos}
-        Estado: {$envio->estado}
+        Estado: {$envioInfo}
         STR;
         return view('envios.email', ['envio' => $envio, 'cabecera' => $cabecera]);
     }
