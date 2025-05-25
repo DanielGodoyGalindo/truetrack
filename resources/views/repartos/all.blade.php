@@ -11,24 +11,23 @@
     @extends('master')
     @section('content')
         <div id="app">
-            <div
-                @if (Auth::user()->rol == 'gestor_trafico') class="container d-flex flex-row justify-content-between" 
-                @else class="container" @endif>
+            <div class="container d-flex flex-row justify-content-between">
                 {{-- Si es gestor de tráfico, mostrar su nombre --}}
                 <h1>{{ __('messages.deliveryRoutes') }} @if (Auth::user()->rol == 'gestor_trafico')
                         {{ __('messages.of') }} {{ Auth::user()->name }}
                     @endif
                 </h1>
-                @if (Auth::user()->rol == 'gestor_trafico')
-                    {{-- Componentes botón Vue (nuevo reparto y finalizados) --}}
-                    <div id="button-app" class="d-flex flex-row gap-3">
+                {{-- Botones nuevo reparto y finalizados --}}
+                <div id="button-app" class="d-flex flex-row gap-3">
+                    {{-- Si es gestor de tráfico mostrar boton de nuevo reparto --}}
+                    @if (Auth::user()->rol == 'gestor_trafico')
                         <button-component button-text="✚ {{ __('messages.newDistribution') }}"
                             button-url="{{ route('repartos.create') }}" class="btn boton-accion1 h-75"></button-component>
-                        <button-component button-text="{{ __('messages.finished') }}"
-                            button-url="{{ route('repartos.showDeliveriesCompleted') }}"
-                            class="btn boton-accion1 h-75"></button-component>
-                    </div>
-                @endif
+                    @endif
+                    <button-component button-text="{{ __('messages.finished') }}"
+                        button-url="{{ route('repartos.showDeliveriesCompleted') }}"
+                        class="btn boton-accion1 h-75"></button-component>
+                </div>
             </div>
             {{-- Tabla --}}
             <div class="container">

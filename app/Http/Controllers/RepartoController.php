@@ -25,8 +25,9 @@ class RepartoController extends Controller
             ->where('gestor_id', Auth::id())
             ->whereNotIn('estado', ['finalizado'])
             ->paginate($this->numPag);
-        //Obtener repartos para el admin
+        // Obtener repartos para el admin
         $repartosAdmin  = Reparto::with('gestor', 'transportista', 'vehiculo')
+            ->whereNotIn('estado', ['finalizado'])
             ->paginate($this->numPag);
         return view('repartos.all', ['repartosGestor' => $repartosGestor, 'repartosAdmin' => $repartosAdmin]);
     }
@@ -200,7 +201,11 @@ class RepartoController extends Controller
      */
     public function showDeliveriesCompleted()
     {
-        $finalizados = Reparto::where('gestor_id', Auth::id())->where('estado', 'finalizado')->paginate($this->numPag);
+        if (Auth::user()->rol == 'gestor_trafico') {
+            $finalizados = Reparto::where('gestor_id', Auth::id())->where('estado', 'finalizado')->paginate($this->numPag);
+        } elseif (Auth::user()->rol == 'administrador') {
+            $finalizados = Reparto::where('estado', 'finalizado')->paginate($this->numPag);
+        }
         return view('repartos.completed', ['finalizados' => $finalizados]);
     }
 }

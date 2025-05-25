@@ -19,7 +19,7 @@
                     @if (Auth::user()->rol == 'gestor_trafico')
                         {{ __('messages.of') }} {{ Auth::user()->name }}
                     @endif
-                    {{ __('messages.finished') }}
+                    - {{ __('messages.finished') }}
                 </h1>
             </div>
 
@@ -36,7 +36,11 @@
                             <th scope="col">{{ __('messages.vehicle') }}</th>
                             <th scope="col">{{ __('messages.status') }}</th>
                             <th scope="col">{{ __('messages.dateTime') }}</th>
-                            <th scope="col">{{ __('messages.seeDistribution') }}</th>
+                            @if (Auth::user()->rol == 'gestor_trafico')
+                                <th scope="col">{{ __('messages.seeDistribution') }}</th>
+                            @elseif (Auth::user()->rol == 'administrador')
+                                <th scope="col">{{ __('messages.delete') }}</th>
+                            @endif
                         </tr>
                     </thead>
 
@@ -53,11 +57,18 @@
                                 <td>{{ Str::title($reparto->estado) }}</td>
                                 <td>{{ $reparto->updated_at->format('d-m-Y H:i:s') }}</td>
                                 <td>
-                                    <form action="{{ route('repartos.show', $reparto->id) }}" method="GET">
-                                        @csrf
-                                        @method('POST')
-                                        <input type="submit" value="Ver" class="btn boton-accion1">
-                                    </form>
+                                    @if (Auth::user()->rol == 'gestor_trafico')
+                                        <form action="{{ route('repartos.show', $reparto->id) }}" method="GET">
+                                            @csrf
+                                            @method('POST')
+                                            <input type="submit" value="Ver" class="btn boton-accion1">
+                                        </form>
+                                    @elseif (Auth::user()->rol == 'administrador')
+                                        <button class="btn icono-mediano"
+                                            v-on:click="openModal('{{ route('repartos.destroy', $reparto->id) }}','DELETE')">
+                                            ❌
+                                        </button>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
