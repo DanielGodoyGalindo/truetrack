@@ -30,7 +30,7 @@
                         <div class="mb-3">
                             <label for="email">{{ __('messages.addressesAddress') }}:</label>
                             <input type="email" name="email" class="form-control border border-2" placeholder="Email"
-                                required>
+                                value="{{ $envio->email }}" required>
                         </div>
                         <div class="mb-3">
                             <label for="mensaje">{{ __('messages.message') }}:</label>
