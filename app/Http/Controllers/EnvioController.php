@@ -20,7 +20,7 @@ class EnvioController extends Controller
     /**
      * Muestra todos los envíos.
      */
-    public function index(Request $r)
+    public function index()
     {
         $enviosCliente = Envio::with('cliente', 'reparto')->where('cliente_id', Auth::id())->whereNotIn('estado', ['entregado', 'anulado'])->paginate($this->numPag);
         $enviosTotales = Envio::with('cliente', 'reparto')->whereNotIn('estado', ['entregado', 'anulado'])->paginate($this->numPag);
@@ -52,6 +52,7 @@ class EnvioController extends Controller
         $validator = Validator::make($r->all(), [
             'nombre' => ['required', 'string', 'regex:/^[\pL\s]{3,}$/'],
             'direccion' => ['required', 'string'],
+            'email' => ['required', 'string', 'email', 'max:150'],
             'codigo_postal' => ['required', 'string', 'regex:/^\d{5}$/'],
             'poblacion' => ['required', 'string', 'regex:/^[\pL\s]{3,}$/u'],
             'bultos' => ['required', 'integer'],
@@ -65,6 +66,7 @@ class EnvioController extends Controller
         $envio = new Envio();
         $envio->cliente_id = Auth::user()->id;
         $envio->destinatario = trim($r->nombre) . " - " . trim($r->direccion) . ", " . $r->codigo_postal . " " . trim($r->poblacion);
+        $envio->email = $r->email;
         $envio->bultos = $r->bultos;
         $envio->kilos = $r->kilos;
         $envio->estado = "pendiente";
@@ -103,6 +105,7 @@ class EnvioController extends Controller
         $validator = Validator::make($r->all(), [
             'nombre' => ['required', 'string', 'regex:/^[\pL\s]{3,}$/u'],
             'direccion' => ['required', 'string'],
+            'email' => ['required', 'string', 'email', 'max:150'],
             'codigo_postal' => ['required', 'string', 'regex:/^\d{5}$/'],
             'poblacion' => ['required', 'string', 'regex:/^[\pL\s]{3,}$/u'],
             'bultos' => ['required', 'integer'],
@@ -116,6 +119,7 @@ class EnvioController extends Controller
         // Actualización
         $envio = Envio::findOrFail($id);
         $envio->destinatario = $r->nombre . " - " . $r->direccion . ", " . $r->codigo_postal . " " . $r->poblacion;
+        $envio->email = $r->email;
         $envio->bultos = $r->bultos;
         $envio->kilos = $r->kilos;
         $envio->save();

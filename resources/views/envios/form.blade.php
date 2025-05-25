@@ -24,8 +24,8 @@
                 <div class="mb-3">
                     <label for="nombre">{{ __('messages.addressee') }}:</label>
                     <input type="text" name="nombre" class="form-control w-25"
-                        placeholder="{{ __('messages.nameSurname') }}" value="{{ $envio ? $nombre : '' }}"
-                        pattern=".{3,}" title="Introduce un nombre de al menos 3 letras" required>
+                        placeholder="{{ __('messages.nameSurname') }}" value="{{ $envio ? $nombre : '' }}" pattern=".{3,}"
+                        title="Introduce un nombre de al menos 3 letras" required>
                 </div>
                 {{-- Dirección --}}
                 <div class="mb-3">
@@ -33,6 +33,13 @@
                     <input type="text" name="direccion" class="form-control w-50"
                         placeholder="{{ __('messages.completeAddress') }}" value="{{ $envio ? $direccion : '' }}"
                         minlength="8" title="Introduce una dirección de al menos 8 caracteres" required>
+                </div>
+                {{-- Email --}}
+                <div class="mb-3">
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" class="form-control w-50"
+                        placeholder="email@gmail.com" value="{{ $envio ? $envio->email : '' }}"
+                        minlength="8" title="Introduce dirección de email" required>
                 </div>
                 {{-- Código postal --}}
                 <div class="mb-3">
