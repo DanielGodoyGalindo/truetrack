@@ -66,7 +66,7 @@ class RepartoController extends Controller
         $reparto->vehiculo_id = Vehiculo::where('matricula', $r->vehiculo)->value('id');
         $reparto->estado = "en proceso";
         $reparto->save();
-        return redirect()->route('repartos.index');
+        return redirect()->route('repartos.index')->with('message', 'recordCreated');;
     }
 
     /**
@@ -115,7 +115,7 @@ class RepartoController extends Controller
         $reparto->transportista_id = User::where('name', $r->transportista)->firstOrFail()->id;
         $reparto->vehiculo_id = Vehiculo::where('matricula', $r->vehiculo)->firstOrFail()->id;
         $reparto->save();
-        return redirect()->route('repartos.index');
+        return redirect()->route('repartos.index')->with('message', 'recordUpdated');
     }
 
     /**
@@ -165,6 +165,7 @@ class RepartoController extends Controller
         // Sino, se asigna el envío correctamente
         $envio->reparto_id = $repartoId;
         $envio->estado = 'en reparto';
+        $envio->informacion = null;
         $envio->save();
         return redirect()->route('repartos.showDeliveries', $repartoId)->with('message', 'deliveryAdded');
     }

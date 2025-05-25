@@ -75,7 +75,7 @@
 
                     {{-- Botón que aparece cuando todos los envios están marcados como entregados o no entregados --}}
                     <form action=" {{ route('driver.completeDistribution', $reparto->id) }}" method="POST"
-                        class="text-center">
+                        class="d-flex text-center gap-3 align-items-center justify-content-center">
                         @csrf
                         <span>
                             @if ($enviosPendientes > 0)

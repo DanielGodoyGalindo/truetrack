@@ -19,6 +19,10 @@
                         <p><b>{{ Str::title(__('messages.packages')) }}:</b> {{ $envio->bultos }}</p>
                         <p><b>{{ Str::title(__('messages.kilograms')) }}:</b> {{ $envio->bultos }}</p>
                         <p><b>{{ __('messages.status') }}:</b> {{ Str::title($envio->estado) }}</p>
+                        @if ($envio->informacion)
+                            <p><b>Info:</b> {{ Str::title($envio->informacion) }} ➡️
+                                {{ $envio->updated_at->format('d/m/Y H:i') }}h</p>
+                        @endif
                     </div>
                     {{-- Formulario --}}
                     <form action="{{ route('envios.sendEmail') }}" method="POST">
@@ -30,8 +34,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="mensaje">{{ __('messages.message') }}:</label>
-                            <textarea name="mensaje" class="form-control border border-2" placeholder="{{ __('messages.typeMessage') }}" rows="10"
-                                cols="33" required></textarea>
+                            <textarea name="mensaje" class="form-control border border-2" placeholder="{{ __('messages.typeMessage') }}"
+                                rows="10" cols="33" required></textarea>
                         </div>
                         <div class="d-flex gap-3 justify-content-start">
                             <button type="submit" class="btn boton-accion2">{{ __('messages.send') }}</button>
