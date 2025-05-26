@@ -4,6 +4,7 @@
 <head>
     @section('title', 'Repartos Completados')
     @vite(['resources/js/app.js'])
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>
@@ -57,21 +58,18 @@
                                 <td>{{ Str::title($reparto->estado) }}</td>
                                 <td>{{ $reparto->updated_at->format('d-m-Y H:i:s') }}</td>
                                 <td>
-                                    @if (Auth::user()->rol == 'gestor_trafico')
-                                        <form action="{{ route('repartos.show', $reparto->id) }}" method="GET">
-                                            @csrf
-                                            @method('POST')
-                                            <input type="submit" value="Ver" class="btn boton-accion1">
-                                        </form>
-                                    @elseif (Auth::user()->rol == 'administrador')
-                                        <button class="btn icono-mediano"
-                                            v-on:click="openModal('{{ route('repartos.destroy', $reparto->id) }}','DELETE')">
-                                            ❌
-                                        </button>
-                                    @endif
+                                    <form action="{{ route('repartos.show', $reparto->id) }}" method="GET">
+                                        @csrf
+                                        @method('POST')
+                                        <input type="submit" value="Ver" class="btn boton-accion1">
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
+                        {{-- Componente Vue modal --}}
+                        <modal-component v-if="showModal" :show="showModal" :route="route"
+                            :method="method" v-on:close="closeModal"
+                            lang="{{ LaravelLocalization::getCurrentLocale() }}"></modal-component>
                     </tbody>
                 </table>
                 {{-- Fin tabla --}}
