@@ -123,7 +123,7 @@ class EnvioController extends Controller
         $envio->bultos = $r->bultos;
         $envio->kilos = $r->kilos;
         $envio->save();
-        return redirect()->route('envios.index');
+        return redirect()->route('envios.index')->with('message', 'recordUpdated');
     }
 
     /**
