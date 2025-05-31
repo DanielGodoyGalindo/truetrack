@@ -36,13 +36,11 @@ class VehiculoController extends Controller
      */
     public function store(Request $request)
     {
-
         // Evitar que aparezca error de violación de integridad (no se puede guardar dos veces la misma matrícula)
         $request->validate([
             'matricula' => 'required|string|size:7|regex:/^\d{4}[A-Z]{3}$/|unique:vehiculos,matricula',
             'cargaMax' => 'required',
         ]);
-
         $vehiculo = new Vehiculo();
         $vehiculo->matricula = $request->matricula;
         $vehiculo->carga_max = $request->cargaMax;
@@ -55,6 +53,11 @@ class VehiculoController extends Controller
      */
     public function edit(string $id)
     {
+        // Si el vehiculo tiene asignado algun reparto, no actualizar
+        $numRepartos = Reparto::where('vehiculo_id', $id)->count();
+        if ($numRepartos > 0) {
+            return redirect()->route('vehiculos.index')->with('message', 'vehicleNotDeleted');
+        }
         $vehiculo = Vehiculo::findOrFail($id);
         return view('vehiculos.form', ['vehiculo' => $vehiculo, 'cargasMax' => $this->cargasMax]);
     }
