@@ -1,5 +1,7 @@
 # TrueTrack
-Aplicación web para el seguimiento de envíos de una empresa de transporte. 
+Aplicación web para el seguimiento de envíos de una empresa de transporte.
+
+![Alt text](public/img/screenshot.jpg?raw=true "Optional Title")
 
 ## Herramientas usadas
 - Laravel 12
