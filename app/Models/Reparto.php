@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+// Personal project developed by Daniel Godoy
+// https://github.com/DanielGodoyGalindo
+
 class Reparto extends Model
 {
     protected $fillable = [

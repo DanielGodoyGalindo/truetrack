@@ -33,3 +33,6 @@ return new class extends Migration
         Schema::dropIfExists('envios');
     }
 };
+
+// Personal project developed by Daniel Godoy
+// https://github.com/DanielGodoyGalindo

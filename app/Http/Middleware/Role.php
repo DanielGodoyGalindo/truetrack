@@ -33,3 +33,6 @@ class Role
         return $next($request);
     }
 }
+
+// Personal project developed by Daniel Godoy
+// https://github.com/DanielGodoyGalindo

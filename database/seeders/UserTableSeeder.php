@@ -69,3 +69,6 @@ class UserTableSeeder extends Seeder
         ]);
     }
 }
+
+// Personal project developed by Daniel Godoy
+// https://github.com/DanielGodoyGalindo

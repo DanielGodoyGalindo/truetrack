@@ -38,6 +38,9 @@ return new class extends Migration
         });
     }
 
+    // Personal project developed by Daniel Godoy
+    // https://github.com/DanielGodoyGalindo
+
     /**
      * Reverse the migrations.
      */

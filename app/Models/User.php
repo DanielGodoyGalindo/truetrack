@@ -48,6 +48,9 @@ class User extends Authenticatable
         ];
     }
 
+    // Personal project developed by Daniel Godoy
+    // https://github.com/DanielGodoyGalindo
+
     // Relación de usuario (cliente) con envios 1:N
     public function envios(): HasMany
     {

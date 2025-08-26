@@ -6,6 +6,9 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
+// Personal project developed by Daniel Godoy
+// https://github.com/DanielGodoyGalindo
+
 class RepartoTableSeeder extends Seeder
 {
     /**

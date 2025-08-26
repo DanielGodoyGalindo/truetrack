@@ -93,6 +93,9 @@ class EnvioController extends Controller
         return view('envios.form', compact('envio', 'nombre', 'direccion', 'codigo_postal', 'poblacion') + ['estados' => $this->estados]);
     }
 
+    // Personal project developed by Daniel Godoy
+    // https://github.com/DanielGodoyGalindo
+
     /**
      * Actualiza el envio cuyo id se recibe como parámetro.
      */
