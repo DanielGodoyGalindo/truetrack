@@ -58,3 +58,6 @@ class ProfileController extends Controller
         return Redirect::to('/');
     }
 }
+
+// Personal project developed by Daniel Godoy
+// https://github.com/DanielGodoyGalindo

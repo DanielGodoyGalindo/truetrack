@@ -43,6 +43,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::post('repartoTransportista/finalizar/{id}', [UserController::class, 'driverCompleteDistribution'])->name('driver.completeDistribution');
     });
 
+    // Personal project developed by Daniel Godoy
+    // https://github.com/DanielGodoyGalindo
+
 
     ///////////////////
     /* Rutas varias */

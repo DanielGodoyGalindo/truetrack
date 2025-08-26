@@ -7,6 +7,9 @@ use App\Models\Vehiculo;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
+// Personal project developed by Daniel Godoy
+// https://github.com/DanielGodoyGalindo
+
 class VehiculoController extends Controller
 {
     // variables globales privadas 

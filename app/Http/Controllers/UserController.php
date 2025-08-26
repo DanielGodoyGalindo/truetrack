@@ -152,6 +152,9 @@ class UserController extends Controller
         return view('transportistas.deliveries', compact('reparto', 'envios', 'estados', 'enviosPendientes', 'numEnvios'));
     }
 
+    // Personal project developed by Daniel Godoy
+    // https://github.com/DanielGodoyGalindo
+
     // Actualiza el estado de los envíos de un reparto para un transportista
     // Se ejecuta cuando un transportista actualiza el estado de los envíos dentro de un reparto
     public function updateDriverDistribution(string $repartoId, Request $r)

@@ -134,6 +134,9 @@ class EnvioTableSeeder extends Seeder
             ]
         ]);
 
+        // Personal project developed by Daniel Godoy
+        // https://github.com/DanielGodoyGalindo
+
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

@@ -24,3 +24,6 @@ class VehiculoTableSeeder extends Seeder
         ]);
     }
 }
+
+// Personal project developed by Daniel Godoy
+// https://github.com/DanielGodoyGalindo

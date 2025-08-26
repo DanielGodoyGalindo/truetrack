@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+// Personal project developed by Daniel Godoy
+// https://github.com/DanielGodoyGalindo
+
 class Envio extends Model
 {
     protected $fillable = [

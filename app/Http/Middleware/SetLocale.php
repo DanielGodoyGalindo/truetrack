@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 
+// Personal project developed by Daniel Godoy
+// https://github.com/DanielGodoyGalindo
+
 class SetLocale
 {
     /**

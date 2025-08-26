@@ -16,6 +16,9 @@ Aplicación web para el seguimiento de envíos de una empresa de transporte. Est
   </a>
 </p>
 
+<!-- Personal project developed by Daniel Godoy
+https://github.com/DanielGodoyGalindo -->
+
 ## Guía de instalación / Despliegue y configuración 
 
 1. Instalación de MAMP 

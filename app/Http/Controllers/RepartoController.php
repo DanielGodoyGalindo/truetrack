@@ -119,6 +119,9 @@ class RepartoController extends Controller
         return redirect()->route('repartos.index')->with('message', 'recordUpdated');
     }
 
+    // Personal project developed by Daniel Godoy
+    // https://github.com/DanielGodoyGalindo
+
     /**
      * Borrar el reparto con id que se indica como parámetro.
      */
